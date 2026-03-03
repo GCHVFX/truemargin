@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { CalculatorPage } from "@/components/CalculatorPage";
 
 const CANONICAL = 'https://gettruemargin.com/etsy-profit-calculator';
@@ -100,8 +101,13 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function Page() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd() }} />
-      <CalculatorPage variant='profit' />
+      <Script
+        id='tm-etsy-profit-jsonld'
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{ __html: jsonLd() }}
+      />
+      <CalculatorPage variant='etsy-profit-calculator' />
     </>
   );
 }
