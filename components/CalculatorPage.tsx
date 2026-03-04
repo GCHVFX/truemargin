@@ -795,100 +795,59 @@ const seoContent = React.useMemo(() => {
 
     
         {/* Structured Data */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify((() => {
-              const siteUrl =
-                (process.env.NEXT_PUBLIC_SITE_URL &&
-                  process.env.NEXT_PUBLIC_SITE_URL.trim()) ||
-                "https://gettruemargin.com";
+        {(() => {
+          const siteUrl =
+            (process.env.NEXT_PUBLIC_SITE_URL &&
+              process.env.NEXT_PUBLIC_SITE_URL.trim()) ||
+            "https://gettruemargin.com";
 
-              const path = isFee
-                ? "/etsy-fee-calculator"
-                : isBreakEven
-                  ? "/etsy-break-even-calculator"
-                  : "/etsy-profit-calculator";
+          const path = isFee
+            ? "/etsy-fee-calculator"
+            : isBreakEven
+              ? "/etsy-break-even-calculator"
+              : "/etsy-profit-calculator";
 
-              const name = isFee
-                ? "Etsy Fee Calculator"
-                : isBreakEven
-                  ? "Etsy Break-even Calculator"
-                  : "Etsy Profit Calculator";
+          const url = `${siteUrl}${path}`;
 
-              const description = isFee
-                ? "Estimate Etsy fees per order including listing, transaction, payment processing, regulatory, and Offsite Ads fees."
-                : isBreakEven
-                  ? "Find your Etsy break-even price and determine the minimum item price needed to avoid losses."
-                  : "Calculate your true Etsy profit per order after all fees, cost of goods, and shipping.";
+          const schema = {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: seo.title,
+            description: seo.description,
+            url,
+            isPartOf: {
+              "@type": "WebSite",
+              name: "TrueMargin",
+              url: siteUrl,
+            },
+            breadcrumb: {
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Home",
+                  item: siteUrl,
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: seo.h1,
+                  item: url,
+                },
+              ],
+            },
+          };
 
-              const faq = isFee
-                ? [
-                    {
-                      q: "How are Etsy fees calculated?",
-                      a: "Etsy fees include listing, transaction, payment processing, regulatory, and optional Offsite Ads fees."
-                    },
-                    {
-                      q: "Does Etsy charge a payment processing fee?",
-                      a: "Yes. Etsy Payments includes a processing fee that varies by seller region and is included in this calculator."
-                    },
-                    {
-                      q: "What is the Offsite Ads fee?",
-                      a: "Offsite Ads is an additional fee Etsy charges when a sale comes from an offsite ad. You can toggle it to see the impact."
-                    }
-                  ]
-                : isBreakEven
-                  ? [
-                      {
-                        q: "What is break-even price on Etsy?",
-                        a: "Break-even price is the minimum item price required to cover all Etsy fees, cost of goods, and shipping so profit equals zero."
-                      },
-                      {
-                        q: "Should break-even include shipping?",
-                        a: "Yes. If you pay shipping costs, include them so your minimum price covers the full order economics."
-                      },
-                      {
-                        q: "Does break-even include the listing fee?",
-                        a: "Yes. The listing fee is included in the break-even calculation."
-                      }
-                    ]
-                  : [
-                      {
-                        q: "How do I calculate Etsy profit?",
-                        a: "Subtract Etsy fees, cost of goods, and shipping from total revenue to determine net profit."
-                      },
-                      {
-                        q: "What is a good Etsy profit margin?",
-                        a: "Many profitable sellers target 30–50% margins, but it depends on category, shipping, and ad spend."
-                      },
-                      {
-                        q: "Does profit include Offsite Ads?",
-                        a: "If Offsite Ads is enabled, the calculator includes that fee so you can see the full impact on profit."
-                      }
-                    ];
+          const jsonLd = JSON.stringify(schema);
 
-              return {
-                "@context": "https://schema.org",
-                "@type": "WebApplication",
-                "@id": siteUrl + path + "#app",
-                name,
-                url: siteUrl + path,
-                description,
-                applicationCategory: "FinanceApplication",
-                operatingSystem: "All",
-                mainEntity: {
-                  "@type": "FAQPage",
-                  mainEntity: faq.map((f) => ({
-                    "@type": "Question",
-                    name: f.q,
-                    acceptedAnswer: { "@type": "Answer", text: f.a }
-                  }))
-                }
-              };
-            })()),
-          }}
-        />
-
-</main>
+          return (
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: jsonLd }}
+            />
+          );
+        })()}
+  </main>
   );
 }
