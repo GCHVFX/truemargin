@@ -190,9 +190,108 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
     setCurrency(next);
     setCurrencyOverridden(next !== defaultCurrencyForRegion(region));
   };
+const seoContent = React.useMemo(() => {
+  if (variant === "fee") {
+    return {
+      heading: "Etsy fee calculator",
+      intro:
+        "Estimate Etsy fees for an order, including listing, transaction, payment processing, and optional Offsite Ads. See fees alongside net profit so you can price with confidence.",
+      includes: [
+        "Transaction, payment processing, and listing fee estimates (based on your seller region preset).",
+        "Optional Offsite Ads fee when you toggle it on.",
+        "A clear fee breakdown plus net profit and margin.",
+        "Break-even and target margin insights when available."
+      ],
+      howTo: [
+        "Enter item price, quantity, and shipping charged.",
+        "Add cost of goods per unit and your shipping cost.",
+        "Select seller region and toggle Offsite Ads if needed.",
+        "Click Calculate to see total fees and the breakdown."
+      ],
+      faqs: [
+        {
+          q: "What fees does this Etsy fee calculator include?",
+          a: "It estimates listing, transaction, and payment processing fees, plus optional Offsite Ads when enabled. Presets vary by seller region."
+        },
+        {
+          q: "Do Etsy fees apply to shipping?",
+          a: "Often, yes. This calculator applies fees to the combined revenue (item subtotal plus shipping charged) where applicable."
+        },
+        {
+          q: "Is this an exact match to my Etsy statement?",
+          a: "No. It’s an estimate for planning and pricing. Your final statement can differ based on taxes, shop settings, and promotions."
+        }
+      ]
+    };
+  }
 
+  if (variant === "break-even") {
+    return {
+      heading: "Etsy break-even calculator",
+      intro:
+        "Find the minimum price per unit you need to charge to avoid losing money after fees and costs. Useful for new listings and price checks before running ads.",
+      includes: [
+        "Break-even price per unit based on fees, cost of goods per unit, and shipping cost.",
+        "Fee estimates including listing, transaction, payment processing, and optional Offsite Ads.",
+        "Net profit and margin at your current price for comparison.",
+        "Optional income tax estimate (preview) applied to net profit only."
+      ],
+      howTo: [
+        "Enter item price, quantity, and shipping charged.",
+        "Add cost of goods per unit and your shipping cost.",
+        "Choose seller region and toggle Offsite Ads if needed.",
+        "Click Calculate to see break-even per unit and your current profit."
+      ],
+      faqs: [
+        {
+          q: "What is break-even price?",
+          a: "It’s the minimum price per unit required to make $0 profit after fees and costs, based on the inputs you provide."
+        },
+        {
+          q: "Does break-even include shipping?",
+          a: "Yes. The calculator considers shipping charged and your shipping cost, and models fees on the combined revenue where applicable."
+        },
+        {
+          q: "Can I use this for multi-quantity orders?",
+          a: "Yes. Set Quantity to match the order and enter cost of goods per unit. Results are per order, with break-even shown per unit."
+        }
+      ]
+    };
+  }
 
-;
+  return {
+    heading: "Etsy profit calculator",
+    intro:
+      "Calculate real Etsy profit per order after fees, cost of goods, and shipping. Use it to validate margins before ads and spot pricing mistakes fast.",
+    includes: [
+      "Transaction, payment processing, and listing fee estimates (based on your seller region preset).",
+      "Cost of goods (per unit) and your shipping cost to calculate true profit.",
+      "Optional Offsite Ads fee when you toggle it on.",
+      "Break-even and target margin pricing suggestions."
+    ],
+    howTo: [
+      "Enter item price, quantity, and shipping charged.",
+      "Add cost of goods per unit and your shipping cost.",
+      "Toggle Offsite Ads if the order came from Etsy Offsite Ads.",
+      "Click Calculate to see net profit and profit margin."
+    ],
+    faqs: [
+      {
+        q: "How does the Etsy profit calculator work?",
+        a: "Enter your order price, shipping charged, costs, and region. The calculator estimates fees and shows your net profit, margin, break-even, and target margin pricing."
+      },
+      {
+        q: "Does this include Etsy payment processing fees?",
+        a: "Yes. It includes payment processing as a percentage plus a fixed fee, based on your selected seller region preset."
+      },
+      {
+        q: "Is there currency conversion?",
+        a: "Not in V1. Currency is used for formatting only. Fees are based on your seller region preset."
+      }
+    ]
+  };
+}, [variant]);
+
 
   return (
     <main className="min-h-screen bg-background">
@@ -510,68 +609,64 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
                       Margin: <span className="font-medium">{(result.marginPct * 100).toFixed(2)}%</span>
                     </div>
                     {/* Margin health indicator */}
-                    <div className="mt-3">
-                      <div className="flex items-center justify-between text-xs text-muted-foreground">
-                        <span>Margin health</span>
-                        <span className="font-medium">{((result.marginPct || 0) * 100).toFixed(0)}%</span>
-                      </div>
-                      <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-muted">
-                        {(() => {
-                          const m = Math.max(0, Math.min(1, result.marginPct || 0));
-                          const width = `${m * 100}%`;
-                          const band = m < 0.2 ? "bg-red-500" : m < 0.35 ? "bg-yellow-500" : "bg-emerald-500";
-                          return <div className={`h-full ${band}`} style={{ width }} />;
-                        })()}
-                      </div>
-                      <div className="mt-2 flex items-center justify-between text-[11px] text-muted-foreground">
-                        <span>Low</span>
-                        <span>OK</span>
-                        <span>Strong</span>
-                      </div>
+<div className="mt-3">
+  {(() => {
+    const m = typeof result.marginPct === "number" ? result.marginPct : 0;
 
-                      <div className="mt-3 rounded-md bg-muted/50 p-3 text-sm">
-                        {(() => {
-                          const m = (result.marginPct || 0) * 100;
-                          const isOffsite = includeOffsiteAds;
+    // 4 tiers with clearer colour separation
+    let tierLabel = "Loss";
+    let tierBadge = "bg-rose-50 text-rose-700 ring-1 ring-rose-200";
+    if (m >= 35) {
+      tierLabel = "Strong";
+      tierBadge = "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200";
+    } else if (m >= 25) {
+      tierLabel = "Healthy";
+      tierBadge = "bg-teal-50 text-teal-700 ring-1 ring-teal-200";
+    } else if (m >= 15) {
+      tierLabel = "Tight";
+      tierBadge = "bg-amber-50 text-amber-700 ring-1 ring-amber-200";
+    }
 
-                          if (m < 20) {
-                            return (
-                              <div>
-                                <div className="font-medium">Low margin</div>
-                                <div className="mt-1 text-muted-foreground">
-                                  You’re in a risky zone. Small fee changes or ad costs can wipe out profit.
-                                  {isOffsite ? " Offsite Ads is on, which can amplify the risk." : ""}
-                                </div>
-                              </div>
-                            );
-                          }
+    const clamp = (x: number) => Math.max(0, Math.min(100, x));
+    const leftPct = clamp(m);
+    const markerLeft = `calc(${leftPct}% - 6px)`;
 
-                          if (m < 35) {
-                            return (
-                              <div>
-                                <div className="font-medium">Moderate margin</div>
-                                <div className="mt-1 text-muted-foreground">
-                                  This is workable, but keep an eye on shipping costs and ads. Try nudging price up or reducing cost of goods to create buffer.
-                                  {isOffsite ? " Offsite Ads is on, so your buffer matters more." : ""}
-                                </div>
-                              </div>
-                            );
-                          }
+    return (
+      <div>
+        <div className="flex items-center justify-between text-xs text-slate-600">
+          <span className="flex items-center gap-2">
+            <span>Margin health</span>
+            <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${tierBadge}`}>
+              {tierLabel}
+            </span>
+          </span>
+          <span>Loss → Strong</span>
+        </div>
 
-                          return (
-                            <div>
-                              <div className="font-medium">Healthy margin</div>
-                              <div className="mt-1 text-muted-foreground">
-                                You’ve got a solid buffer after fees. If you want to grow, test higher prices or paid traffic while monitoring conversion.
-                                {isOffsite ? " Offsite Ads is on, but you still have room." : ""}
-                              </div>
-                            </div>
-                          );
-                        })()}
-                      </div>
-                    </div>
+        <div className="relative mt-2 h-3 w-full overflow-hidden rounded-full bg-slate-100">
+          <div className="absolute inset-y-0 left-0 w-[15%] bg-rose-200" />
+          <div className="absolute inset-y-0 left-[15%] w-[10%] bg-amber-200" />
+          <div className="absolute inset-y-0 left-[25%] w-[10%] bg-teal-200" />
+          <div className="absolute inset-y-0 left-[35%] w-[65%] bg-emerald-200" />
+          <div
+            className="absolute top-1/2 h-5 w-1 -translate-y-1/2 rounded-full bg-slate-900"
+            style={{ left: markerLeft }}
+            aria-hidden="true"
+          />
+        </div>
 
-                    {includeTaxEstimate && (
+        <div className="mt-1 flex justify-between text-[11px] text-slate-500">
+          <span>&lt;15%</span>
+          <span>15–25%</span>
+          <span>25–35%</span>
+          <span>&gt;35%</span>
+        </div>
+      </div>
+    );
+  })()}
+</div>
+
+{includeTaxEstimate && (
                       <div className="mt-3 space-y-1 text-sm">
                         {(() => {
                           const rate = clampNonNeg(parseNumber(taxRatePct)) / 100;
@@ -660,90 +755,140 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
           </Card>
         </div>
 
-{/* SEO content section */}
-<section className="mx-auto mt-14 max-w-5xl px-4 pb-16">
-  <div className="rounded-2xl border bg-card p-6 shadow-sm">
-    <h2 className="text-2xl font-semibold tracking-tight">
-              {variant === "etsy-fee-calculator"
-                ? "Etsy fee calculator"
-                : variant === "etsy-profit-calculator"
-                  ? "Etsy profit calculator"
-                  : seoH2}
-            </h2>
-    <p className="mt-2 max-w-3xl text-muted-foreground">
-      {variant === "etsy-fee-calculator"
-                ? "TrueMargin helps you estimate Etsy fees per order and see a clear fee breakdown in seconds."
-                : variant === "etsy-profit-calculator"
-                  ? "TrueMargin helps you calculate Etsy profit per order after fees, cost of goods, and shipping."
-                  : "TrueMargin estimates your real profit per order after Etsy fees, cost of goods, and shipping costs."}
-      Use it to price new listings, validate margins before you run ads, and find your break-even price quickly.
-    </p>
+{/* SEO section */}
+<section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6">
+  <h2 className="text-xl font-semibold">{seoContent.heading}</h2>
+  <p className="mt-2 text-slate-600">{seoContent.intro}</p>
 
-    <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
-      <div className="space-y-3">
-        <h3 className="text-lg font-semibold">What this calculator includes</h3>
-        <ul className="list-disc space-y-2 pl-5 text-sm text-muted-foreground">
-          <li>Etsy transaction fee, payment processing fee, and listing fee (based on your seller region preset).</li>
-          <li>Optional Offsite Ads fee when you toggle it on.</li>
-          <li>Cost of goods (per unit) and your shipping cost to calculate true profit.</li>
-          <li>Break-even item price and target margin pricing suggestions.</li>
-        </ul>
-      </div>
-
-      <div className="space-y-3">
-        <h3 className="text-lg font-semibold">How to use it</h3>
-        <ol className="list-decimal space-y-2 pl-5 text-sm text-muted-foreground">
-          <li>Enter your item price, quantity, and shipping charged.</li>
-          <li>Add cost of goods and your shipping cost to get true profit.</li>
-          <li>Toggle Offsite Ads if the order came from Etsy Offsite Ads.</li>
-          <li>Check break-even and target margin to refine pricing.</li>
-        </ol>
-      </div>
+  <div className="mt-6 grid gap-6 md:grid-cols-2">
+    <div>
+      <h3 className="font-medium">What this calculator includes</h3>
+      <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600">
+        {seoContent.includes.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
     </div>
 
-    <div className="mt-10">
-      <h3 className="text-lg font-semibold">FAQ</h3>
-      <div className="mt-4 space-y-4">
-        <div className="rounded-xl border p-4">
-          <div className="font-medium">How does the Etsy fee calculator work?</div>
-          <div className="mt-2 text-sm text-muted-foreground">
-            Enter your item price, quantity, shipping charged, cost of goods, and your shipping cost. TrueMargin estimates Etsy fees and shows your net profit, margin, break-even price, and a target margin price.
-          </div>
-        </div>
+    <div>
+      <h3 className="font-medium">How to use it</h3>
+      <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-slate-600">
+        {seoContent.howTo.map((step) => (
+          <li key={step}>{step}</li>
+        ))}
+      </ol>
+    </div>
+  </div>
 
-        <div className="rounded-xl border p-4">
-          <div className="font-medium">Does this include Etsy payment processing fees?</div>
-          <div className="mt-2 text-sm text-muted-foreground">
-            Yes. The calculator includes payment processing as a percentage plus a fixed fee, based on your selected seller region and the current preset values.
-          </div>
+  <div className="mt-8">
+    <h3 className="font-medium">FAQ</h3>
+    <div className="mt-3 space-y-3">
+      {seoContent.faqs.map((f) => (
+        <div key={f.q} className="rounded-xl border border-slate-200 p-4">
+          <p className="font-medium">{f.q}</p>
+          <p className="mt-1 text-sm text-slate-600">{f.a}</p>
         </div>
-
-        <div className="rounded-xl border p-4">
-          <div className="font-medium">Do Etsy fees apply to shipping?</div>
-          <div className="mt-2 text-sm text-muted-foreground">
-            In most cases, Etsy fees are calculated on the order total, which can include shipping charged. TrueMargin models fees on the combined order revenue (item subtotal plus shipping charged).
-          </div>
-        </div>
-
-        <div className="rounded-xl border p-4">
-          <div className="font-medium">What is break-even price?</div>
-          <div className="mt-2 text-sm text-muted-foreground">
-            Break-even item price is the minimum price per unit you need to charge to make $0 profit after fees, cost of goods, and your shipping cost, based on the inputs you provided.
-          </div>
-        </div>
-
-        <div className="rounded-xl border p-4">
-          <div className="font-medium">Is there currency conversion?</div>
-          <div className="mt-2 text-sm text-muted-foreground">
-            Not in V1. Currency is used for formatting only. Fees are set by seller region presets, and the calculator does not convert between currencies.
-          </div>
-        </div>
-      </div>
+      ))}
     </div>
   </div>
 </section>
 
-      </section>
+    
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify((() => {
+              const siteUrl =
+                (process.env.NEXT_PUBLIC_SITE_URL &&
+                  process.env.NEXT_PUBLIC_SITE_URL.trim()) ||
+                "https://gettruemargin.com";
+
+              const path = isFee
+                ? "/etsy-fee-calculator"
+                : isBreakEven
+                  ? "/etsy-break-even-calculator"
+                  : "/etsy-profit-calculator";
+
+              const name = isFee
+                ? "Etsy Fee Calculator"
+                : isBreakEven
+                  ? "Etsy Break-even Calculator"
+                  : "Etsy Profit Calculator";
+
+              const description = isFee
+                ? "Estimate Etsy fees per order including listing, transaction, payment processing, regulatory, and Offsite Ads fees."
+                : isBreakEven
+                  ? "Find your Etsy break-even price and determine the minimum item price needed to avoid losses."
+                  : "Calculate your true Etsy profit per order after all fees, cost of goods, and shipping.";
+
+              const faq = isFee
+                ? [
+                    {
+                      q: "How are Etsy fees calculated?",
+                      a: "Etsy fees include listing, transaction, payment processing, regulatory, and optional Offsite Ads fees."
+                    },
+                    {
+                      q: "Does Etsy charge a payment processing fee?",
+                      a: "Yes. Etsy Payments includes a processing fee that varies by seller region and is included in this calculator."
+                    },
+                    {
+                      q: "What is the Offsite Ads fee?",
+                      a: "Offsite Ads is an additional fee Etsy charges when a sale comes from an offsite ad. You can toggle it to see the impact."
+                    }
+                  ]
+                : isBreakEven
+                  ? [
+                      {
+                        q: "What is break-even price on Etsy?",
+                        a: "Break-even price is the minimum item price required to cover all Etsy fees, cost of goods, and shipping so profit equals zero."
+                      },
+                      {
+                        q: "Should break-even include shipping?",
+                        a: "Yes. If you pay shipping costs, include them so your minimum price covers the full order economics."
+                      },
+                      {
+                        q: "Does break-even include the listing fee?",
+                        a: "Yes. The listing fee is included in the break-even calculation."
+                      }
+                    ]
+                  : [
+                      {
+                        q: "How do I calculate Etsy profit?",
+                        a: "Subtract Etsy fees, cost of goods, and shipping from total revenue to determine net profit."
+                      },
+                      {
+                        q: "What is a good Etsy profit margin?",
+                        a: "Many profitable sellers target 30–50% margins, but it depends on category, shipping, and ad spend."
+                      },
+                      {
+                        q: "Does profit include Offsite Ads?",
+                        a: "If Offsite Ads is enabled, the calculator includes that fee so you can see the full impact on profit."
+                      }
+                    ];
+
+              return {
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                "@id": siteUrl + path + "#app",
+                name,
+                url: siteUrl + path,
+                description,
+                applicationCategory: "FinanceApplication",
+                operatingSystem: "All",
+                mainEntity: {
+                  "@type": "FAQPage",
+                  mainEntity: faq.map((f) => ({
+                    "@type": "Question",
+                    name: f.q,
+                    acceptedAnswer: { "@type": "Answer", text: f.a }
+                  }))
+                }
+              };
+            })()),
+          }}
+        />
+
 </main>
   );
 }
