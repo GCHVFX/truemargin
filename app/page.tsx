@@ -121,7 +121,7 @@ const LANDING_HTML = `<div class="wrap">
 
       <footer>
         <div class="fine">© <span id="year"></span> True Margin</div>
-        <div class="fine">Questions: <span style="text-decoration:underline;">your-email@domain.com</span></div>
+        <div class="fine">Questions: <a href="mailto:hello@gettruemargin.com" style="text-decoration:underline;">hello@gettruemargin.com</a></div>
       </footer>
     </div>`;
 const LANDING_CSS = `:root{
