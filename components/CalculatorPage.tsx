@@ -300,24 +300,27 @@ const seoContent = React.useMemo(() => {
 
 
   return (
-    <main className="min-h-screen bg-background">
+    <main className="calculator-page-bg min-h-screen text-[#EAF0FF]">
       <section className="mx-auto max-w-5xl px-4 py-10">
         <div className="flex flex-col gap-3">
-          <div className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+          <div className="inline-flex items-center gap-2 text-sm text-[#9AA6BF]">
             <BadgeCheck className="h-4 w-4" />
             <span>{eyebrowText}</span>
           </div>
 
-          <h1 className="text-3xl font-semibold tracking-tight">{heroH1}</h1>
-          <h2 className="text-lg font-medium text-muted-foreground">{heroH2}</h2>
-          <p className="text-muted-foreground max-w-2xl">{heroSubhead}</p>
+          <h1 className="text-3xl font-semibold tracking-tight text-[#EAF0FF]">{heroH1}</h1>
+          <h2 className="text-lg font-medium text-[#9AA6BF]">{heroH2}</h2>
+          <p className="max-w-2xl text-[#9AA6BF]">{heroSubhead}</p>
 
-          <CalculatorSwitcher current={isFee ? "fee" : isBreakEven ? "break-even" : "profit"} />
+          <CalculatorSwitcher
+            current={isFee ? "fee" : isBreakEven ? "break-even" : "profit"}
+            dark
+          />
         </div>
 
         <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
           {/* Inputs */}
-          <Card className="lg:col-span-2">
+          <Card className="border-white/10 bg-white/95 shadow-lg backdrop-blur-sm lg:col-span-2">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Calculator className="h-5 w-5" />
@@ -590,7 +593,7 @@ const seoContent = React.useMemo(() => {
           </Card>
 
           {/* Results */}
-          <Card>
+          <Card className="border-white/10 bg-emerald-50/95 shadow-lg backdrop-blur-sm">
             <CardHeader>
               <CardTitle>Results</CardTitle>
               <CardDescription>Per order (all values include quantity).</CardDescription>
@@ -831,8 +834,8 @@ const seoContent = React.useMemo(() => {
       </section>
 
 {/* SEO section */}
-<section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6">
-  <h2 className="text-xl font-semibold">{seoContent.heading}</h2>
+<section className="mt-10 rounded-2xl border border-white/10 bg-white/95 p-6 shadow-lg backdrop-blur-sm">
+  <h2 className="text-xl font-semibold text-slate-900">{seoContent.heading}</h2>
   <p className="mt-2 text-slate-600">{seoContent.intro}</p>
 
   <div className="mt-6 grid gap-6 md:grid-cols-2">

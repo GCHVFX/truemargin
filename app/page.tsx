@@ -27,8 +27,8 @@ const LANDING_HTML = `<div class="wrap">
           </p>
 
           <div class="ctaRow">
-            <a class="btn btnPrimary" href="#waitlist">Get early access</a>
-            <a class="btn" href="#features">See what it does</a>
+            <a class="btn btnPrimary" href="/#waitlist">Get early access</a>
+            <a class="btn" href="/#tools">See what it does</a>
           </div>
           <div class="ctaRow" style="margin-top: 12px;">
             <a class="btn btnPrimary" href="/etsy-profit-calculator">Use the Etsy Profit Calculator</a>
@@ -44,7 +44,7 @@ const LANDING_HTML = `<div class="wrap">
             Built for sellers who price with confidence. Keep more of what you earn.
           </p>
 
-          <div class="section" id="features">
+          <div class="section" id="tools">
             <h2>What you get</h2>
             <div class="features">
               <div class="feat">
