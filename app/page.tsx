@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { HeroCTAs } from "@/components/HeroCTAs";
 
 export const metadata: Metadata = {
   title: "TrueMargin | Etsy Profit & Fee Calculators",
@@ -26,10 +27,7 @@ const LANDING_HTML = `<div class="wrap">
             No spreadsheets. No surprises.
           </p>
 
-          <div class="ctaRow">
-            <a class="btn btnPrimary" href="/#waitlist">Get early access</a>
-            <a class="btn" href="/#tools">See what it does</a>
-          </div>
+          <span id="hero-ctas-placeholder"></span>
           <div class="ctaRow" style="margin-top: 12px;">
             <a class="btn btnPrimary" href="/etsy-profit-calculator">Use the Etsy Profit Calculator</a>
             <a class="btn" href="/etsy-fee-calculator">Use the Etsy Fee Calculator</a>
@@ -62,13 +60,13 @@ const LANDING_HTML = `<div class="wrap">
             </div>
           </div>
 
-          <div class="section" id="waitlist">
+          <div class="section" id="waitlist-card">
             <h2>Join the waitlist</h2>
             <p class="mini">This is a simple MVP. If you join, you’ll get early access and launch pricing.</p>
 
             <!-- Replace the action URL later with your email tool (ConvertKit, Mailchimp, Buttondown, etc.) -->
             <form class="form" onsubmit="return handleWaitlist(event)">
-              <input id="email" type="email" placeholder="you@example.com" required />
+              <input id="waitlist-email" type="email" placeholder="you@example.com" required />
               <button type="submit">Notify me</button>
             </form>
 
@@ -309,13 +307,20 @@ const LANDING_CSS = `:root{
         font-size: 13px;
         display:flex; gap:10px; justify-content:space-between; flex-wrap:wrap;
       }
-      .fine{opacity:.9}`;
+      .fine{opacity:.9}
+      .waitlist-highlight{
+        outline:2px solid rgba(110,231,183,.5);
+        outline-offset:2px;
+        box-shadow:0 0 0 4px rgba(110,231,183,.2);
+        transition:outline .2s,box-shadow .2s;
+      }`;
 
 export default function HomePage() {
   return (
     <main suppressHydrationWarning>
-      <style dangerouslySetInnerHTML={ { __html: LANDING_CSS } } />
-      <div dangerouslySetInnerHTML={ { __html: LANDING_HTML } } />
+      <style dangerouslySetInnerHTML={{ __html: LANDING_CSS }} />
+      <div dangerouslySetInnerHTML={{ __html: LANDING_HTML }} />
+      <HeroCTAs />
     </main>
   );
 }
