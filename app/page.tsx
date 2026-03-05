@@ -121,6 +121,58 @@ const LANDING_HTML = `<div class="wrap">
         <div class="fine">© <span id="year"></span> True Margin</div>
         <div class="fine">Questions: <a href="mailto:hello@gettruemargin.com" style="text-decoration:underline;">hello@gettruemargin.com</a></div>
       </footer>
+
+      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+      <script>
+        // Basic footer year
+        (function () {
+          var y = document.getElementById('year');
+          if (y) y.textContent = String(new Date().getFullYear());
+        })();
+
+        // Waitlist → Supabase insert
+        const SUPABASE_URL = "https://hmkkuyznyumhajjgbxpu.supabase.co";
+        const SUPABASE_KEY = "sb_publishable_161Z8AEPPrPOWJCJ3eIm1w_nOhlTYlX";
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        async function handleWaitlist(event) {
+          event.preventDefault();
+
+          var input = document.getElementById('waitlist-email');
+          var msg = document.getElementById('msg');
+          var email = input ? String(input.value || '').trim() : '';
+
+          if (!email) {
+            if (msg) msg.textContent = 'Please enter an email.';
+            return false;
+          }
+
+          if (msg) msg.textContent = 'Submitting…';
+
+          const { error } = await supabase
+            .from('waitlist_signups')
+            .insert([{ email: email }]);
+
+          if (error) {
+            // Handle duplicate email (unique constraint)
+            var message = (error.message || '').toLowerCase();
+            if (message.includes('duplicate') || message.includes('unique')) {
+              if (msg) msg.textContent = "You're already on the list.";
+            } else {
+              if (msg) msg.textContent = 'Something went wrong. Try again.';
+            }
+            console.error(error);
+            return false;
+          }
+
+          if (msg) msg.textContent = "You're on the list.";
+          if (input) input.value = '';
+          return false;
+        }
+
+        // Expose handler for inline onsubmit="return handleWaitlist(event)"
+        window.handleWaitlist = handleWaitlist;
+      </script>
     </div>`;
 const LANDING_CSS = `:root{
         --bg:#070B14;
