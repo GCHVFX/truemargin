@@ -15,7 +15,7 @@ const LANDING_HTML = `<div class="wrap">
             <span class="mini">Etsy profit tools</span>
           </div>
         </a>
-        <div class="pill">MVP landing page</div>
+        <div class="pill">Beta</div>
       </header>
 
       <main class="grid">
