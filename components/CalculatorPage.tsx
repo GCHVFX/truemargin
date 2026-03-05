@@ -191,7 +191,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
     setCurrencyOverridden(next !== defaultCurrencyForRegion(region));
   };
 const seoContent = React.useMemo(() => {
-  if (variant === "fee") {
+  if (variant === "etsy-fee-calculator") {
     return {
       heading: "Etsy fee calculator",
       intro:
@@ -225,7 +225,7 @@ const seoContent = React.useMemo(() => {
     };
   }
 
-  if (variant === "break-even") {
+  if (variant === "etsy-break-even-calculator") {
     return {
       heading: "Etsy break-even calculator",
       intro:
@@ -754,6 +754,7 @@ const seoContent = React.useMemo(() => {
             </CardContent>
           </Card>
         </div>
+      </section>
 
 {/* SEO section */}
 <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6">
@@ -812,8 +813,8 @@ const seoContent = React.useMemo(() => {
           const schema = {
             "@context": "https://schema.org",
             "@type": "WebPage",
-            name: seo.title,
-            description: seo.description,
+            name: seoContent.heading,
+            description: seoContent.intro,
             url,
             isPartOf: {
               "@type": "WebSite",
@@ -832,7 +833,7 @@ const seoContent = React.useMemo(() => {
                 {
                   "@type": "ListItem",
                   position: 2,
-                  name: seo.h1,
+                  name: heroH1,
                   item: url,
                 },
               ],
