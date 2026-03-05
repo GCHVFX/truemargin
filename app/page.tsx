@@ -131,9 +131,13 @@ const LANDING_HTML = `<div class="wrap">
         })();
 
         // Waitlist → Supabase insert
-        const SUPABASE_URL = "https://hmkkuyznyumhajjgbxpu.supabase.co";
-        const SUPABASE_KEY = "sb_publishable_161Z8AEPPrPOWJCJ3eIm1w_nOhlTYlX";
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+          const SUPABASE_URL = "https://hmkkuyznyumhajjgbxpu.supabase.co";
+          const SUPABASE_KEY = "sb_publishable_161Z8AEPPrPOWJCJ3eIm1w_nOhlTYlX";
+
+           window.__tm_supabase =
+             window.__tm_supabase || window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+           const supabase = window.__tm_supabase;
 
         async function handleWaitlist(event) {
           event.preventDefault();
