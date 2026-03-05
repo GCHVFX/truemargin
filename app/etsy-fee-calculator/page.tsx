@@ -8,6 +8,19 @@ function jsonLd() {
   const data = [
     {
       "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": CANONICAL + "#webpage",
+      "name": "Etsy Fee Calculator",
+      "description": "See exactly how much Etsy takes per order. Estimate listing, transaction, payment processing, offsite ads, and shipping fees with a clear breakdown.",
+      "url": CANONICAL,
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "TrueMargin",
+        "url": "https://gettruemargin.com"
+      }
+    },
+    {
+      "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gettruemargin.com/" },
@@ -21,7 +34,7 @@ function jsonLd() {
       "@id": CANONICAL + "#app",
       "name": 'Etsy Fee Calculator',
       "url": CANONICAL,
-      "description": 'Estimate total Etsy fees for an order, including listing, transaction, payment processing, optional offsite ads, and applicable taxes by country.',
+      "description": "Estimate total Etsy fees per order: listing, transaction, payment processing, offsite ads, and shipping. See the fee breakdown instantly.",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "All",
       "offers": {

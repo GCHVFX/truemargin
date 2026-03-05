@@ -8,6 +8,19 @@ function jsonLd() {
   const data = [
     {
       "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": CANONICAL + "#webpage",
+      "name": "Etsy Profit Calculator",
+      "description": "Calculate real Etsy profit per order after fees, cost of goods, and shipping. See net profit, margin, and a full fee breakdown instantly.",
+      "url": CANONICAL,
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "TrueMargin",
+        "url": "https://gettruemargin.com"
+      }
+    },
+    {
+      "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gettruemargin.com/" },
@@ -21,7 +34,7 @@ function jsonLd() {
       "@id": CANONICAL + "#app",
       "name": 'Etsy Profit Calculator',
       "url": CANONICAL,
-      "description": 'Calculate what you keep after every Etsy fee, including listing, transaction, processing, offsite ads, and country-specific taxes.',
+      "description": "Calculate real profit per order after listing, transaction, payment processing, offsite ads, and shipping. See net profit and margin instantly.",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "All",
       "offers": {

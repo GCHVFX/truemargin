@@ -58,11 +58,17 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
       ? "Etsy Break-even Calculator"
       : "Etsy Profit Calculator";
 
-  const heroSubhead = isFee
-    ? "Estimate Etsy fees per order and see how each fee impacts your profit."
+  const heroH2 = isFee
+    ? "See exactly how much Etsy takes per order"
     : isBreakEven
-      ? "Find the minimum item price you need to cover Etsy fees, cost of goods, and shipping."
-      : "Calculate your real Etsy profit per order after fees, cost of goods, and shipping.";
+      ? "Find your minimum price to cover fees and costs"
+      : "Calculate real profit after every Etsy fee";
+
+  const heroSubhead = isFee
+    ? "Estimate Etsy fees per order with a clear breakdown: listing, transaction, processing, offsite ads, and shipping. See total fees instantly."
+    : isBreakEven
+      ? "Enter your order details to get the break-even price per unit—the minimum you need to charge so fees, COGS, and shipping don’t eat your margin."
+      : "Enter one order and see net profit, margin, and a full fee breakdown. Know what you keep after listing, transaction, processing, and offsite ads.";
 
   const seoH2 = isFee
     ? "Etsy fee calculator"
@@ -299,16 +305,11 @@ const seoContent = React.useMemo(() => {
         <div className="flex flex-col gap-3">
           <div className="inline-flex items-center gap-2 text-sm text-muted-foreground">
             <BadgeCheck className="h-4 w-4" />
-            <span>
-              {variant === "etsy-fee-calculator"
-                ? "Etsy fee calculator (V1): fee breakdown, break-even, pricing targets."
-                : variant === "etsy-profit-calculator"
-                  ? "Etsy profit calculator (V1): fees, break-even, target margin."
-                  : "Calculator V1: accurate fee engine, no dashboards."}
-            </span>
+            <span>{eyebrowText}</span>
           </div>
 
           <h1 className="text-3xl font-semibold tracking-tight">{heroH1}</h1>
+          <h2 className="text-lg font-medium text-muted-foreground">{heroH2}</h2>
           <p className="text-muted-foreground max-w-2xl">{heroSubhead}</p>
 
           <CalculatorSwitcher current={isFee ? "fee" : isBreakEven ? "break-even" : "profit"} />
@@ -602,153 +603,226 @@ const seoContent = React.useMemo(() => {
                 </div>
               ) : (
                 <>
+                  {/* 1. Top 3: Net profit, Margin %, Margin health — always first */}
                   <div className="rounded-lg border p-4">
                     <div className="text-xs text-muted-foreground">Net profit</div>
                     <div className="mt-1 text-2xl font-semibold">{currencyFmt.format(result.netProfit)}</div>
                     <div className="mt-2 text-sm text-muted-foreground">
                       Margin: <span className="font-medium">{(result.marginPct * 100).toFixed(2)}%</span>
                     </div>
-                    {/* Margin health indicator */}
-<div className="mt-3">
-  {(() => {
-    const m = typeof result.marginPct === "number" ? result.marginPct : 0;
-
-    // 4 tiers with clearer colour separation
-    let tierLabel = "Loss";
-    let tierBadge = "bg-rose-50 text-rose-700 ring-1 ring-rose-200";
-    if (m >= 35) {
-      tierLabel = "Strong";
-      tierBadge = "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200";
-    } else if (m >= 25) {
-      tierLabel = "Healthy";
-      tierBadge = "bg-teal-50 text-teal-700 ring-1 ring-teal-200";
-    } else if (m >= 15) {
-      tierLabel = "Tight";
-      tierBadge = "bg-amber-50 text-amber-700 ring-1 ring-amber-200";
-    }
-
-    const clamp = (x: number) => Math.max(0, Math.min(100, x));
-    const leftPct = clamp(m);
-    const markerLeft = `calc(${leftPct}% - 6px)`;
-
-    return (
-      <div>
-        <div className="flex items-center justify-between text-xs text-slate-600">
-          <span className="flex items-center gap-2">
-            <span>Margin health</span>
-            <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${tierBadge}`}>
-              {tierLabel}
-            </span>
-          </span>
-          <span>Loss → Strong</span>
-        </div>
-
-        <div className="relative mt-2 h-3 w-full overflow-hidden rounded-full bg-slate-100">
-          <div className="absolute inset-y-0 left-0 w-[15%] bg-rose-200" />
-          <div className="absolute inset-y-0 left-[15%] w-[10%] bg-amber-200" />
-          <div className="absolute inset-y-0 left-[25%] w-[10%] bg-teal-200" />
-          <div className="absolute inset-y-0 left-[35%] w-[65%] bg-emerald-200" />
-          <div
-            className="absolute top-1/2 h-5 w-1 -translate-y-1/2 rounded-full bg-slate-900"
-            style={{ left: markerLeft }}
-            aria-hidden="true"
-          />
-        </div>
-
-        <div className="mt-1 flex justify-between text-[11px] text-slate-500">
-          <span>&lt;15%</span>
-          <span>15–25%</span>
-          <span>25–35%</span>
-          <span>&gt;35%</span>
-        </div>
-      </div>
-    );
-  })()}
-</div>
-
-{includeTaxEstimate && (
-                      <div className="mt-3 space-y-1 text-sm">
-                        {(() => {
-                          const rate = clampNonNeg(parseNumber(taxRatePct)) / 100;
-                          const taxable = Math.max(0, result.netProfit);
-                          const estTax = taxable * rate;
-                          const afterTax = result.netProfit - estTax;
-                          return (
-                            <>
-                              <div className="flex items-center justify-between">
-                                <span className="text-muted-foreground">Estimated tax</span>
-                                <span className="font-medium">{currencyFmt.format(estTax)}</span>
-                              </div>
-                              <div className="flex items-center justify-between">
-                                <span className="text-muted-foreground">Profit after tax</span>
-                                <span className="font-medium">{currencyFmt.format(afterTax)}</span>
-                              </div>
-                            </>
-                          );
-                        })()}
-                      </div>
-                    )}
+                    <div className="mt-3">
+                      {(() => {
+                        const m = typeof result.marginPct === "number" ? result.marginPct : 0;
+                        let tierLabel = "Loss";
+                        let tierBadge = "bg-rose-50 text-rose-700 ring-1 ring-rose-200";
+                        if (m >= 35) {
+                          tierLabel = "Strong";
+                          tierBadge = "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200";
+                        } else if (m >= 25) {
+                          tierLabel = "Healthy";
+                          tierBadge = "bg-teal-50 text-teal-700 ring-1 ring-teal-200";
+                        } else if (m >= 15) {
+                          tierLabel = "Tight";
+                          tierBadge = "bg-amber-50 text-amber-700 ring-1 ring-amber-200";
+                        }
+                        const clamp = (x: number) => Math.max(0, Math.min(100, x));
+                        const markerLeft = `calc(${clamp(m)}% - 6px)`;
+                        return (
+                          <div>
+                            <div className="flex items-center justify-between text-xs text-slate-600">
+                              <span className="flex items-center gap-2">
+                                <span>Margin health</span>
+                                <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${tierBadge}`}>
+                                  {tierLabel}
+                                </span>
+                              </span>
+                              <span>Loss → Strong</span>
+                            </div>
+                            <div className="relative mt-2 h-3 w-full overflow-hidden rounded-full bg-slate-100">
+                              <div className="absolute inset-y-0 left-0 w-[15%] bg-rose-200" />
+                              <div className="absolute inset-y-0 left-[15%] w-[10%] bg-amber-200" />
+                              <div className="absolute inset-y-0 left-[25%] w-[10%] bg-teal-200" />
+                              <div className="absolute inset-y-0 left-[35%] w-[65%] bg-emerald-200" />
+                              <div
+                                className="absolute top-1/2 h-5 w-1 -translate-y-1/2 rounded-full bg-slate-900"
+                                style={{ left: markerLeft }}
+                                aria-hidden="true"
+                              />
+                            </div>
+                            <div className="mt-1 flex justify-between text-[11px] text-slate-500">
+                              <span>&lt;15%</span>
+                              <span>15–25%</span>
+                              <span>25–35%</span>
+                              <span>&gt;35%</span>
+                            </div>
+                          </div>
+                        );
+                      })()}
+                    </div>
                   </div>
 
-                  <div className="space-y-2 text-sm">
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Order revenue</span>
-                      <span className="font-medium">{currencyFmt.format(result.orderRevenue)}</span>
-                    </div>
+                  {/* Route-ordered blocks: profit = summary→fee→be; fee = fee→be→summary; break-even = be→fee→summary */}
+                  {[
+                    ...(isProfit
+                      ? [
+                          "summary",
+                          "fee",
+                          ...(result.breakEvenItemPrice != null ? ["breakEven"] : []),
+                        ]
+                      : isFee
+                        ? [
+                            "fee",
+                            ...(result.breakEvenItemPrice != null ? ["breakEven"] : []),
+                            "summary",
+                          ]
+                        : [
+                            ...(result.breakEvenItemPrice != null ? ["breakEven"] : []),
+                            "fee",
+                            "summary",
+                          ]),
+                  ].map((key) => {
+                    if (key === "breakEven") {
+                      return (
+                        <div
+                          key="breakEven"
+                          className={
+                            isBreakEven
+                              ? "rounded-xl border-2 border-primary/30 bg-primary/5 p-4"
+                              : "rounded-lg border p-4"
+                          }
+                        >
+                          <div className="text-xs text-muted-foreground">
+                            Break-even price per unit
+                          </div>
+                          <div
+                            className={
+                              isBreakEven
+                                ? "mt-1 text-2xl font-semibold"
+                                : "mt-1 text-lg font-medium"
+                            }
+                          >
+                            {currencyFmt.format(result.breakEvenItemPrice!)}
+                          </div>
+                          <p className="mt-1 text-sm text-muted-foreground">
+                            Minimum item price to cover fees, COGS, and shipping.
+                          </p>
+                        </div>
+                      );
+                    }
+                    if (key === "fee") {
+                      return (
+                        <div
+                          key="fee"
+                          className={
+                            isFee
+                              ? "space-y-2 rounded-xl border-2 border-primary/30 bg-primary/5 p-4"
+                              : "space-y-2 rounded-lg border p-4"
+                          }
+                        >
+                          <div
+                            className={
+                              isFee ? "text-base font-medium" : "text-sm font-medium"
+                            }
+                          >
+                            Fee breakdown
+                          </div>
+                          <div className="space-y-1.5 text-sm">
+                            <div className="flex items-center justify-between">
+                              <span className="text-muted-foreground">Listing fee</span>
+                              <span className="font-medium">
+                                {currencyFmt.format(result.fees.listingFee)}
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-muted-foreground">Transaction fee</span>
+                              <span className="font-medium">
+                                {currencyFmt.format(result.fees.transactionFee)}
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-muted-foreground">Payment processing</span>
+                              <span className="font-medium">
+                                {currencyFmt.format(result.fees.paymentProcessingFee)}
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-muted-foreground">Regulatory fee</span>
+                              <span className="font-medium">
+                                {currencyFmt.format(result.fees.regulatoryFee)}
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-muted-foreground">Offsite ads</span>
+                              <span className="font-medium">
+                                {currencyFmt.format(result.fees.offsiteAdsFee)}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    }
+                    return (
+                      <div key="summary" className="space-y-2 text-sm">
+                        <div className="flex items-center justify-between">
+                          <span className="text-muted-foreground">Order revenue</span>
+                          <span className="font-medium">
+                            {currencyFmt.format(result.orderRevenue)}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-muted-foreground">Total fees</span>
+                          <span className="font-medium">
+                            {currencyFmt.format(result.totalFees)}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-muted-foreground">COGS</span>
+                          <span className="font-medium">
+                            {currencyFmt.format(result.totalCogs)}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-muted-foreground">Your shipping</span>
+                          <span className="font-medium">
+                            {currencyFmt.format(result.totalYourShipping)}
+                          </span>
+                        </div>
+                        {includeTaxEstimate && (
+                          <div className="flex items-center justify-between">
+                            <span className="text-muted-foreground">Tax rate</span>
+                            <span className="font-medium">
+                              {clampNonNeg(parseNumber(taxRatePct)).toFixed(2)}%
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
 
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Total fees</span>
-                      <span className="font-medium">{currencyFmt.format(result.totalFees)}</span>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">COGS</span>
-                      <span className="font-medium">{currencyFmt.format(result.totalCogs)}</span>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground">Your shipping</span>
-                      <span className="font-medium">{currencyFmt.format(result.totalYourShipping)}</span>
-                    </div>
-
-                    {includeTaxEstimate && (
+                  {/* Tax estimate (optional) */}
+                  {includeTaxEstimate && (
+                    <div className="rounded-lg border p-4 space-y-2 text-sm">
                       <div className="flex items-center justify-between">
-                        <span className="text-muted-foreground">Tax rate</span>
-                        <span className="font-medium">{clampNonNeg(parseNumber(taxRatePct)).toFixed(2)}%</span>
+                        <span className="text-muted-foreground">Estimated tax</span>
+                        <span className="font-medium">
+                          {currencyFmt.format(
+                            Math.max(0, result.netProfit) *
+                              (clampNonNeg(parseNumber(taxRatePct)) / 100)
+                          )}
+                        </span>
                       </div>
-                    )}
-                  </div>
-
-                  <Separator />
-
-                  <div className="space-y-2">
-                    <div className="text-sm font-medium">Fee breakdown</div>
-
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Listing fee</span>
-                      <span className="font-medium">{currencyFmt.format(result.fees.listingFee)}</span>
+                      <div className="flex items-center justify-between">
+                        <span className="text-muted-foreground">Profit after tax</span>
+                        <span className="font-medium">
+                          {currencyFmt.format(
+                            result.netProfit -
+                              Math.max(0, result.netProfit) *
+                                (clampNonNeg(parseNumber(taxRatePct)) / 100)
+                          )}
+                        </span>
+                      </div>
                     </div>
-
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Transaction fee</span>
-                      <span className="font-medium">{currencyFmt.format(result.fees.transactionFee)}</span>
-                    </div>
-
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Payment processing</span>
-                      <span className="font-medium">{currencyFmt.format(result.fees.paymentProcessingFee)}</span>
-                    </div>
-
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Regulatory fee</span>
-                      <span className="font-medium">{currencyFmt.format(result.fees.regulatoryFee)}</span>
-                    </div>
-
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-muted-foreground">Offsite ads</span>
-                      <span className="font-medium">{currencyFmt.format(result.fees.offsiteAdsFee)}</span>
-                    </div>
-                  </div>
+                  )}
                 </>
               )}
             </CardContent>
@@ -793,62 +867,6 @@ const seoContent = React.useMemo(() => {
     </div>
   </div>
 </section>
-
-    
-        {/* Structured Data */}
-        {(() => {
-          const siteUrl =
-            (process.env.NEXT_PUBLIC_SITE_URL &&
-              process.env.NEXT_PUBLIC_SITE_URL.trim()) ||
-            "https://gettruemargin.com";
-
-          const path = isFee
-            ? "/etsy-fee-calculator"
-            : isBreakEven
-              ? "/etsy-break-even-calculator"
-              : "/etsy-profit-calculator";
-
-          const url = `${siteUrl}${path}`;
-
-          const schema = {
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            name: seoContent.heading,
-            description: seoContent.intro,
-            url,
-            isPartOf: {
-              "@type": "WebSite",
-              name: "TrueMargin",
-              url: siteUrl,
-            },
-            breadcrumb: {
-              "@type": "BreadcrumbList",
-              itemListElement: [
-                {
-                  "@type": "ListItem",
-                  position: 1,
-                  name: "Home",
-                  item: siteUrl,
-                },
-                {
-                  "@type": "ListItem",
-                  position: 2,
-                  name: heroH1,
-                  item: url,
-                },
-              ],
-            },
-          };
-
-          const jsonLd = JSON.stringify(schema);
-
-          return (
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: jsonLd }}
-            />
-          );
-        })()}
   </main>
   );
 }
