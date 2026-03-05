@@ -122,61 +122,54 @@ const LANDING_HTML = `<div class="wrap">
         <div class="fine">Questions: <a href="mailto:hello@gettruemargin.com" style="text-decoration:underline;">hello@gettruemargin.com</a></div>
       </footer>
 
-      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-      <script>
-        // Basic footer year
-        (function () {
-          var y = document.getElementById('year');
-          if (y) y.textContent = String(new Date().getFullYear());
-        })();
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
 
-        // Waitlist → Supabase insert
-          const SUPABASE_URL = "https://hmkkuyznyumhajjgbxpu.supabase.co";
-          const SUPABASE_KEY = "sb_publishable_161Z8AEPPrPOWJCJ3eIm1w_nOhlTYlX";
+const SUPABASE_URL = "https://hmkkuyznyumhajjgbxpu.supabase.co";
+const SUPABASE_KEY = "sb_publishable_161Z8AEPPrPOWJCJ3eIm1w_nOhlTYlX";
 
-           window.__tm_supabase =
-             window.__tm_supabase || window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+window.__tm_supabase = window.__tm_supabase || window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-           const supabase = window.__tm_supabase;
+async function handleWaitlist(event){
+  event.preventDefault();
 
-        async function handleWaitlist(event) {
-          event.preventDefault();
+  const input = document.getElementById("waitlist-email");
+  const msg = document.getElementById("msg");
+  const email = input ? String(input.value || "").trim() : "";
 
-          var input = document.getElementById('waitlist-email');
-          var msg = document.getElementById('msg');
-          var email = input ? String(input.value || '').trim() : '';
+  if(!email){
+    if(msg) msg.textContent = "Please enter an email.";
+    return false;
+  }
 
-          if (!email) {
-            if (msg) msg.textContent = 'Please enter an email.';
-            return false;
-          }
+  if(msg) msg.textContent = "Submitting...";
 
-          if (msg) msg.textContent = 'Submitting…';
+  const { error } = await window.__tm_supabase
+    .from("waitlist_signups")
+    .insert([{ email }]);
 
-          const { error } = await supabase
-            .from('waitlist_signups')
-            .insert([{ email: email }]);
+  if(error){
+    const message = (error.message || "").toLowerCase();
+    if(message.includes("duplicate") || message.includes("unique")){
+      if(msg) msg.textContent = "You're already on the list.";
+    }else{
+      if(msg) msg.textContent = "Something went wrong. Try again.";
+    }
+    console.error(error);
+  }else{
+    if(msg) msg.textContent = "You're on the list.";
+    if(input) input.value = "";
+  }
 
-          if (error) {
-            // Handle duplicate email (unique constraint)
-            var message = (error.message || '').toLowerCase();
-            if (message.includes('duplicate') || message.includes('unique')) {
-              if (msg) msg.textContent = "You're already on the list.";
-            } else {
-              if (msg) msg.textContent = 'Something went wrong. Try again.';
-            }
-            console.error(error);
-            return false;
-          }
+  return false;
+}
 
-          if (msg) msg.textContent = "You're on the list.";
-          if (input) input.value = '';
-          return false;
-        }
+window.handleWaitlist = handleWaitlist;
 
-        // Expose handler for inline onsubmit="return handleWaitlist(event)"
-        window.handleWaitlist = handleWaitlist;
-      </script>
+})();
+</script>
+
     </div>`;
 const LANDING_CSS = `:root{
         --bg:#070B14;
