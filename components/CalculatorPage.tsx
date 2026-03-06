@@ -390,7 +390,7 @@ const seoContent = React.useMemo(() => {
                 </div>
 
                 <div>
-                  <Label htmlFor="cogsPerUnit">COGS per unit</Label>
+                  <Label htmlFor="cogsPerUnit">Cost of goods per unit</Label>
                   <Input
                     id="cogsPerUnit"
                     inputMode="decimal"
