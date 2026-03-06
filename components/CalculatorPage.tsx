@@ -283,16 +283,20 @@ const seoContent = React.useMemo(() => {
     ],
     faqs: [
       {
-        q: "How does the Etsy profit calculator work?",
-        a: "Enter your order price, shipping charged, costs, and region. The calculator estimates fees and shows your net profit, margin, break-even, and target margin pricing."
+        q: "How much does Etsy take per sale?",
+        a: "Etsy fees can include listing fees, transaction fees, payment processing fees, and optional Offsite Ads fees depending on the order."
       },
       {
-        q: "Does this include Etsy payment processing fees?",
+        q: "Does this calculator include Etsy payment processing fees?",
         a: "Yes. It includes payment processing as a percentage plus a fixed fee, based on your selected seller region preset."
       },
       {
-        q: "Is there currency conversion?",
-        a: "Not in V1. Currency is used for formatting only. Fees are based on your seller region preset."
+        q: "Does this calculator include Offsite Ads?",
+        a: "Yes. You can toggle Offsite Ads on or off to see how Etsy fees affect your profit margin."
+      },
+      {
+        q: "What is a healthy Etsy profit margin?",
+        a: "It depends on the product, but many sellers aim for a margin that leaves room for fees, refunds, promotions, and rising costs."
       }
     ]
   };
