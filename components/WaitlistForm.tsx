@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { supabase } from "@/lib/supabase"
 
 export default function WaitlistForm() {
   const [email, setEmail] = useState("")
@@ -14,13 +13,17 @@ export default function WaitlistForm() {
 
     setStatus("loading")
 
-    const { error } = await supabase
-      .from("waitlist_signups")
-      .insert([{ email }])
+    const res = await fetch("/api/waitlist", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    })
 
-    if (error) {
+    const data = await res.json().catch(() => ({}))
+
+    if (!res.ok) {
       setStatus("error")
-      console.error(error)
+      if (res.status !== 409) console.error(data)
     } else {
       setStatus("success")
       setEmail("")

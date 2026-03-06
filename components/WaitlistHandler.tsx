@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { supabase } from "@/lib/supabase";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -24,11 +23,16 @@ async function handleWaitlist(event: Event) {
 
   if (msg) msg.textContent = "Submitting...";
 
-  const { error } = await supabase.from("waitlist_signups").insert([{ email }]);
+  const res = await fetch("/api/waitlist", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email }),
+  });
 
-  if (error) {
-    const m = (error.message || "").toLowerCase();
-    if (m.includes("duplicate") || m.includes("unique") || error.code === "23505") {
+  const data = await res.json().catch(() => ({}));
+
+  if (!res.ok) {
+    if (res.status === 409 || data.error === "duplicate") {
       if (msg) msg.textContent = "You're already on the list.";
     } else {
       if (msg) msg.textContent = "Something went wrong. Try again.";

@@ -1,6 +1,18 @@
-import { createClient } from "@supabase/supabase-js"
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+/**
+ * Server-side Supabase admin client. Call only inside API routes or server code.
+ * Env vars: SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY
+ */
+export function getSupabaseAdmin(): SupabaseClient {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+  if (!url || !key) {
+    throw new Error(
+      "Missing Supabase env vars: SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set."
+    );
+  }
+
+  return createClient(url, key);
+}
