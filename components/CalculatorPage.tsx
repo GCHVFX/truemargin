@@ -833,26 +833,26 @@ const seoContent = React.useMemo(() => {
         </div>
       </section>
 
-{/* SEO section */}
-<section className="mx-auto mt-16 max-w-5xl px-4 pb-16">
-  <div className="space-y-12">
+{/* Lower content: intro, two-column, FAQ */}
+<section className="mx-auto max-w-5xl px-4 pt-8 pb-12">
+  <div className="space-y-6">
     <div>
-      <h2 className="text-xl font-semibold text-[#EAF0FF]">{seoContent.heading}</h2>
-      <p className="mt-3 max-w-2xl text-[#9AA6BF] leading-relaxed">{seoContent.intro}</p>
+      <h2 className="text-lg font-semibold text-[#EAF0FF]">{seoContent.heading}</h2>
+      <p className="mt-2 max-w-2xl text-sm text-[#9AA6BF] leading-relaxed">{seoContent.intro}</p>
     </div>
 
-    <div className="grid gap-8 md:grid-cols-2">
-      <div className="rounded-xl border border-white/10 bg-white/5 p-6">
-        <h3 className="font-medium text-[#EAF0FF]">What this calculator includes</h3>
-        <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-[#9AA6BF] leading-relaxed">
+    <div className="grid gap-4 md:grid-cols-2">
+      <div className="rounded-xl border border-white/10 bg-white/5 p-5">
+        <h3 className="text-sm font-medium text-[#EAF0FF]">What this calculator includes</h3>
+        <ul className="mt-3 list-disc space-y-1.5 pl-4 text-sm text-[#9AA6BF] leading-relaxed">
           {seoContent.includes.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </ul>
       </div>
-      <div className="rounded-xl border border-white/10 bg-white/5 p-6">
-        <h3 className="font-medium text-[#EAF0FF]">How to use it</h3>
-        <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm text-[#9AA6BF] leading-relaxed">
+      <div className="rounded-xl border border-white/10 bg-white/5 p-5">
+        <h3 className="text-sm font-medium text-[#EAF0FF]">How to use it</h3>
+        <ol className="mt-3 list-decimal space-y-1.5 pl-4 text-sm text-[#9AA6BF] leading-relaxed">
           {seoContent.howTo.map((step) => (
             <li key={step}>{step}</li>
           ))}
@@ -861,15 +861,15 @@ const seoContent = React.useMemo(() => {
     </div>
 
     <div>
-      <h3 className="font-medium text-[#EAF0FF]">FAQ</h3>
-      <div className="mt-4 space-y-3">
+      <h3 className="text-sm font-medium text-[#EAF0FF]">FAQ</h3>
+      <div className="mt-3 space-y-3">
         {seoContent.faqs.map((f) => (
           <div
             key={f.q}
-            className="rounded-xl border border-white/10 bg-white/5 p-4"
+            className="rounded-xl border border-white/10 bg-white/5 p-5"
           >
-            <p className="font-medium text-[#EAF0FF]">{f.q}</p>
-            <p className="mt-2 text-sm text-[#9AA6BF] leading-relaxed">{f.a}</p>
+            <p className="text-sm font-medium text-[#EAF0FF]">{f.q}</p>
+            <p className="mt-1.5 text-sm text-[#9AA6BF] leading-relaxed">{f.a}</p>
           </div>
         ))}
       </div>
