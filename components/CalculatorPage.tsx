@@ -834,39 +834,45 @@ const seoContent = React.useMemo(() => {
       </section>
 
 {/* SEO section */}
-<section className="mt-10 rounded-2xl border border-white/10 bg-white/95 p-6 shadow-lg backdrop-blur-sm">
-  <h2 className="text-xl font-semibold text-slate-900">{seoContent.heading}</h2>
-  <p className="mt-2 text-slate-600">{seoContent.intro}</p>
-
-  <div className="mt-6 grid gap-6 md:grid-cols-2">
+<section className="mx-auto mt-16 max-w-5xl px-4 pb-16">
+  <div className="space-y-12">
     <div>
-      <h3 className="font-medium">What this calculator includes</h3>
-      <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-600">
-        {seoContent.includes.map((item) => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
+      <h2 className="text-xl font-semibold text-[#EAF0FF]">{seoContent.heading}</h2>
+      <p className="mt-3 max-w-2xl text-[#9AA6BF] leading-relaxed">{seoContent.intro}</p>
+    </div>
+
+    <div className="grid gap-8 md:grid-cols-2">
+      <div className="rounded-xl border border-white/10 bg-white/5 p-6">
+        <h3 className="font-medium text-[#EAF0FF]">What this calculator includes</h3>
+        <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-[#9AA6BF] leading-relaxed">
+          {seoContent.includes.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </div>
+      <div className="rounded-xl border border-white/10 bg-white/5 p-6">
+        <h3 className="font-medium text-[#EAF0FF]">How to use it</h3>
+        <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm text-[#9AA6BF] leading-relaxed">
+          {seoContent.howTo.map((step) => (
+            <li key={step}>{step}</li>
+          ))}
+        </ol>
+      </div>
     </div>
 
     <div>
-      <h3 className="font-medium">How to use it</h3>
-      <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-slate-600">
-        {seoContent.howTo.map((step) => (
-          <li key={step}>{step}</li>
+      <h3 className="font-medium text-[#EAF0FF]">FAQ</h3>
+      <div className="mt-4 space-y-3">
+        {seoContent.faqs.map((f) => (
+          <div
+            key={f.q}
+            className="rounded-xl border border-white/10 bg-white/5 p-4"
+          >
+            <p className="font-medium text-[#EAF0FF]">{f.q}</p>
+            <p className="mt-2 text-sm text-[#9AA6BF] leading-relaxed">{f.a}</p>
+          </div>
         ))}
-      </ol>
-    </div>
-  </div>
-
-  <div className="mt-8">
-    <h3 className="font-medium">FAQ</h3>
-    <div className="mt-3 space-y-3">
-      {seoContent.faqs.map((f) => (
-        <div key={f.q} className="rounded-xl border border-slate-200 p-4">
-          <p className="font-medium">{f.q}</p>
-          <p className="mt-1 text-sm text-slate-600">{f.a}</p>
-        </div>
-      ))}
+      </div>
     </div>
   </div>
 </section>
