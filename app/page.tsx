@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { HeroCTAs } from "@/components/HeroCTAs";
+import { WaitlistHandler } from "@/components/WaitlistHandler";
 
 export const metadata: Metadata = {
   title: "TrueMargin | Etsy Profit & Fee Calculators",
@@ -121,55 +122,6 @@ const LANDING_HTML = `<div class="wrap">
         <div class="fine">© <span id="year"></span> True Margin</div>
         <div class="fine">Questions: <a href="mailto:hello@gettruemargin.com" style="text-decoration:underline;">hello@gettruemargin.com</a></div>
       </footer>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-(function(){
-
-const SUPABASE_URL = "https://hmkkuyznyumhajjgbxpu.supabase.co";
-const SUPABASE_KEY = "sb_publishable_161Z8AEPPrPOWJCJ3eIm1w_nOhlTYlX";
-
-window.__tm_supabase = window.__tm_supabase || window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-async function handleWaitlist(event){
-  event.preventDefault();
-
-  const input = document.getElementById("waitlist-email");
-  const msg = document.getElementById("msg");
-  const email = input ? String(input.value || "").trim() : "";
-
-  if(!email){
-    if(msg) msg.textContent = "Please enter an email.";
-    return false;
-  }
-
-  if(msg) msg.textContent = "Submitting...";
-
-  const { error } = await window.__tm_supabase
-    .from("waitlist_signups")
-    .insert([{ email }]);
-
-  if(error){
-    const message = (error.message || "").toLowerCase();
-    if(message.includes("duplicate") || message.includes("unique")){
-      if(msg) msg.textContent = "You're already on the list.";
-    }else{
-      if(msg) msg.textContent = "Something went wrong. Try again.";
-    }
-    console.error(error);
-  }else{
-    if(msg) msg.textContent = "You're on the list.";
-    if(input) input.value = "";
-  }
-
-  return false;
-}
-
-window.handleWaitlist = handleWaitlist;
-
-})();
-</script>
-
     </div>`;
 const LANDING_CSS = `:root{
         --bg:#070B14;
@@ -370,6 +322,7 @@ export default function HomePage() {
       <style dangerouslySetInnerHTML={{ __html: LANDING_CSS }} />
       <div dangerouslySetInnerHTML={{ __html: LANDING_HTML }} />
       <HeroCTAs />
+      <WaitlistHandler />
     </main>
   );
 }
