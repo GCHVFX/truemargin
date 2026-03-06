@@ -4,7 +4,7 @@ import { useState } from "react"
 
 export default function WaitlistForm() {
   const [email, setEmail] = useState("")
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "duplicate">("idle")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -22,7 +22,7 @@ export default function WaitlistForm() {
     const data = await res.json().catch(() => ({}))
 
     if (!res.ok) {
-      setStatus("error")
+      setStatus(res.status === 409 || data.error === "duplicate" ? "duplicate" : "error")
       if (res.status !== 409) console.error(data)
     } else {
       setStatus("success")
@@ -51,6 +51,10 @@ export default function WaitlistForm() {
 
       {status === "success" && (
         <p className="text-green-400 ml-4">You're on the list.</p>
+      )}
+
+      {status === "duplicate" && (
+        <p className="text-green-400 ml-4">You're already on the list.</p>
       )}
 
       {status === "error" && (
