@@ -31,17 +31,19 @@ function jsonLd() {
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "@id": CANONICAL + "#app",
-      "name": 'Etsy Profit Calculator',
+      "name": "Etsy Profit Calculator",
       "url": CANONICAL,
-      "description": "Calculate real profit per order after listing, transaction, payment processing, offsite ads, and shipping. See net profit and margin instantly.",
       "applicationCategory": "BusinessApplication",
-      "operatingSystem": "All",
+      "operatingSystem": "Any",
+      "description": "Calculate your real Etsy profit after fees, shipping, and costs. Instantly see what you keep from every order.",
       "offers": {
         "@type": "Offer",
         "price": "0",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock"
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "TrueMargin"
       }
     },
     {
