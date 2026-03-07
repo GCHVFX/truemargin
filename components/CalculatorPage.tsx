@@ -23,7 +23,8 @@ import { CalculatorSwitcher } from "@/components/CalculatorSwitcher";
 import { CalculatorInputs } from "@/components/CalculatorInputs";
 import { CalculatorResults } from "@/components/CalculatorResults";
 import { CalculatorSeoSection } from "@/components/CalculatorSeoSection";
-import { getCalculatorContent } from "@/lib/calculatorContent";
+import { getCalculatorConfig } from "@/config/calculators";
+import { getCalculatorContent, getSeoContent } from "@/lib/calculatorContent";
 
 const clampNonNeg = (n: number) => (Number.isFinite(n) && n > 0 ? n : 0);
 
@@ -52,15 +53,16 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
   const isBreakEven = v.includes("break");
   const isProfit = v.includes("profit") || (!isFee && !isBreakEven);
 
-  const contentKey = isFee ? "fee" : isBreakEven ? "break-even" : "profit";
-  const content = getCalculatorContent(contentKey);
+  const config = getCalculatorConfig(vRaw || pathname);
+  const contentKey = config?.contentKey ?? (isFee ? "fee" : isBreakEven ? "break-even" : "profit");
+  const content = config?.content ?? getCalculatorContent(contentKey);
 
-  // Region drives fee rules
-  const heroH1 = isFee
+  // Region drives fee rules (fallback when no config)
+  const heroH1 = config?.content.heroH1 ?? (isFee
     ? "Etsy Fee Calculator"
     : isBreakEven
       ? "Etsy Break-even Calculator"
-      : "Etsy Profit Calculator";
+      : "Etsy Profit Calculator");
 
   const heroH2 = isFee
     ? "See exactly how much Etsy takes per order"
@@ -276,7 +278,8 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
           <p className="max-w-2xl text-[#9AA6BF]">{content.heroSubhead}</p>
 
           <CalculatorSwitcher
-            current={isFee ? "fee" : isBreakEven ? "break-even" : "profit"}
+            current={contentKey}
+            switcher={config?.switcher}
             dark
           />
         </div>
@@ -327,6 +330,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
             isProfit={isProfit}
             isFee={isFee}
             isBreakEven={isBreakEven}
+            resultOrder={config?.resultOrder}
             currency={currency}
             taxRatePct={taxRatePct}
             includeTaxEstimate={includeTaxEstimate}
@@ -337,7 +341,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
         </div>
       </section>
 
-      <CalculatorSeoSection seoContent={content.seoContent} />
+      <CalculatorSeoSection seoContent={"seoContent" in content && content.seoContent ? content.seoContent : getSeoContent(contentKey)} />
   </main>
   );
 }

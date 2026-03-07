@@ -1,39 +1,25 @@
 import Link from "next/link";
+import type { SwitcherConfig } from "@/config/calculators/types";
 
-type SwitcherKey = "profit" | "fee" | "break-even";
-
-const ITEMS: Array<{
-  key: SwitcherKey;
-  href: string;
-  label: string;
-  description: string;
-}> = [
-  {
-    key: "profit",
-    href: "/etsy-profit-calculator",
-    label: "Profit calculator",
-    description: "calculate real profit after Etsy fees",
-  },
-  {
-    key: "fee",
-    href: "/etsy-fee-calculator",
-    label: "Fee calculator",
-    description: "estimate Etsy fees per order",
-  },
-  {
-    key: "break-even",
-    href: "/etsy-break-even-calculator",
-    label: "Break-even calculator",
-    description: "find the minimum profitable price",
-  },
-];
+const ETSY_ITEMS: SwitcherConfig = {
+  marketplace: "etsy",
+  label: "Compare Etsy pricing tools",
+  items: [
+    { key: "profit", href: "/etsy-profit-calculator", label: "Profit calculator", description: "calculate real profit after Etsy fees" },
+    { key: "fee", href: "/etsy-fee-calculator", label: "Fee calculator", description: "estimate Etsy fees per order" },
+    { key: "break-even", href: "/etsy-break-even-calculator", label: "Break-even calculator", description: "find the minimum profitable price" },
+  ],
+};
 
 export function CalculatorSwitcher({
   current,
   dark = false,
+  switcher = ETSY_ITEMS,
 }: {
-  current: SwitcherKey;
+  current: "profit" | "fee" | "break-even";
   dark?: boolean;
+  /** Config-driven switcher. Defaults to Etsy when omitted for backwards compatibility. */
+  switcher?: SwitcherConfig;
 }) {
   return (
     <div className="mt-4 space-y-3">
@@ -43,13 +29,13 @@ export function CalculatorSwitcher({
             dark ? "text-sm font-medium text-[#EAF0FF]" : "text-sm font-medium text-foreground"
           }
         >
-          Compare Etsy pricing tools
+          {switcher.label}
         </p>
         <nav
           className="mt-2 flex flex-wrap items-center gap-2"
-          aria-label="Etsy calculator switcher"
+          aria-label={`${switcher.marketplace} calculator switcher`}
         >
-          {ITEMS.map((item) => {
+          {switcher.items.map((item) => {
             const active = item.key === current;
             return (
               <Link
@@ -74,7 +60,7 @@ export function CalculatorSwitcher({
         </nav>
       </div>
       <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs">
-        {ITEMS.map((item) => {
+        {switcher.items.map((item) => {
           const active = item.key === current;
           return (
             <span

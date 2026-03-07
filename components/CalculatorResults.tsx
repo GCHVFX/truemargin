@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Copy } from "lucide-react";
 import type { CalcResult } from "@/lib/feeEngine";
 import type { Currency } from "@/lib/fees";
+import type { ResultBlockKey } from "@/config/calculators/types";
 import { getMarginHealthTier, MARGIN_INSIGHT_MESSAGES, CALC_LABELS } from "@/lib/calculatorHelpers";
 
 const fmt = (currency: Currency) =>
@@ -23,6 +24,8 @@ export type CalculatorResultsProps = {
   isProfit: boolean;
   isFee: boolean;
   isBreakEven: boolean;
+  /** Config-driven result block order. When provided, overrides isProfit/isFee/isBreakEven ordering. */
+  resultOrder?: ResultBlockKey[];
   includeTaxEstimate: boolean;
   taxRatePct: string;
   onCopyResults: () => void;
@@ -37,6 +40,7 @@ export function CalculatorResults({
   isProfit,
   isFee,
   isBreakEven,
+  resultOrder,
   includeTaxEstimate,
   taxRatePct,
   onCopyResults,
@@ -119,26 +123,13 @@ export function CalculatorResults({
               </div>
             </div>
 
-            {/* Route-ordered blocks: profit = summary→fee→be; fee = fee→be→summary; break-even = be→fee→summary */}
-            {[
-              ...(isProfit
-                ? [
-                    "summary",
-                    "fee",
-                    ...(result.breakEvenItemPrice != null ? ["breakEven"] : []),
-                  ]
-                : isFee
-                  ? [
-                      "fee",
-                      ...(result.breakEvenItemPrice != null ? ["breakEven"] : []),
-                      "summary",
-                    ]
-                  : [
-                      ...(result.breakEvenItemPrice != null ? ["breakEven"] : []),
-                      "fee",
-                      "summary",
-                    ]),
-            ].map((key) => {
+            {/* Config-driven or fallback ordering: profit = summary→fee→be; fee = fee→be→summary; break-even = be→fee→summary */}
+            {(resultOrder ?? (isProfit
+              ? ["summary", "fee", ...(result.breakEvenItemPrice != null ? ["breakEven"] : [])]
+              : isFee
+                ? ["fee", ...(result.breakEvenItemPrice != null ? ["breakEven"] : []), "summary"]
+                : ["breakEven", "fee", "summary"].filter((k) => k !== "breakEven" || result.breakEvenItemPrice != null)
+            )).filter((key) => key !== "breakEven" || result.breakEvenItemPrice != null).map((key) => {
               if (key === "breakEven") {
                 return (
                   <div

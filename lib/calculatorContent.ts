@@ -181,7 +181,14 @@ export function getCalculatorContent(key: CalculatorContentKey): CalculatorConte
 }
 
 /** Returns seoContent shape for CalculatorSeoSection (heading, intro, includes, howTo, faqs, supportBlock) */
-export function getSeoContent(key: CalculatorContentKey) {
+export function getSeoContent(key: CalculatorContentKey): {
+  heading: string;
+  intro: string;
+  includes: string[];
+  howTo: string[];
+  faqs: Array<{ q: string; a: string }>;
+  supportBlock: { heading: string; paragraphs: string[] };
+} {
   const c = CONTENT[key];
   return {
     heading: c.seoHeading,
