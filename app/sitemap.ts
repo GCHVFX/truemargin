@@ -1,21 +1,32 @@
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = "https://gettruemargin.com";
-  const now = new Date();
+  const baseUrl = "https://gettruemargin.com";
 
-  // Keep this list tight for V1. Add new tool routes here as you ship them.
-  const routes = [
-    "",
-    "/etsy-profit-calculator",
-    "/etsy-fee-calculator",
-    "/etsy-break-even-calculator",
+  return [
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 1,
+    },
+    {
+      url: `${baseUrl}/etsy-profit-calculator`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/etsy-fee-calculator`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/etsy-break-even-calculator`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
   ];
-
-  return routes.map((path) => ({
-    url: `${siteUrl}${path}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: path === "" ? 1 : 0.8,
-  }));
 }
