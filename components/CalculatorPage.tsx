@@ -290,7 +290,15 @@ const seoContent = React.useMemo(() => {
           q: "Is this an exact match to my Etsy statement?",
           a: "No. It’s an estimate for planning and pricing. Your final statement can differ based on taxes, shop settings, and promotions."
         }
-      ]
+      ],
+      supportBlock: {
+        heading: "Understanding Etsy fees for pricing",
+        paragraphs: [
+          "Etsy sellers face several fees: a listing fee per item, a transaction fee on the sale total, and payment processing fees that include both a percentage and a fixed amount. Offsite Ads add another percentage when the order comes from Etsy's advertising.",
+          "Listing, transaction, and payment processing fees are applied to the combined order value—item subtotal plus shipping charged. That means what the buyer pays for shipping also gets fee treatment.",
+          "Knowing your total fees per order helps you price accurately. Underestimate fees and you eat into margin; overestimate and you may overprice. A clear fee breakdown gives you the visibility to make better pricing decisions."
+        ]
+      }
     };
   }
 
@@ -324,7 +332,15 @@ const seoContent = React.useMemo(() => {
           q: "Can I use this for multi-quantity orders?",
           a: "Yes. Set Quantity to match the order and enter cost of goods per unit. Results are per order, with break-even shown per unit."
         }
-      ]
+      ],
+      supportBlock: {
+        heading: "Why break-even matters for Etsy sellers",
+        paragraphs: [
+          "Break-even is the minimum item price that covers Etsy fees, your cost of goods, and your shipping cost. Below that, you lose money on the sale.",
+          "Etsy fees, shipping, and COGS all push your break-even higher. Transaction and payment fees scale with order value; listing fees add per unit; your shipping cost and materials add fixed costs that must be recovered.",
+          "Underpricing is common when sellers forget fees or shipping. A break-even number gives you a clear floor. Price above it to leave room for profit, refunds, and promotions."
+        ]
+      }
     };
   }
 
@@ -361,7 +377,15 @@ const seoContent = React.useMemo(() => {
         q: "What is a healthy Etsy profit margin?",
         a: "It depends on the product, but many sellers aim for a margin that leaves room for fees, refunds, promotions, and rising costs."
       }
-    ]
+    ],
+    supportBlock: {
+      heading: "How real Etsy profit is calculated",
+      paragraphs: [
+        "Real profit is what you keep after Etsy fees, your cost of goods, and your shipping cost. Revenue minus those three gives you net profit. Divide by revenue to get margin.",
+        "Sellers often overestimate profit by forgetting fees, shipping, or both. Etsy fees alone can reach 15% or more of the sale; payment processing adds more. Combined with COGS and your shipping cost, the gap between gross and net can be large.",
+        "Margin clarity helps you spot underpriced items before they sell. It also helps you set realistic targets for ads and promotions."
+      ]
+    }
   };
 }, [variant]);
 
@@ -909,6 +933,17 @@ const seoContent = React.useMemo(() => {
       <h2 className="text-lg font-semibold text-[#EAF0FF]">{seoContent.heading}</h2>
       <p className="mt-2 max-w-2xl text-sm text-[#9AA6BF] leading-relaxed">{seoContent.intro}</p>
     </div>
+
+    {"supportBlock" in seoContent && seoContent.supportBlock && (
+      <div className="rounded-xl border border-white/10 bg-white/5 p-5">
+        <h3 className="text-sm font-medium text-[#EAF0FF]">{seoContent.supportBlock.heading}</h3>
+        <div className="mt-3 space-y-2 text-sm text-[#9AA6BF] leading-relaxed">
+          {seoContent.supportBlock.paragraphs.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
+        </div>
+      </div>
+    )}
 
     <div className="grid gap-4 md:grid-cols-2">
       <div className="rounded-xl border border-white/10 bg-white/5 p-5">
