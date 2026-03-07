@@ -23,8 +23,12 @@ export type CalcResult = {
 
 /**
  * Break-even item price (per unit): minimum item price required for net profit = 0.
- * Covers COGS, seller shipping cost, listing fee, transaction fee, payment processing, regulatory fee, offsite ads.
- * Never returns 0 when profit would be positive (returns null instead).
+ * Conceptually: breakEvenRevenue = COGS + sellerShippingCost + totalFees.
+ * Since totalFees depends on revenue (percentage-based), we solve:
+ *   revenue = (fixedFees + totalCogs + totalYourShipping) / (1 - pctTotal)
+ * then perUnit = (revenue - shippingCharged) / quantity.
+ * Covers: COGS, seller shipping cost, listing fee, transaction fee, payment processing, regulatory fee, offsite ads.
+ * Never returns 0 when result would be non-positive (returns null instead).
  */
 export function calculateBreakEvenItemPrice(i: FeeInputs): number | null {
   const qty = Math.max(1, Math.floor(i.quantity || 1));

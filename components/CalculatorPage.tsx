@@ -17,6 +17,7 @@ import {
   defaultCurrencyForRegion,
 } from "@/lib/fees";
 import { calculateOrder } from "@/lib/feeEngine";
+import { getMarginHealthTier, CALC_LABELS } from "@/lib/calculatorHelpers";
 import { usePathname } from "next/navigation";
 import { CalculatorSwitcher } from "@/components/CalculatorSwitcher";
 
@@ -382,7 +383,7 @@ const seoContent = React.useMemo(() => {
 
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
-                  <Label htmlFor="shippingCharged">Shipping charged to buyer</Label>
+                  <Label htmlFor="shippingCharged">{CALC_LABELS.SHIPPING_CHARGED_TO_BUYER}</Label>
                   <Input
                     id="shippingCharged"
                     inputMode="decimal"
@@ -394,7 +395,7 @@ const seoContent = React.useMemo(() => {
                 </div>
 
                 <div>
-                  <Label htmlFor="cogsPerUnit">Cost of goods per unit</Label>
+                  <Label htmlFor="cogsPerUnit">{CALC_LABELS.COST_OF_GOODS_PER_UNIT}</Label>
                   <Input
                     id="cogsPerUnit"
                     inputMode="decimal"
@@ -406,7 +407,7 @@ const seoContent = React.useMemo(() => {
                 </div>
 
                 <div>
-                  <Label htmlFor="yourShippingCost">Your shipping cost</Label>
+                  <Label htmlFor="yourShippingCost">{CALC_LABELS.YOUR_SHIPPING_COST}</Label>
                   <Input
                     id="yourShippingCost"
                     inputMode="decimal"
@@ -619,19 +620,8 @@ const seoContent = React.useMemo(() => {
                     </div>
                     <div className="mt-3">
                       {(() => {
+                        const { label: tierLabel, badge: tierBadge } = getMarginHealthTier(result.marginPct);
                         const m = typeof result.marginPct === "number" ? result.marginPct : 0;
-                        let tierLabel = "Loss";
-                        let tierBadge = "bg-rose-50 text-rose-700 ring-1 ring-rose-200";
-                        if (m >= 0.35) {
-                          tierLabel = "Strong";
-                          tierBadge = "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200";
-                        } else if (m >= 0.25) {
-                          tierLabel = "Healthy";
-                          tierBadge = "bg-teal-50 text-teal-700 ring-1 ring-teal-200";
-                        } else if (m >= 0.15) {
-                          tierLabel = "Tight";
-                          tierBadge = "bg-amber-50 text-amber-700 ring-1 ring-amber-200";
-                        }
                         const mPct = m * 100;
                         const clamp = (x: number) => Math.max(0, Math.min(100, x));
                         const markerLeft = `calc(${clamp(mPct)}% - 6px)`;
@@ -639,7 +629,7 @@ const seoContent = React.useMemo(() => {
                           <div>
                             <div className="flex items-center justify-between text-xs text-slate-600">
                               <span className="flex items-center gap-2">
-                                <span>Margin health</span>
+                                <span>{CALC_LABELS.MARGIN_HEALTH}</span>
                                 <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${tierBadge}`}>
                                   {tierLabel}
                                 </span>
@@ -700,7 +690,7 @@ const seoContent = React.useMemo(() => {
                           }
                         >
                           <div className="text-xs text-muted-foreground">
-                            Break-even price per unit
+                            {CALC_LABELS.BREAK_EVEN_PRICE_PER_UNIT}
                           </div>
                           <div
                             className={
@@ -712,7 +702,7 @@ const seoContent = React.useMemo(() => {
                             {currencyFmt.format(result.breakEvenItemPrice!)}
                           </div>
                           <p className="mt-1 text-sm text-muted-foreground">
-                            Minimum item price to cover fees, COGS, and shipping.
+                            {CALC_LABELS.BREAK_EVEN_DESCRIPTION}
                           </p>
                         </div>
                       );
@@ -732,35 +722,35 @@ const seoContent = React.useMemo(() => {
                               isFee ? "text-base font-medium" : "text-sm font-medium"
                             }
                           >
-                            Fee breakdown
+                            {CALC_LABELS.FEE_BREAKDOWN}
                           </div>
                           <div className="space-y-1.5 text-sm">
                             <div className="flex items-center justify-between">
-                              <span className="text-muted-foreground">Listing fee</span>
+                              <span className="text-muted-foreground">{CALC_LABELS.LISTING_FEE}</span>
                               <span className="font-medium">
                                 {currencyFmt.format(result.fees.listingFee)}
                               </span>
                             </div>
                             <div className="flex items-center justify-between">
-                              <span className="text-muted-foreground">Transaction fee</span>
+                              <span className="text-muted-foreground">{CALC_LABELS.TRANSACTION_FEE}</span>
                               <span className="font-medium">
                                 {currencyFmt.format(result.fees.transactionFee)}
                               </span>
                             </div>
                             <div className="flex items-center justify-between">
-                              <span className="text-muted-foreground">Payment processing</span>
+                              <span className="text-muted-foreground">{CALC_LABELS.PAYMENT_PROCESSING}</span>
                               <span className="font-medium">
                                 {currencyFmt.format(result.fees.paymentProcessingFee)}
                               </span>
                             </div>
                             <div className="flex items-center justify-between">
-                              <span className="text-muted-foreground">Regulatory fee</span>
+                              <span className="text-muted-foreground">{CALC_LABELS.REGULATORY_FEE}</span>
                               <span className="font-medium">
                                 {currencyFmt.format(result.fees.regulatoryFee)}
                               </span>
                             </div>
                             <div className="flex items-center justify-between">
-                              <span className="text-muted-foreground">Offsite ads</span>
+                              <span className="text-muted-foreground">{CALC_LABELS.OFFSITE_ADS}</span>
                               <span className="font-medium">
                                 {currencyFmt.format(result.fees.offsiteAdsFee)}
                               </span>
@@ -772,25 +762,25 @@ const seoContent = React.useMemo(() => {
                     return (
                       <div key="summary" className="space-y-2 text-sm">
                         <div className="flex items-center justify-between">
-                          <span className="text-muted-foreground">Order revenue</span>
+                          <span className="text-muted-foreground">{CALC_LABELS.ORDER_REVENUE}</span>
                           <span className="font-medium">
                             {currencyFmt.format(result.orderRevenue)}
                           </span>
                         </div>
                         <div className="flex items-center justify-between">
-                          <span className="text-muted-foreground">Total fees</span>
+                          <span className="text-muted-foreground">{CALC_LABELS.TOTAL_FEES}</span>
                           <span className="font-medium">
                             {currencyFmt.format(result.totalFees)}
                           </span>
                         </div>
                         <div className="flex items-center justify-between">
-                          <span className="text-muted-foreground">COGS</span>
+                          <span className="text-muted-foreground">{CALC_LABELS.COST_OF_GOODS}</span>
                           <span className="font-medium">
                             {currencyFmt.format(result.totalCogs)}
                           </span>
                         </div>
                         <div className="flex items-center justify-between">
-                          <span className="text-muted-foreground">Your shipping</span>
+                          <span className="text-muted-foreground">{CALC_LABELS.YOUR_SHIPPING_COST}</span>
                           <span className="font-medium">
                             {currencyFmt.format(result.totalYourShipping)}
                           </span>
