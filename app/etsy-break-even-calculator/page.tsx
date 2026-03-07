@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Suspense } from "react";
 import { CalculatorPage } from "@/components/CalculatorPage";
 
 const CANONICAL = 'https://gettruemargin.com/etsy-break-even-calculator';
@@ -112,7 +113,9 @@ export default function Page() {
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: jsonLd() }}
       />
-      <CalculatorPage variant='etsy-break-even-calculator' />
+      <Suspense fallback={null}>
+        <CalculatorPage variant='etsy-break-even-calculator' />
+      </Suspense>
     </>
   );
 }

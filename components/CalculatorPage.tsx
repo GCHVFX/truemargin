@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { Info, Calculator, BadgeCheck } from "lucide-react";
+import { Info, Calculator, BadgeCheck, Copy } from "lucide-react";
 
 import {
   REGION_PRESETS,
@@ -18,7 +18,7 @@ import {
 } from "@/lib/fees";
 import { calculateOrder } from "@/lib/feeEngine";
 import { getMarginHealthTier, MARGIN_INSIGHT_MESSAGES, CALC_LABELS } from "@/lib/calculatorHelpers";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { CalculatorSwitcher } from "@/components/CalculatorSwitcher";
 
 const clampNonNeg = (n: number) => (Number.isFinite(n) && n > 0 ? n : 0);
@@ -35,8 +35,9 @@ export type CalculatorPageVariant = "home" | "etsy-profit-calculator" | "etsy-fe
 
 export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageVariant }) {
   
-  // Robust page intent detection (handles variant prop OR pathname).
   const pathname = usePathname() || "";
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const vRaw =
     typeof variant === "string" && variant !== "home" && variant.length > 0
       ? variant
@@ -112,6 +113,45 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
   const [paymentFeeFixed, setPaymentFeeFixed] = React.useState<string>(() => String(preset.paymentProcessingFixed));
   const [regulatoryFeePct, setRegulatoryFeePct] = React.useState<string>(() => String(preset.regulatoryFeePct * 100));
   const [offsiteAdsPct, setOffsiteAdsPct] = React.useState<string>(() => String(preset.offsiteAdsPct * 100));
+
+  // Sync URL query params ↔ calculator inputs
+  React.useEffect(() => {
+    const p = searchParams;
+    const price = p.get("price");
+    if (price != null) setItemPrice(price);
+    const q = p.get("quantity");
+    if (q != null) setQuantity(q);
+    const ship = p.get("shippingCharged");
+    if (ship != null) setShippingCharged(ship);
+    const cogs = p.get("cogs");
+    if (cogs != null) setCogsPerUnit(cogs);
+    const shipCost = p.get("shippingCost");
+    if (shipCost != null) setYourShippingCost(shipCost);
+    const reg = p.get("region");
+    if (reg === "US" || reg === "CA") setRegion(reg);
+    const offsite = p.get("offsiteAds");
+    if (offsite === "true") setIncludeOffsiteAds(true);
+    else if (offsite === "false") setIncludeOffsiteAds(false);
+  }, [searchParams]);
+
+  const skipNextUrlWrite = React.useRef(true);
+  React.useEffect(() => {
+    if (skipNextUrlWrite.current) {
+      skipNextUrlWrite.current = false;
+      return;
+    }
+    const params = new URLSearchParams();
+    params.set("price", itemPrice);
+    params.set("quantity", quantity);
+    params.set("shippingCharged", shippingCharged);
+    params.set("cogs", cogsPerUnit);
+    params.set("shippingCost", yourShippingCost);
+    params.set("region", region);
+    params.set("offsiteAds", String(includeOffsiteAds));
+    const query = params.toString();
+    const newUrl = query ? `${pathname}?${query}` : pathname;
+    router.replace(newUrl, { scroll: false });
+  }, [pathname, router, itemPrice, quantity, shippingCharged, cogsPerUnit, yourShippingCost, region, includeOffsiteAds]);
 
   // When region changes:
   // - reset fee defaults to that region's preset
@@ -197,6 +237,28 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
     setCurrency(next);
     setCurrencyOverridden(next !== defaultCurrencyForRegion(region));
   };
+
+  const onCopyResults = React.useCallback(() => {
+    if (!result) return;
+    const { label: tierLabel } = getMarginHealthTier(result.marginPct);
+    const itemSubtotal = result.orderRevenue - clampNonNeg(parseNumber(shippingCharged));
+    const lines = [
+      "Etsy Calculator Results",
+      "—",
+      `Item price: ${currencyFmt.format(itemSubtotal)}`,
+      `${CALC_LABELS.SHIPPING_CHARGED_TO_BUYER}: ${currencyFmt.format(clampNonNeg(parseNumber(shippingCharged)))}`,
+      `Net profit: ${currencyFmt.format(result.netProfit)}`,
+      `Margin: ${(result.marginPct * 100).toFixed(2)}%`,
+      `Margin health: ${tierLabel}`,
+      `Total fees: ${currencyFmt.format(result.totalFees)}`,
+      `Cost of goods: ${currencyFmt.format(result.totalCogs)}`,
+      `${CALC_LABELS.YOUR_SHIPPING_COST}: ${currencyFmt.format(result.totalYourShipping)}`,
+      result.breakEvenItemPrice != null
+        ? `Break-even price per unit: ${currencyFmt.format(result.breakEvenItemPrice)}`
+        : "Break-even price per unit: —",
+    ];
+    navigator.clipboard.writeText(lines.join("\n"));
+  }, [result, shippingCharged, currencyFmt]);
 const seoContent = React.useMemo(() => {
   if (variant === "etsy-fee-calculator") {
     return {
@@ -611,6 +673,15 @@ const seoContent = React.useMemo(() => {
                 </div>
               ) : (
                 <>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    className="h-9 w-full"
+                    onClick={onCopyResults}
+                  >
+                    <Copy className="mr-2 h-4 w-4" />
+                    Copy results
+                  </Button>
                   {/* 1. Top 3: Net profit, Margin %, Margin health — always first */}
                   <div className="rounded-lg border p-4">
                     <div className="text-xs text-muted-foreground">Net profit</div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Suspense } from "react";
 import { CalculatorPage } from "@/components/CalculatorPage";
 
 const CANONICAL = 'https://gettruemargin.com/etsy-profit-calculator';
@@ -161,7 +162,9 @@ export default function Page() {
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: jsonLd() }}
       />
-      <CalculatorPage variant='etsy-profit-calculator' />
+      <Suspense fallback={null}>
+        <CalculatorPage variant='etsy-profit-calculator' />
+      </Suspense>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
