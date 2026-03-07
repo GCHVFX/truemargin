@@ -1,5 +1,27 @@
 import Link from "next/link";
 import type { SwitcherConfig } from "@/config/calculators/types";
+import { track } from "@/lib/analytics";
+
+function getLinkClassName(dark: boolean, active: boolean): string {
+  const base = "rounded-full px-4 py-2 text-sm font-medium transition-all";
+  if (dark) {
+    return active
+      ? `${base} bg-white/20 text-[#EAF0FF] shadow-md ring-1 ring-white/20`
+      : `${base} bg-white/5 text-[#9AA6BF] ring-1 ring-white/10 hover:bg-white/10 hover:text-[#EAF0FF] hover:ring-white/20`;
+  }
+  return active
+    ? `${base} bg-foreground/10 text-foreground shadow-sm ring-1 ring-foreground/20`
+    : `${base} bg-muted/50 text-muted-foreground ring-1 ring-border hover:bg-muted hover:text-foreground`;
+}
+
+function getDescriptionClassName(dark: boolean, active: boolean): string {
+  if (dark) return active ? "text-[#EAF0FF]" : "text-[#9AA6BF]";
+  return active ? "text-foreground" : "text-muted-foreground";
+}
+
+function getLabelClassName(dark: boolean): string {
+  return dark ? "text-sm font-medium text-[#EAF0FF]" : "text-sm font-medium text-foreground";
+}
 
 const ETSY_ITEMS: SwitcherConfig = {
   marketplace: "etsy",
@@ -24,11 +46,7 @@ export function CalculatorSwitcher({
   return (
     <div className="mt-4 space-y-3">
       <div>
-        <p
-          className={
-            dark ? "text-sm font-medium text-[#EAF0FF]" : "text-sm font-medium text-foreground"
-          }
-        >
+        <p className={getLabelClassName(dark)}>
           {switcher.label}
         </p>
         <nav
@@ -42,16 +60,8 @@ export function CalculatorSwitcher({
                 key={item.key}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={[
-                  "rounded-full px-4 py-2 text-sm font-medium transition-all",
-                  dark
-                    ? active
-                      ? "bg-white/20 text-[#EAF0FF] shadow-md ring-1 ring-white/20"
-                      : "bg-white/5 text-[#9AA6BF] ring-1 ring-white/10 hover:bg-white/10 hover:text-[#EAF0FF] hover:ring-white/20"
-                    : active
-                      ? "bg-foreground/10 text-foreground shadow-sm ring-1 ring-foreground/20"
-                      : "bg-muted/50 text-muted-foreground ring-1 ring-border hover:bg-muted hover:text-foreground",
-                ].join(" ")}
+                onClick={() => track("calculator_switcher_clicked", { from: current, to: item.key })}
+                className={getLinkClassName(dark, active)}
               >
                 {item.label}
               </Link>
@@ -63,18 +73,7 @@ export function CalculatorSwitcher({
         {switcher.items.map((item) => {
           const active = item.key === current;
           return (
-            <span
-              key={item.key}
-              className={
-                dark
-                  ? active
-                    ? "text-[#EAF0FF]"
-                    : "text-[#9AA6BF]"
-                  : active
-                    ? "text-foreground"
-                    : "text-muted-foreground"
-              }
-            >
+            <span key={item.key} className={getDescriptionClassName(dark, active)}>
               <span className="font-medium">{item.label}</span>
               <span className="font-normal"> – {item.description}</span>
             </span>

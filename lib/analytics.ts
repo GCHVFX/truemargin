@@ -1,28 +1,31 @@
-// Google Analytics helpers
+/**
+ * Shared analytics tracking helper.
+ * Use setAnalyticsHandler() to connect to GA4 or another provider.
+ * Safe to call before handler is set; never throws.
+ */
 
-declare global {
-  interface Window {
-    gtag?: (...args: any[]) => void;
-  }
+export type AnalyticsHandler = (
+  event: string,
+  properties?: Record<string, unknown>
+) => void;
+
+let handler: AnalyticsHandler | null = null;
+
+/** Connect analytics. Call from app init (e.g. _app or layout) when ready. */
+export function setAnalyticsHandler(fn: AnalyticsHandler): void {
+  handler = fn;
 }
 
-// Track spreadsheet purchase click
-export const trackSpreadsheetClick = () => {
-  if (typeof window !== "undefined" && typeof window.gtag === "function") {
-    window.gtag("event", "spreadsheet_click", {
-      event_category: "conversion",
-      event_label: "spreadsheet_purchase",
-      value: 1,
-    });
+/** Track an event. No-op if handler not set; swallows errors. */
+export function track(
+  event: string,
+  properties?: Record<string, unknown>
+): void {
+  try {
+    if (handler) {
+      handler(event, properties);
+    }
+  } catch {
+    // Never break UI
   }
-};
-
-// Track generic event helper (optional for future use)
-export const trackEvent = (
-  eventName: string,
-  params?: Record<string, any>
-) => {
-  if (typeof window !== "undefined" && typeof window.gtag === "function") {
-    window.gtag("event", eventName, params);
-  }
-};
+}

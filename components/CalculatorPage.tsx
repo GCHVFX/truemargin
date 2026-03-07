@@ -25,6 +25,7 @@ import { CalculatorResults } from "@/components/CalculatorResults";
 import { CalculatorSeoSection } from "@/components/CalculatorSeoSection";
 import { getCalculatorConfig } from "@/config/calculators";
 import { getCalculatorContent, getSeoContent } from "@/lib/calculatorContent";
+import { track } from "@/lib/analytics";
 
 const clampNonNeg = (n: number) => (Number.isFinite(n) && n > 0 ? n : 0);
 
@@ -56,6 +57,12 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
   const config = getCalculatorConfig(vRaw || pathname);
   const contentKey = config?.contentKey ?? (isFee ? "fee" : isBreakEven ? "break-even" : "profit");
   const content = config?.content ?? getCalculatorContent(contentKey);
+  const seoContent =
+    "seoContent" in content && content.seoContent ? content.seoContent : getSeoContent(contentKey);
+
+  React.useEffect(() => {
+    track("calculator_page_view", { variant: vRaw || pathname, contentKey });
+  }, [vRaw, pathname, contentKey]);
 
   // Region drives fee rules (fallback when no config)
   const heroH1 = config?.content.heroH1 ?? (isFee
@@ -206,9 +213,11 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
     const r = calculateOrder(inputs);
     setResult(r);
     setHasCalculated(true);
+    track("calculator_calculate_clicked");
   };
 
   const onReset = () => {
+    track("calculator_reset_clicked");
     setItemPrice("");
     setQuantity("1");
     setShippingCharged("");
@@ -262,6 +271,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
         : "Break-even price per unit: —",
     ];
     navigator.clipboard.writeText(lines.join("\n"));
+    track("calculator_copy_results_clicked");
   }, [result, shippingCharged, currencyFmt]);
 
   return (
@@ -323,6 +333,8 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
             setOffsiteAdsPct={setOffsiteAdsPct}
             onCalculate={onCalculate}
             onReset={onReset}
+            onRegionChange={(r) => track("calculator_region_changed", { region: r })}
+            onOffsiteAdsToggle={(enabled) => track("calculator_offsite_ads_toggled", { enabled })}
           />
           <CalculatorResults
             hasCalculated={hasCalculated}
@@ -341,7 +353,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
         </div>
       </section>
 
-      <CalculatorSeoSection seoContent={"seoContent" in content && content.seoContent ? content.seoContent : getSeoContent(contentKey)} />
+      <CalculatorSeoSection seoContent={seoContent} />
   </main>
   );
 }

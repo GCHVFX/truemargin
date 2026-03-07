@@ -50,6 +50,10 @@ export type CalculatorInputsProps = {
   preset: FeePreset;
   onCalculate: () => void;
   onReset: () => void;
+  /** Optional analytics: called when user changes region */
+  onRegionChange?: (region: SellerRegion) => void;
+  /** Optional analytics: called when user toggles Offsite Ads */
+  onOffsiteAdsToggle?: (enabled: boolean) => void;
 };
 
 export function CalculatorInputs(props: CalculatorInputsProps) {
@@ -91,6 +95,8 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
     preset,
     onCalculate,
     onReset,
+    onRegionChange,
+    onOffsiteAdsToggle,
   } = props;
 
   return (
@@ -134,7 +140,11 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
             <select
               id="region"
               value={region}
-              onChange={(e) => setRegion(e.target.value as SellerRegion)}
+              onChange={(e) => {
+                const v = e.target.value as SellerRegion;
+                setRegion(v);
+                onRegionChange?.(v);
+              }}
               className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3 text-sm shadow-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               <option value="US">United States</option>
@@ -192,7 +202,14 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
                 <span className="text-xs text-muted-foreground">(if this order came from Etsy Offsite Ads)</span>
               </div>
             </div>
-            <Switch id="offsiteAds" checked={includeOffsiteAds} onCheckedChange={setIncludeOffsiteAds} />
+            <Switch
+              id="offsiteAds"
+              checked={includeOffsiteAds}
+              onCheckedChange={(v) => {
+                setIncludeOffsiteAds(v);
+                onOffsiteAdsToggle?.(v);
+              }}
+            />
           </div>
         </div>
 
