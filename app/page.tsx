@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { HeroCTAs } from "@/components/HeroCTAs";
-import { WaitlistHandler } from "@/components/WaitlistHandler";
+import { WaitlistMount } from "@/components/WaitlistMount";
 
 export const metadata: Metadata = {
   title: "TrueMargin | Etsy Profit & Fee Calculators",
@@ -65,13 +65,7 @@ const LANDING_HTML = `<div class="wrap">
             <h2>Join the waitlist</h2>
             <p class="mini">This is a simple MVP. If you join, you’ll get early access and launch pricing.</p>
 
-            <!-- Replace the action URL later with your email tool (ConvertKit, Mailchimp, Buttondown, etc.) -->
-            <form class="form" onsubmit="return handleWaitlist(event)">
-              <input id="waitlist-email" type="email" placeholder="you@example.com" required />
-              <button type="submit">Notify me</button>
-            </form>
-
-            <p class="mini" id="msg" style="margin-top:10px;"></p>
+            <div id="waitlist-mount"></div>
           </div>
         </section>
 
@@ -322,7 +316,7 @@ export default function HomePage() {
       <style dangerouslySetInnerHTML={{ __html: LANDING_CSS }} />
       <div dangerouslySetInnerHTML={{ __html: LANDING_HTML }} />
       <HeroCTAs />
-      <WaitlistHandler />
+      <WaitlistMount />
     </main>
   );
 }

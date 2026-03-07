@@ -1,65 +1,83 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
+import { submitWaitlistEmail } from "@/lib/waitlist";
 
-export default function WaitlistForm() {
-  const [email, setEmail] = useState("")
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "duplicate">("idle")
+export type WaitlistFormVariant = "default" | "landing";
+
+export default function WaitlistForm({
+  variant = "default",
+  inputId = "waitlist-email",
+}: {
+  variant?: WaitlistFormVariant;
+  inputId?: string;
+}) {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error" | "duplicate">("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
+    if (!email) return;
 
-    if (!email) return
+    setStatus("loading");
+    const result = await submitWaitlistEmail(email);
 
-    setStatus("loading")
-
-    const res = await fetch("/api/waitlist", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    })
-
-    const data = await res.json().catch(() => ({}))
-
-    if (!res.ok) {
-      setStatus(res.status === 409 || data.error === "duplicate" ? "duplicate" : "error")
-      if (res.status !== 409) console.error(data)
+    if (result.status === "success") {
+      setStatus("success");
+      setEmail("");
+    } else if (result.status === "duplicate") {
+      setStatus("duplicate");
     } else {
-      setStatus("success")
-      setEmail("")
+      setStatus("error");
     }
-  }
+  };
+
+  const isLanding = variant === "landing";
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-3">
+    <form
+      onSubmit={handleSubmit}
+      className={isLanding ? "form" : "flex gap-3"}
+    >
       <input
+        id={inputId}
         type="email"
         placeholder="you@example.com"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
-        className="w-full rounded-xl border border-slate-600 bg-slate-900 px-4 py-3 text-white"
+        className={
+          isLanding
+            ? ""
+            : "w-full rounded-xl border border-slate-600 bg-slate-900 px-4 py-3 text-white"
+        }
       />
 
       <button
         type="submit"
         disabled={status === "loading"}
-        className="rounded-xl bg-teal-600 px-6 py-3 text-white hover:bg-teal-500"
+        className={isLanding ? "" : "rounded-xl bg-teal-600 px-6 py-3 text-white hover:bg-teal-500"}
       >
         {status === "loading" ? "Submitting..." : "Notify me"}
       </button>
 
       {status === "success" && (
-        <p className="text-green-400 ml-4">You're on the list.</p>
+        <p className={isLanding ? "mini" : "text-green-400 ml-4"} style={isLanding ? { marginTop: 10 } : undefined}>
+          You&apos;re on the list.
+        </p>
       )}
 
       {status === "duplicate" && (
-        <p className="text-green-400 ml-4">You're already on the list.</p>
+        <p className={isLanding ? "mini" : "text-green-400 ml-4"} style={isLanding ? { marginTop: 10 } : undefined}>
+          You&apos;re already on the list.
+        </p>
       )}
 
       {status === "error" && (
-        <p className="text-red-400 ml-4">Something went wrong.</p>
+        <p className={isLanding ? "mini" : "text-red-400 ml-4"} style={isLanding ? { marginTop: 10, color: "#f87171" } : undefined}>
+          Something went wrong.
+        </p>
       )}
     </form>
-  )
+  );
 }
