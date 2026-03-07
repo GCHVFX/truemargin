@@ -51,34 +51,26 @@ function jsonLd() {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": 'How does the Etsy fee calculator work?',
+          "name": "What fees does this Etsy fee calculator include?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": 'Enter item price, shipping charged, and your settings (like offsite ads). It estimates each fee line item and the total fees for the sale.'
+            "text": "It estimates listing, transaction, and payment processing fees, plus optional Offsite Ads when enabled. Presets vary by seller region."
           }
         },
         {
           "@type": "Question",
-          "name": 'What Etsy fees are included?',
+          "name": "Do Etsy fees apply to shipping?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": 'Typically: listing, transaction, payment processing, and optional offsite ads. Country-based taxes may apply depending on the order.'
+            "text": "Often, yes. This calculator applies fees to the combined revenue (item subtotal plus shipping charged) where applicable."
           }
         },
         {
           "@type": "Question",
-          "name": 'Can I compare fees with and without offsite ads?',
+          "name": "Is this an exact match to my Etsy statement?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": 'Yes. Toggle offsite ads to see how the profit and fee totals change.'
-          }
-        },
-        {
-          "@type": "Question",
-          "name": 'Is this calculator free?',
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": 'Yes. Unlimited single calculations are free.'
+            "text": "No. It's an estimate for planning and pricing. Your final statement can differ based on taxes, shop settings, and promotions."
           }
         }
       ]

@@ -51,34 +51,26 @@ function jsonLd() {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": 'What is an Etsy break-even price?',
+          "name": "What is break-even price?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": 'It is the minimum price you need to charge so Etsy fees, shipping, and your cost of goods are fully covered, leaving you at $0 profit.'
+            "text": "It's the minimum price per unit required to make $0 profit after fees and costs, based on the inputs you provide."
           }
         },
         {
           "@type": "Question",
-          "name": 'Does break-even include offsite ads?',
+          "name": "Does break-even include shipping?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": 'If you toggle offsite ads on, the calculator includes them so your break-even price reflects that extra cost.'
+            "text": "Yes. The calculator considers shipping charged and your shipping cost, and models fees on the combined revenue where applicable."
           }
         },
         {
           "@type": "Question",
-          "name": 'Can this help me set a safer price?',
+          "name": "Can I use this for multi-quantity orders?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": 'Yes. Once you know break-even, you can add your target profit on top instead of guessing.'
-          }
-        },
-        {
-          "@type": "Question",
-          "name": 'Is this calculator free to use?',
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": 'Yes. Unlimited single calculations are free.'
+            "text": "Yes. Set Quantity to match the order and enter cost of goods per unit. Results are per order, with break-even shown per unit."
           }
         }
       ]
