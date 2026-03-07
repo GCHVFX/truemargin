@@ -622,18 +622,19 @@ const seoContent = React.useMemo(() => {
                         const m = typeof result.marginPct === "number" ? result.marginPct : 0;
                         let tierLabel = "Loss";
                         let tierBadge = "bg-rose-50 text-rose-700 ring-1 ring-rose-200";
-                        if (m >= 35) {
+                        if (m >= 0.35) {
                           tierLabel = "Strong";
                           tierBadge = "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200";
-                        } else if (m >= 25) {
+                        } else if (m >= 0.25) {
                           tierLabel = "Healthy";
                           tierBadge = "bg-teal-50 text-teal-700 ring-1 ring-teal-200";
-                        } else if (m >= 15) {
+                        } else if (m >= 0.15) {
                           tierLabel = "Tight";
                           tierBadge = "bg-amber-50 text-amber-700 ring-1 ring-amber-200";
                         }
+                        const mPct = m * 100;
                         const clamp = (x: number) => Math.max(0, Math.min(100, x));
-                        const markerLeft = `calc(${clamp(m)}% - 6px)`;
+                        const markerLeft = `calc(${clamp(mPct)}% - 6px)`;
                         return (
                           <div>
                             <div className="flex items-center justify-between text-xs text-slate-600">

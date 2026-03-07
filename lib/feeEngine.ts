@@ -23,14 +23,35 @@ export type CalcResult = {
 
 /**
  * Break-even item price (per unit): minimum item price required for net profit = 0.
- * Assumptions (consistent with V1 calculator):
- * - shippingCharged is per-order total
- * - yourShippingCost is per-order total
- * - paymentProcessingFixed is per-order
- * - listingFeeFixed is per-unit (multiplied by quantity)
+ * Covers COGS, seller shipping cost, listing fee, transaction fee, payment processing, regulatory fee, offsite ads.
+ * Never returns 0 when profit would be positive (returns null instead).
  */
 export function calculateBreakEvenItemPrice(i: FeeInputs): number | null {
-  return calculateTargetMarginItemPrice(i, 0);
+  const qty = Math.max(1, Math.floor(i.quantity || 1));
+
+  const pctTotal =
+    i.transactionFeePct +
+    i.paymentProcessingPct +
+    i.regulatoryFeePct +
+    (i.includeOffsiteAds ? i.offsiteAdsPct : 0);
+
+  const denom = 1 - pctTotal;
+  if (!Number.isFinite(denom) || denom <= 0) return null;
+
+  const totalCogs = i.cogsPerUnit * qty;
+  const totalYourShipping = i.yourShippingCost;
+  const fixedFees = i.listingFeeFixed * qty + i.paymentProcessingFixed;
+
+  // breakEven revenue = COGS + sellerShippingCost + totalFees
+  // totalFees = fixedFees + revenue * pctTotal
+  // => revenue = (totalCogs + totalYourShipping + fixedFees) / (1 - pctTotal)
+  const requiredOrderRevenue = (totalCogs + totalYourShipping + fixedFees) / denom;
+
+  const requiredItemSubtotal = requiredOrderRevenue - i.shippingCharged;
+  const perUnit = requiredItemSubtotal / qty;
+
+  if (!Number.isFinite(perUnit) || perUnit <= 0) return null;
+  return round2(perUnit);
 }
 
 /**
