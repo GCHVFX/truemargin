@@ -31,7 +31,7 @@ function jsonLd() {
     },
     {
       "@context": "https://schema.org",
-      "@type": "WebApplication",
+      "@type": "SoftwareApplication",
       "@id": CANONICAL + "#app",
       "name": 'Etsy Fee Calculator',
       "url": CANONICAL,
@@ -43,6 +43,12 @@ function jsonLd() {
         "price": "0",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock"
+      },
+      "isAccessibleForFree": true,
+      "creator": {
+        "@type": "Organization",
+        "name": "TrueMargin",
+        "url": "https://gettruemargin.com"
       }
     },
     {
@@ -94,12 +100,21 @@ export async function generateMetadata(): Promise<Metadata> {
       url: CANONICAL,
       title,
       description,
-      siteName: "TrueMargin"
+      siteName: "TrueMargin",
+      images: [
+        {
+          url: "https://gettruemargin.com/og/etsy-fee-calculator.png",
+          width: 1200,
+          height: 630,
+          alt: "TrueMargin Etsy Fee Calculator"
+        }
+      ]
     },
     twitter: {
       card: "summary_large_image",
       title,
-      description
+      description,
+      images: ["https://gettruemargin.com/og/etsy-fee-calculator.png"]
     }
   };
 }

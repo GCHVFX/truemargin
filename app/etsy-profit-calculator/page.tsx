@@ -31,7 +31,7 @@ function jsonLd() {
     },
     {
       "@context": "https://schema.org",
-      "@type": "WebApplication",
+      "@type": "SoftwareApplication",
       "name": "Etsy Profit Calculator",
       "url": CANONICAL,
       "applicationCategory": "BusinessApplication",
@@ -42,9 +42,11 @@ function jsonLd() {
         "price": "0",
         "priceCurrency": "USD"
       },
+      "isAccessibleForFree": true,
       "creator": {
         "@type": "Organization",
-        "name": "TrueMargin"
+        "name": "TrueMargin",
+        "url": "https://gettruemargin.com"
       }
     },
     {
@@ -143,12 +145,21 @@ export async function generateMetadata(): Promise<Metadata> {
       url: CANONICAL,
       title,
       description,
-      siteName: "TrueMargin"
+      siteName: "TrueMargin",
+      images: [
+        {
+          url: "https://gettruemargin.com/og/etsy-profit-calculator.png",
+          width: 1200,
+          height: 630,
+          alt: "TrueMargin Etsy Profit Calculator"
+        }
+      ]
     },
     twitter: {
       card: "summary_large_image",
       title,
-      description
+      description,
+      images: ["https://gettruemargin.com/og/etsy-profit-calculator.png"]
     }
   };
 }
