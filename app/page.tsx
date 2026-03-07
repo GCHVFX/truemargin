@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { HeroCTAs } from "@/components/HeroCTAs";
+import { Logo } from "@/components/Logo";
 import { WaitlistMount } from "@/components/WaitlistMount";
 
 export const metadata: Metadata = {
@@ -8,19 +10,7 @@ export const metadata: Metadata = {
     "Free Etsy profit, fee, and break-even calculators built for sellers who want accurate margins and clear pricing decisions."
 };
 
-const LANDING_HTML = `<div class="wrap">
-      <header>
-        <a class="brand" href="#">
-          <div class="logo" aria-hidden="true"></div>
-          <div>
-            <b>True Margin</b><br />
-            <span class="mini">Etsy profit tools</span>
-          </div>
-        </a>
-        <div class="pill">Beta</div>
-      </header>
-
-      <main class="grid">
+const LANDING_HTML = `<main class="grid">
         <section class="hero">
           <h1>Know your true profit, not your guess.</h1>
           <p class="sub">
@@ -70,8 +60,8 @@ const LANDING_HTML = `<div class="wrap">
         </section>
 
         <aside class="side">
-          <h2 style="margin:0 0 6px; font-size:18px;">A quick example</h2>
-          <p class="mini">This is just to communicate value. You’ll hook the real calculator later.</p>
+          <h2 style="margin:0 0 6px; font-size:18px;">Quick example</h2>
+          <p class="mini">See how fees, shipping, and cost of goods affect real Etsy profit in one order.</p>
 
           <div class="kpi">
             <div>
@@ -95,18 +85,18 @@ const LANDING_HTML = `<div class="wrap">
           <div class="section" style="margin-top:14px;">
             <h2 style="margin:0 0 8px; font-size:16px;">Who it’s for</h2>
             <ul style="margin:0; padding-left:18px; color:var(--muted); font-size:14px;">
-              <li>New sellers pricing their first listings</li>
-              <li>High-volume shops tightening margins</li>
-              <li>Anyone selling in USD and paying out in CAD</li>
+              <li>Etsy sellers pricing new listings</li>
+              <li>Shops checking thin margins</li>
+              <li>Sellers comparing profit before ads or promotions</li>
             </ul>
           </div>
 
           <div class="section" style="margin-top:14px;">
-            <h2 style="margin:0 0 8px; font-size:16px;">Coming next</h2>
+            <h2 style="margin:0 0 8px; font-size:16px;">Available now</h2>
             <ul style="margin:0; padding-left:18px; color:var(--muted); font-size:14px;">
-              <li>AI title and tag generator</li>
-              <li>Basic trend snapshots</li>
-              <li>Pro plan with saved projects</li>
+              <li>Etsy Profit Calculator</li>
+              <li>Etsy Fee Calculator</li>
+              <li>Etsy Break-even Calculator</li>
             </ul>
           </div>
         </aside>
@@ -114,9 +104,9 @@ const LANDING_HTML = `<div class="wrap">
 
       <footer>
         <div class="fine">© <span id="year"></span> True Margin</div>
-        <div class="fine">Questions: <a href="mailto:hello@gettruemargin.com" style="text-decoration:underline;">hello@gettruemargin.com</a></div>
+        <div class="fine">Questions: <a href="mailto:support@gettruemargin.com" style="text-decoration:underline;">support@gettruemargin.com</a></div>
       </footer>
-    </div>`;
+    `;
 const LANDING_CSS = `:root{
         --bg:#070B14;
         --card:#0B1220;
@@ -314,7 +304,20 @@ export default function HomePage() {
   return (
     <main suppressHydrationWarning>
       <style dangerouslySetInnerHTML={{ __html: LANDING_CSS }} />
-      <div dangerouslySetInnerHTML={{ __html: LANDING_HTML }} />
+      <div className="wrap">
+        <header>
+          <Link className="brand" href="/">
+            <Logo />
+            <div>
+              <b>True Margin</b>
+              <br />
+              <span className="mini">Etsy profit tools</span>
+            </div>
+          </Link>
+          <div className="pill">Beta</div>
+        </header>
+        <div dangerouslySetInnerHTML={{ __html: LANDING_HTML }} />
+      </div>
       <HeroCTAs />
       <WaitlistMount />
     </main>
