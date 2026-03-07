@@ -95,13 +95,13 @@ export default function Page() {
           <article className="rounded-2xl bg-white p-6 text-slate-800 shadow-sm ring-1 ring-slate-200 sm:p-10">
             <h1 className="text-3xl font-semibold tracking-tight text-[#2F3A56] sm:text-4xl">How Much Does Etsy Take Per Sale?</h1>
             <p className="mt-5 text-base leading-7">
-              Etsy charges multiple fees on each order, so what you keep is usually less than the item price. Most sellers pay a mix of listing,
-              transaction, payment processing, and sometimes offsite ad fees.
+              Etsy typically takes around 10-15% of a sale once listing fees, transaction fees, payment processing, and optional advertising fees
+              are combined.
             </p>
 
             <section className="mt-8 rounded-xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
               <p className="text-sm font-medium uppercase tracking-wide text-[#2F3A56]">Want to see the exact fees on your product?</p>
-              <p className="mt-2 text-sm leading-6 text-slate-700">Use your real order numbers and get an instant fee breakdown.</p>
+              <p className="mt-2 text-sm leading-6 text-slate-700">Calculate your exact Etsy fees with the Etsy Fee Calculator.</p>
               <Link
                 href="/etsy-fee-calculator"
                 className="mt-4 inline-flex items-center rounded-md bg-[#2F3A56] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
@@ -113,34 +113,33 @@ export default function Page() {
             <section className="mt-12 space-y-4">
               <h2 className="text-2xl font-semibold text-[#2F3A56]">Etsy Fees Explained</h2>
               <p className="leading-7">
-                <strong>Listing fee:</strong> A fixed fee to publish an item listing. It is charged when the listing is created or renewed.
+                <strong>Listing fee:</strong> A fixed charge for each listing published or renewed.
               </p>
               <p className="leading-7">
-                <strong>Transaction fee:</strong> A percentage-based fee on the order value, typically applied when an item sells.
+                <strong>Transaction fee:</strong> A percentage fee Etsy applies when an order is completed.
               </p>
               <p className="leading-7">
-                <strong>Payment processing:</strong> A processing charge for handling the buyer&apos;s payment, often a percentage plus a small fixed amount.
+                <strong>Payment processing:</strong> A payment charge, usually a percentage plus a fixed amount, based on your country.
               </p>
               <p className="leading-7">
-                <strong>Offsite ads:</strong> If a sale is attributed to Etsy&apos;s offsite advertising, an additional ad fee may apply.
+                <strong>Offsite ads:</strong> An extra fee can apply if Etsy attributes your sale to offsite advertising.
               </p>
               <p className="leading-7">
-                <strong>Regulatory fees (where applicable):</strong> Some regions include extra required charges tied to local rules.
+                <strong>Regulatory fees (where applicable):</strong> Some regions include additional mandatory charges.
               </p>
             </section>
 
             <section className="mt-12 space-y-4">
-              <h2 className="text-2xl font-semibold text-[#2F3A56]">Example: How Etsy Fees Affect a $25 Sale</h2>
+              <h2 className="text-2xl font-semibold text-[#2F3A56]">Example: Etsy Fees on a $25 Sale</h2>
               <p className="leading-7">
-                On a $25 order, Etsy does not just take one flat percentage. Instead, the final total can include the listing fee, transaction
-                fee, payment processing, and optional ad-related charges. When those are combined, your net payout can be several dollars lower
-                than your sale price.
+                On a $25 order, Etsy does not take one flat fee. Listing, transaction, and payment processing charges stack together, and offsite
+                ads can add more. After those deductions, what you keep can be several dollars less than the sale price.
               </p>
             </section>
 
             <section className="mt-8 rounded-xl border border-[#F4A261]/35 bg-[#F4A261]/10 p-5 sm:p-6">
               <p className="text-sm font-medium uppercase tracking-wide text-[#2F3A56]">Want to see the exact fees on your product?</p>
-              <p className="mt-2 text-sm leading-6 text-slate-700">Estimate listing, transaction, processing, and ad fees in one place.</p>
+              <p className="mt-2 text-sm leading-6 text-slate-700">See your real profit using the Etsy Fee Calculator.</p>
               <Link
                 href="/etsy-fee-calculator"
                 className="mt-4 inline-flex items-center rounded-md border border-[#2F3A56] bg-white px-4 py-2 text-sm font-semibold text-[#2F3A56] transition hover:bg-slate-50"
