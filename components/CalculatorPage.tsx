@@ -17,7 +17,7 @@ import {
   defaultCurrencyForRegion,
 } from "@/lib/fees";
 import { calculateOrder } from "@/lib/feeEngine";
-import { getMarginHealthTier, CALC_LABELS } from "@/lib/calculatorHelpers";
+import { getMarginHealthTier, MARGIN_INSIGHT_MESSAGES, CALC_LABELS } from "@/lib/calculatorHelpers";
 import { usePathname } from "next/navigation";
 import { CalculatorSwitcher } from "@/components/CalculatorSwitcher";
 
@@ -634,7 +634,7 @@ const seoContent = React.useMemo(() => {
                                   {tierLabel}
                                 </span>
                               </span>
-                              <span>Loss → Strong</span>
+                              <span>Risky → Strong</span>
                             </div>
                             <div className="relative mt-2 h-3 w-full overflow-hidden rounded-full bg-slate-100">
                               <div className="absolute inset-y-0 left-0 w-[15%] bg-rose-200" />
@@ -653,6 +653,9 @@ const seoContent = React.useMemo(() => {
                               <span>25–35%</span>
                               <span>&gt;35%</span>
                             </div>
+                            <p className="mt-2 text-xs text-slate-500 leading-snug">
+                              {MARGIN_INSIGHT_MESSAGES[tierLabel]}
+                            </p>
                           </div>
                         );
                       })()}
