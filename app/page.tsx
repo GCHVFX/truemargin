@@ -140,7 +140,6 @@ const LANDING_CSS = `:root{
       }
       .logo{
         width:34px; height:34px; border-radius:10px;
-        background: linear-gradient(135deg, var(--accent), var(--accent2));
         box-shadow: var(--shadow);
       }
       .brand b{letter-spacing:.2px}
@@ -307,9 +306,9 @@ export default function HomePage() {
       <div className="wrap">
         <header>
           <Link className="brand" href="/">
-            <Logo />
+            <Logo priority />
             <div>
-              <b>True Margin</b>
+              <b>TrueMargin</b>
               <br />
               <span className="mini">Etsy profit tools</span>
             </div>
