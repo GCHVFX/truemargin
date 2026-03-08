@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Script from "next/script";
 import { Suspense } from "react";
 import { CalculatorPage } from "@/components/CalculatorPage";
@@ -177,92 +176,6 @@ export default function Page() {
       <Suspense fallback={null}>
         <CalculatorPage variant='etsy-profit-calculator' />
       </Suspense>
-      <section className="mx-auto max-w-5xl px-4 pb-14">
-        <div className="space-y-6">
-          <div className="rounded-xl border border-white/10 bg-white/5 p-6 sm:p-7">
-            <h2 className="text-2xl font-semibold text-[#EAF0FF]">How the Etsy Profit Calculator Works</h2>
-            <p className="mt-4 text-base leading-8 text-[#D6DEEE]">
-              This calculator estimates what you keep after Etsy fees, cost of goods, and shipping. Profit margin is then calculated by dividing
-              net profit by revenue.
-            </p>
-
-            <div className="mt-5 rounded-lg border border-white/15 bg-[#0F172A]/80 px-5 py-4 text-base font-medium leading-8 text-[#EAF0FF]">
-              Net Profit = Revenue - Etsy fees - Cost of goods - Shipping cost
-              <br />
-              Profit Margin = Net Profit / Revenue
-            </div>
-          </div>
-
-          <div className="rounded-xl border border-white/10 bg-white/5 p-6 sm:p-7">
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="rounded-lg border border-white/10 bg-[#10182A]/60 p-5">
-                <h3 className="text-xl font-semibold text-[#EAF0FF]">What this calculator uses</h3>
-                <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-8 text-[#D6DEEE]">
-                  <li>item price</li>
-                  <li>quantity</li>
-                  <li>shipping charged</li>
-                  <li>cost of goods per unit</li>
-                  <li>shipping cost</li>
-                  <li>seller region fee preset</li>
-                  <li>optional Offsite Ads</li>
-                </ul>
-              </div>
-
-              <div className="rounded-lg border border-white/10 bg-[#10182A]/60 p-5">
-                <h3 className="text-xl font-semibold text-[#EAF0FF]">Example Profit Calculation</h3>
-                <p className="mt-4 text-base leading-8 text-[#D6DEEE]">
-                  Item price: $40
-                  <br />
-                  Quantity: 1
-                  <br />
-                  Shipping charged: $5
-                  <br />
-                  Revenue: $45
-                </p>
-                <p className="mt-3 text-base leading-8 text-[#D6DEEE]">
-                  Estimated Etsy fees: $5
-                  <br />
-                  Cost of goods: $12
-                  <br />
-                  Shipping cost: $6
-                </p>
-                <p className="mt-3 text-base leading-8 text-[#D6DEEE]">
-                  Net profit: $22
-                  <br />
-                  Profit margin: 48.9%
-                </p>
-                <p className="mt-3 text-base leading-8 text-[#D6DEEE]">
-                  Exact results vary by seller region preset and Offsite Ads settings.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="rounded-xl border border-white/10 bg-white/5 p-6 sm:p-7">
-            <h2 className="text-2xl font-semibold text-[#EAF0FF]">Related Etsy Calculators</h2>
-            <p className="mt-4 text-base leading-8 text-[#D6DEEE]">
-              Explore fee-only and break-even scenarios with the{" "}
-              calculators below.
-            </p>
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              <Link
-                href="/etsy-fee-calculator"
-                className="rounded-lg border border-white/15 bg-[#10182A]/70 p-4 text-lg font-semibold text-[#EAF0FF] transition hover:bg-[#10182A]"
-              >
-                Etsy Fee Calculator
-                <span className="mt-1 block text-base font-normal text-[#D6DEEE]">See a fee-only breakdown per order.</span>
-              </Link>
-              <Link
-                href="/etsy-break-even-calculator"
-                className="rounded-lg border border-white/15 bg-[#10182A]/70 p-4 text-lg font-semibold text-[#EAF0FF] transition hover:bg-[#10182A]"
-              >
-                Etsy Break-even Calculator
-                <span className="mt-1 block text-base font-normal text-[#D6DEEE]">Find the minimum safe price per unit.</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
