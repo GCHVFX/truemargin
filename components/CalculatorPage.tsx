@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -94,6 +95,118 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
     : isBreakEven
       ? "TrueMargin estimates your break-even item price per order after Etsy fees, cost of goods, and shipping costs. Use it to set a clear minimum price."
       : "TrueMargin helps you calculate Etsy profit per order after fees, cost of goods, and shipping. Use it to validate margins before you run ads.";
+
+  const logicContent = React.useMemo(() => {
+    if (isFee) {
+      return {
+        heading: "How the Etsy Fee Calculator Works",
+        intro:
+          "This calculator estimates Etsy selling fees using your order value, shipping charged, seller region preset, and optional Offsite Ads.",
+        formulaLines: [
+          "Estimated Etsy Fees = Listing fee + Transaction fee + Payment processing fee + Optional Offsite Ads fee + Any applicable regional fee",
+        ],
+        uses: ["item price", "quantity", "shipping charged", "seller region fee preset", "Offsite Ads toggle"],
+        exampleTitle: "Example Etsy Fee Calculation",
+        exampleBlocks: [
+          ["Item price: $25", "Quantity: 1", "Shipping charged: $0"],
+          ["Listing fee: $0.20", "Transaction fee: $1.63", "Payment processing: about $1.00"],
+          ["Estimated total Etsy fees: about $2.83"],
+          ["Fees can vary by country-specific payment rates and whether Offsite Ads applies."],
+        ],
+        relatedIntro: "For full take-home and pricing planning, use the calculators below.",
+        related: [
+          {
+            href: "/etsy-profit-calculator",
+            title: "Etsy Profit Calculator",
+            description: "Calculate net profit and margin after fees.",
+          },
+          {
+            href: "/etsy-break-even-calculator",
+            title: "Etsy Break-even Calculator",
+            description: "Find your minimum safe listing price.",
+          },
+        ],
+      };
+    }
+
+    if (isBreakEven) {
+      return {
+        heading: "How the Etsy Break-even Calculator Works",
+        intro:
+          "This calculator estimates the minimum price required to avoid losing money after Etsy fees, cost of goods, and shipping.",
+        formulaLines: [
+          "Break-even Price = Total costs + Estimated Etsy fees",
+          "Break-even per Unit = Break-even order total / Quantity",
+        ],
+        uses: [
+          "quantity",
+          "shipping charged",
+          "cost of goods per unit",
+          "shipping cost",
+          "seller region fee preset",
+          "optional Offsite Ads",
+        ],
+        exampleTitle: "Example Break-even Calculation",
+        exampleBlocks: [
+          ["Quantity: 1", "Cost of goods: $10", "Shipping cost: $5", "Estimated Etsy fees: $4"],
+          ["Break-even order total: $19", "Break-even price per unit: $19"],
+          ["Exact results change with seller fee region preset, shipping inputs, and Offsite Ads settings."],
+        ],
+        relatedIntro: "After finding your minimum safe price, compare scenarios with the calculators below.",
+        related: [
+          {
+            href: "/etsy-profit-calculator",
+            title: "Etsy Profit Calculator",
+            description: "Model net profit after all costs and fees.",
+          },
+          {
+            href: "/etsy-fee-calculator",
+            title: "Etsy Fee Calculator",
+            description: "Estimate fee totals for any order value.",
+          },
+        ],
+      };
+    }
+
+    return {
+      heading: "How the Etsy Profit Calculator Works",
+      intro:
+        "This calculator estimates what you keep after Etsy fees, cost of goods, and shipping. Profit margin is then calculated by dividing net profit by revenue.",
+      formulaLines: [
+        "Net Profit = Revenue - Etsy fees - Cost of goods - Shipping cost",
+        "Profit Margin = Net Profit / Revenue",
+      ],
+      uses: [
+        "item price",
+        "quantity",
+        "shipping charged",
+        "cost of goods per unit",
+        "shipping cost",
+        "seller region fee preset",
+        "optional Offsite Ads",
+      ],
+      exampleTitle: "Example Profit Calculation",
+      exampleBlocks: [
+        ["Item price: $40", "Quantity: 1", "Shipping charged: $5", "Revenue: $45"],
+        ["Estimated Etsy fees: $5", "Cost of goods: $12", "Shipping cost: $6"],
+        ["Net profit: $22", "Profit margin: 48.9%"],
+        ["Exact results vary by seller region preset and Offsite Ads settings."],
+      ],
+      relatedIntro: "Explore fee-only and break-even scenarios with the calculators below.",
+      related: [
+        {
+          href: "/etsy-fee-calculator",
+          title: "Etsy Fee Calculator",
+          description: "See a fee-only breakdown per order.",
+        },
+        {
+          href: "/etsy-break-even-calculator",
+          title: "Etsy Break-even Calculator",
+          description: "Find the minimum safe price per unit.",
+        },
+      ],
+    };
+  }, [isFee, isBreakEven]);
 // Region drives fee rules (and defaults currency)
   const [region, setRegion] = React.useState<SellerRegion>("US");
   const [currency, setCurrency] = React.useState<Currency>(() => defaultCurrencyForRegion("US"));
@@ -354,6 +467,67 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
       </section>
 
       <CalculatorSeoSection seoContent={seoContent} />
+
+      <section className="mx-auto max-w-5xl px-4 pb-14">
+        <div className="space-y-6">
+          <div className="rounded-xl border border-white/10 bg-white/5 p-6 sm:p-7">
+            <h2 className="text-2xl font-semibold text-[#EAF0FF]">{logicContent.heading}</h2>
+            <p className="mt-4 text-base leading-8 text-[#D6DEEE]">{logicContent.intro}</p>
+
+            <div className="mt-5 rounded-lg border border-white/15 bg-[#0F172A]/80 px-5 py-4">
+              {logicContent.formulaLines.map((line) => (
+                <p key={line} className="text-base font-semibold leading-8 text-[#EAF0FF]">
+                  {line}
+                </p>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-white/5 p-6 sm:p-7">
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="rounded-lg border border-white/10 bg-[#10182A]/60 p-5">
+                <h3 className="text-xl font-semibold text-[#EAF0FF]">What this calculator uses</h3>
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-8 text-[#D6DEEE]">
+                  {logicContent.uses.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="rounded-lg border border-white/10 bg-[#10182A]/60 p-5">
+                <h3 className="text-xl font-semibold text-[#EAF0FF]">{logicContent.exampleTitle}</h3>
+                {logicContent.exampleBlocks.map((block, i) => (
+                  <p key={i} className="mt-3 text-base leading-8 text-[#D6DEEE]">
+                    {block.map((line, lineIdx) => (
+                      <React.Fragment key={line}>
+                        {line}
+                        {lineIdx < block.length - 1 ? <br /> : null}
+                      </React.Fragment>
+                    ))}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-white/5 p-6 sm:p-7">
+            <h3 className="text-2xl font-semibold text-[#EAF0FF]">Related Etsy Calculators</h3>
+            <p className="mt-4 text-base leading-8 text-[#D6DEEE]">{logicContent.relatedIntro}</p>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              {logicContent.related.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-lg border border-white/15 bg-[#10182A]/70 p-4 text-lg font-semibold text-[#EAF0FF] transition hover:bg-[#10182A]"
+                >
+                  {item.title}
+                  <span className="mt-1 block text-base font-normal text-[#D6DEEE]">{item.description}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
   </main>
   );
 }
