@@ -23,7 +23,6 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { CalculatorSwitcher } from "@/components/CalculatorSwitcher";
 import { CalculatorInputs } from "@/components/CalculatorInputs";
 import { CalculatorResults } from "@/components/CalculatorResults";
-import { CalculatorSeoSection } from "@/components/CalculatorSeoSection";
 import { getCalculatorConfig } from "@/config/calculators";
 import { getCalculatorContent, getSeoContent } from "@/lib/calculatorContent";
 import { track } from "@/lib/analytics";
@@ -466,7 +465,56 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
         </div>
       </section>
 
-      <CalculatorSeoSection seoContent={seoContent} />
+      <section className="mx-auto max-w-5xl px-4 pt-8 pb-12">
+        <div className="space-y-6">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-semibold text-[#EAF0FF]">{seoContent.heading}</h2>
+            <p className="mt-3 max-w-3xl text-base md:text-lg leading-relaxed text-[#D6DEEE]">{seoContent.intro}</p>
+          </div>
+
+          {seoContent.supportBlock && (
+            <div className="rounded-xl border border-white/10 bg-white/5 p-6">
+              <h3 className="text-xl font-semibold text-[#EAF0FF]">{seoContent.supportBlock.heading}</h3>
+              <div className="mt-3 space-y-3 text-base md:text-lg leading-relaxed text-[#D6DEEE]">
+                {seoContent.supportBlock.paragraphs.map((p, i) => (
+                  <p key={i}>{p}</p>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="rounded-xl border border-white/10 bg-white/5 p-6">
+              <h3 className="text-xl font-semibold text-[#EAF0FF]">What this calculator includes</h3>
+              <ul className="mt-3 list-disc space-y-2 pl-5 text-base md:text-lg leading-relaxed text-[#D6DEEE]">
+                {seoContent.includes.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-xl border border-white/10 bg-white/5 p-6">
+              <h3 className="text-xl font-semibold text-[#EAF0FF]">How to use it</h3>
+              <ol className="mt-3 list-decimal space-y-2 pl-5 text-base md:text-lg leading-relaxed text-[#D6DEEE]">
+                {seoContent.howTo.map((step) => (
+                  <li key={step}>{step}</li>
+                ))}
+              </ol>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-2xl md:text-3xl font-semibold text-[#EAF0FF]">FAQ</h3>
+            <div className="mt-3 space-y-3">
+              {seoContent.faqs.map((f) => (
+                <div key={f.q} className="rounded-xl border border-white/10 bg-white/5 p-6">
+                  <p className="text-xl font-semibold text-[#EAF0FF]">{f.q}</p>
+                  <p className="mt-2 text-base md:text-lg leading-relaxed text-[#D6DEEE]">{f.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="mx-auto max-w-5xl px-4 pb-14">
         <div className="space-y-6">
