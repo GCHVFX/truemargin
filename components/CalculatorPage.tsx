@@ -2,13 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { Separator } from "@/components/ui/separator";
-import { Info, Calculator, BadgeCheck, Copy } from "lucide-react";
+import { BadgeCheck } from "lucide-react";
 
 import {
   REGION_PRESETS,
@@ -63,37 +57,6 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
   React.useEffect(() => {
     track("calculator_page_view", { variant: vRaw || pathname, contentKey });
   }, [vRaw, pathname, contentKey]);
-
-  // Region drives fee rules (fallback when no config)
-  const heroH1 = config?.content.heroH1 ?? (isFee
-    ? "Etsy Fee Calculator"
-    : isBreakEven
-      ? "Etsy Break-even Calculator"
-      : "Etsy Profit Calculator");
-
-  const heroH2 = isFee
-    ? "See exactly how much Etsy takes per order"
-    : isBreakEven
-      ? "Find your minimum price to cover fees and costs"
-      : "Calculate real profit after every Etsy fee";
-
-  const heroSubhead = isFee
-    ? "Estimate Etsy fees per order with a clear breakdown: listing, transaction, processing, offsite ads, and shipping. See total fees instantly."
-    : isBreakEven
-      ? "Enter your order details to get the break-even price per unit—the minimum you need to charge so fees, COGS, and shipping don’t eat your margin."
-      : "Enter one order and see net profit, margin, and a full fee breakdown. Know what you keep after listing, transaction, processing, and offsite ads.";
-
-  const seoH2 = isFee
-    ? "Etsy fee calculator"
-    : isBreakEven
-      ? "Etsy break-even calculator"
-      : "Etsy profit calculator";
-
-  const seoIntro = isFee
-    ? "TrueMargin helps you estimate Etsy fees per order and see a clear fee breakdown in seconds. Use it to price new listings and understand what Etsy takes."
-    : isBreakEven
-      ? "TrueMargin estimates your break-even item price per order after Etsy fees, cost of goods, and shipping costs. Use it to set a clear minimum price."
-      : "TrueMargin helps you calculate Etsy profit per order after fees, cost of goods, and shipping. Use it to validate margins before you run ads.";
 
   const logicContent = React.useMemo(() => {
     if (isFee) {
@@ -395,7 +358,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
             <span>{content.eyebrowText}</span>
           </div>
 
-          <h1 className="text-3xl font-semibold tracking-tight text-[#EAF0FF]">{content.heroH1}</h1>
+          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-[#EAF0FF]">{content.heroH1}</h1>
           <h2 className="text-lg font-medium text-[#9AA6BF]">{content.heroH2}</h2>
           <p className="max-w-2xl text-[#9AA6BF]">{content.heroSubhead}</p>
 
@@ -468,14 +431,14 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
       <section className="mx-auto max-w-5xl px-4 pt-8 pb-12">
         <div className="space-y-6">
           <div>
-            <h2 className="text-2xl md:text-3xl font-semibold text-[#EAF0FF]">{seoContent.heading}</h2>
-            <p className="mt-3 max-w-3xl text-base md:text-lg leading-relaxed text-[#D6DEEE]">{seoContent.intro}</p>
+            <h2 className="text-xl md:text-2xl font-semibold text-[#EAF0FF]">{seoContent.heading}</h2>
+            <p className="mt-3 max-w-3xl text-base leading-relaxed text-[#D6DEEE]">{seoContent.intro}</p>
           </div>
 
           {seoContent.supportBlock && (
             <div className="rounded-xl border border-white/10 bg-white/5 p-6">
-              <h3 className="text-xl font-semibold text-[#EAF0FF]">{seoContent.supportBlock.heading}</h3>
-              <div className="mt-3 space-y-3 text-base md:text-lg leading-relaxed text-[#D6DEEE]">
+              <h3 className="text-lg md:text-xl font-semibold text-[#EAF0FF]">{seoContent.supportBlock.heading}</h3>
+              <div className="mt-3 space-y-3 text-base leading-relaxed text-[#D6DEEE]">
                 {seoContent.supportBlock.paragraphs.map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
@@ -485,16 +448,16 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
 
           <div className="grid gap-4 md:grid-cols-2">
             <div className="rounded-xl border border-white/10 bg-white/5 p-6">
-              <h3 className="text-xl font-semibold text-[#EAF0FF]">What this calculator includes</h3>
-              <ul className="mt-3 list-disc space-y-2 pl-5 text-base md:text-lg leading-relaxed text-[#D6DEEE]">
+              <h3 className="text-lg md:text-xl font-semibold text-[#EAF0FF]">What this calculator includes</h3>
+              <ul className="mt-3 list-disc space-y-2 pl-5 text-base leading-relaxed text-[#D6DEEE]">
                 {seoContent.includes.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
             </div>
             <div className="rounded-xl border border-white/10 bg-white/5 p-6">
-              <h3 className="text-xl font-semibold text-[#EAF0FF]">How to use it</h3>
-              <ol className="mt-3 list-decimal space-y-2 pl-5 text-base md:text-lg leading-relaxed text-[#D6DEEE]">
+              <h3 className="text-lg md:text-xl font-semibold text-[#EAF0FF]">How to use it</h3>
+              <ol className="mt-3 list-decimal space-y-2 pl-5 text-base leading-relaxed text-[#D6DEEE]">
                 {seoContent.howTo.map((step) => (
                   <li key={step}>{step}</li>
                 ))}
@@ -503,12 +466,12 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
           </div>
 
           <div>
-            <h3 className="text-2xl md:text-3xl font-semibold text-[#EAF0FF]">FAQ</h3>
+            <h3 className="text-xl md:text-2xl font-semibold text-[#EAF0FF]">FAQ</h3>
             <div className="mt-3 space-y-3">
               {seoContent.faqs.map((f) => (
                 <div key={f.q} className="rounded-xl border border-white/10 bg-white/5 p-6">
-                  <p className="text-xl font-semibold text-[#EAF0FF]">{f.q}</p>
-                  <p className="mt-2 text-base md:text-lg leading-relaxed text-[#D6DEEE]">{f.a}</p>
+                  <p className="text-lg md:text-xl font-semibold text-[#EAF0FF]">{f.q}</p>
+                  <p className="mt-2 text-base leading-relaxed text-[#D6DEEE]">{f.a}</p>
                 </div>
               ))}
             </div>
@@ -519,12 +482,12 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
       <section className="mx-auto max-w-5xl px-4 pb-14">
         <div className="space-y-6">
           <div className="rounded-xl border border-white/10 bg-white/5 p-6 sm:p-7">
-            <h2 className="text-2xl font-semibold text-[#EAF0FF]">{logicContent.heading}</h2>
+            <h2 className="text-xl md:text-2xl font-semibold text-[#EAF0FF]">{logicContent.heading}</h2>
             <p className="mt-4 text-base leading-8 text-[#D6DEEE]">{logicContent.intro}</p>
 
             <div className="mt-5 rounded-lg border border-white/15 bg-[#0F172A]/80 px-5 py-4">
               {logicContent.formulaLines.map((line) => (
-                <p key={line} className="text-base font-semibold leading-8 text-[#EAF0FF]">
+                <p key={line} className="text-base md:text-lg font-medium leading-relaxed text-[#EAF0FF]">
                   {line}
                 </p>
               ))}
@@ -534,8 +497,8 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
           <div className="rounded-xl border border-white/10 bg-white/5 p-6 sm:p-7">
             <div className="grid gap-4 md:grid-cols-2">
               <div className="rounded-lg border border-white/10 bg-[#10182A]/60 p-5">
-                <h3 className="text-xl font-semibold text-[#EAF0FF]">What this calculator uses</h3>
-                <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-8 text-[#D6DEEE]">
+                <h3 className="text-lg md:text-xl font-semibold text-[#EAF0FF]">What this calculator uses</h3>
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-relaxed text-[#D6DEEE]">
                   {logicContent.uses.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
@@ -543,9 +506,9 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
               </div>
 
               <div className="rounded-lg border border-white/10 bg-[#10182A]/60 p-5">
-                <h3 className="text-xl font-semibold text-[#EAF0FF]">{logicContent.exampleTitle}</h3>
+                <h3 className="text-lg md:text-xl font-semibold text-[#EAF0FF]">{logicContent.exampleTitle}</h3>
                 {logicContent.exampleBlocks.map((block, i) => (
-                  <p key={i} className="mt-3 text-base leading-8 text-[#D6DEEE]">
+                  <p key={i} className="mt-3 text-base leading-relaxed text-[#D6DEEE]">
                     {block.map((line, lineIdx) => (
                       <React.Fragment key={line}>
                         {line}
@@ -559,17 +522,17 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
           </div>
 
           <div className="rounded-xl border border-white/10 bg-white/5 p-6 sm:p-7">
-            <h3 className="text-2xl font-semibold text-[#EAF0FF]">Related Etsy Calculators</h3>
-            <p className="mt-4 text-base leading-8 text-[#D6DEEE]">{logicContent.relatedIntro}</p>
+            <h3 className="text-xl md:text-2xl font-semibold text-[#EAF0FF]">Related Etsy Calculators</h3>
+            <p className="mt-4 text-base leading-relaxed text-[#D6DEEE]">{logicContent.relatedIntro}</p>
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
               {logicContent.related.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="rounded-lg border border-white/15 bg-[#10182A]/70 p-4 text-lg font-semibold text-[#EAF0FF] transition hover:bg-[#10182A]"
+                  className="rounded-lg border border-white/15 bg-[#10182A]/70 p-4 text-lg md:text-xl font-semibold text-[#EAF0FF] transition hover:bg-[#10182A]"
                 >
                   {item.title}
-                  <span className="mt-1 block text-base font-normal text-[#D6DEEE]">{item.description}</span>
+                  <span className="mt-1 block text-base leading-relaxed font-normal text-[#D6DEEE]">{item.description}</span>
                 </Link>
               ))}
             </div>
