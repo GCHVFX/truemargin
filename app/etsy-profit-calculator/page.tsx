@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Script from "next/script";
 import { Suspense } from "react";
 import { CalculatorPage } from "@/components/CalculatorPage";
@@ -176,6 +177,76 @@ export default function Page() {
       <Suspense fallback={null}>
         <CalculatorPage variant='etsy-profit-calculator' />
       </Suspense>
+      <section className="bg-[#F7F8FA] py-10 sm:py-14">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6">
+          <div className="rounded-2xl bg-white p-6 text-slate-800 shadow-sm ring-1 ring-slate-200 sm:p-10">
+            <h2 className="text-2xl font-semibold text-[#2F3A56]">How the Etsy Profit Calculator Works</h2>
+            <p className="mt-4 leading-7">
+              This calculator estimates what you keep after Etsy fees, cost of goods, and shipping. Profit margin is then calculated by dividing
+              net profit by revenue.
+            </p>
+
+            <div className="mt-6 rounded-lg bg-slate-50 px-4 py-3 text-sm font-medium text-[#2F3A56] sm:text-base">
+              Net Profit = Revenue - Etsy fees - Cost of goods - Shipping cost
+              <br />
+              Profit Margin = Net Profit / Revenue
+            </div>
+
+            <h3 className="mt-8 text-lg font-semibold text-[#2F3A56]">What this calculator uses</h3>
+            <ul className="mt-3 list-disc space-y-2 pl-5 leading-7">
+              <li>item price</li>
+              <li>quantity</li>
+              <li>shipping charged</li>
+              <li>cost of goods per unit</li>
+              <li>shipping cost</li>
+              <li>seller region fee preset</li>
+              <li>optional Offsite Ads</li>
+            </ul>
+
+            <h3 className="mt-8 text-lg font-semibold text-[#2F3A56]">Example Profit Calculation</h3>
+            <p className="mt-3 leading-7">
+              Item price: $40
+              <br />
+              Quantity: 1
+              <br />
+              Shipping charged: $5
+              <br />
+              Revenue: $45
+            </p>
+            <p className="mt-3 leading-7">
+              Estimated Etsy fees: $5
+              <br />
+              Cost of goods: $12
+              <br />
+              Shipping cost: $6
+            </p>
+            <p className="mt-3 leading-7">
+              Net profit: $22
+              <br />
+              Profit margin: 48.9%
+            </p>
+            <p className="mt-3 text-sm leading-6 text-slate-700">
+              Exact results vary by seller region preset and Offsite Ads settings.
+            </p>
+
+            <h2 className="mt-10 text-2xl font-semibold text-[#2F3A56]">Related Etsy Calculators</h2>
+            <p className="mt-3 leading-7">
+              Explore fee-only and break-even scenarios with the{" "}
+              <Link href="/etsy-fee-calculator" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                Etsy Fee Calculator
+              </Link>{" "}
+              and the{" "}
+              <Link
+                href="/etsy-break-even-calculator"
+                className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2"
+              >
+                Etsy Break-even Calculator
+              </Link>
+              .
+            </p>
+          </div>
+        </div>
+      </section>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
