@@ -132,63 +132,81 @@ export default function Page() {
       <Suspense fallback={null}>
         <CalculatorPage variant='etsy-fee-calculator' />
       </Suspense>
-      <section className="mx-auto max-w-5xl px-4 pb-12">
-        <div className="rounded-xl border border-white/10 bg-white/5 p-5 sm:p-6">
-            <h2 className="text-lg font-semibold text-[#EAF0FF]">How the Etsy Fee Calculator Works</h2>
-            <p className="mt-3 text-sm leading-relaxed text-[#9AA6BF]">
+      <section className="mx-auto max-w-5xl px-4 pb-14">
+        <div className="space-y-6">
+          <div className="rounded-xl border border-white/10 bg-white/5 p-6 sm:p-7">
+            <h2 className="text-2xl font-semibold text-[#EAF0FF]">How the Etsy Fee Calculator Works</h2>
+            <p className="mt-4 text-base leading-8 text-[#D6DEEE]">
               This calculator estimates Etsy selling fees using your order value, shipping charged, seller region preset, and optional Offsite Ads.
             </p>
 
-            <div className="mt-4 rounded-lg border border-white/10 bg-[#10182A]/60 px-4 py-3 text-sm font-medium text-[#EAF0FF]">
+            <div className="mt-5 rounded-lg border border-white/15 bg-[#0F172A]/80 px-5 py-4 text-base font-medium leading-8 text-[#EAF0FF]">
               Estimated Etsy Fees = Listing fee + Transaction fee + Payment processing fee + Optional Offsite Ads fee + Any applicable regional fee
             </div>
+          </div>
 
-            <h3 className="mt-6 text-sm font-medium text-[#EAF0FF]">What this calculator uses</h3>
-            <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-[#9AA6BF]">
-              <li>item price</li>
-              <li>quantity</li>
-              <li>shipping charged</li>
-              <li>seller region fee preset</li>
-              <li>Offsite Ads toggle</li>
-            </ul>
+          <div className="rounded-xl border border-white/10 bg-white/5 p-6 sm:p-7">
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="rounded-lg border border-white/10 bg-[#10182A]/60 p-5">
+                <h3 className="text-xl font-semibold text-[#EAF0FF]">What this calculator uses</h3>
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-8 text-[#D6DEEE]">
+                  <li>item price</li>
+                  <li>quantity</li>
+                  <li>shipping charged</li>
+                  <li>seller region fee preset</li>
+                  <li>Offsite Ads toggle</li>
+                </ul>
+              </div>
 
-            <h3 className="mt-6 text-sm font-medium text-[#EAF0FF]">Example Etsy Fee Calculation</h3>
-            <p className="mt-3 text-sm leading-relaxed text-[#9AA6BF]">
-              Item price: $25
-              <br />
-              Quantity: 1
-              <br />
-              Shipping charged: $0
-            </p>
-            <p className="mt-3 text-sm leading-relaxed text-[#9AA6BF]">
-              Listing fee: $0.20
-              <br />
-              Transaction fee: $1.63
-              <br />
-              Payment processing: about $1.00
-            </p>
-            <p className="mt-3 text-sm leading-relaxed text-[#9AA6BF]">
-              Estimated total Etsy fees: about $2.83
-            </p>
-            <p className="mt-3 text-sm leading-relaxed text-[#9AA6BF]">
-              Fees can vary by country-specific payment rates and whether Offsite Ads applies.
-            </p>
+              <div className="rounded-lg border border-white/10 bg-[#10182A]/60 p-5">
+                <h3 className="text-xl font-semibold text-[#EAF0FF]">Example Etsy Fee Calculation</h3>
+                <p className="mt-4 text-base leading-8 text-[#D6DEEE]">
+                  Item price: $25
+                  <br />
+                  Quantity: 1
+                  <br />
+                  Shipping charged: $0
+                </p>
+                <p className="mt-3 text-base leading-8 text-[#D6DEEE]">
+                  Listing fee: $0.20
+                  <br />
+                  Transaction fee: $1.63
+                  <br />
+                  Payment processing: about $1.00
+                </p>
+                <p className="mt-3 text-base leading-8 text-[#D6DEEE]">
+                  Estimated total Etsy fees: about $2.83
+                </p>
+                <p className="mt-3 text-base leading-8 text-[#D6DEEE]">
+                  Fees can vary by country-specific payment rates and whether Offsite Ads applies.
+                </p>
+              </div>
+            </div>
+          </div>
 
-            <h2 className="mt-8 text-lg font-semibold text-[#EAF0FF]">Related Etsy Calculators</h2>
-            <p className="mt-3 text-sm leading-relaxed text-[#9AA6BF]">
+          <div className="rounded-xl border border-white/10 bg-white/5 p-6 sm:p-7">
+            <h2 className="text-2xl font-semibold text-[#EAF0FF]">Related Etsy Calculators</h2>
+            <p className="mt-4 text-base leading-8 text-[#D6DEEE]">
               For full take-home and pricing planning, use the{" "}
-              <Link href="/etsy-profit-calculator" className="font-semibold text-[#EAF0FF] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+              calculators below.
+            </p>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              <Link
+                href="/etsy-profit-calculator"
+                className="rounded-lg border border-white/15 bg-[#10182A]/70 p-4 text-lg font-semibold text-[#EAF0FF] transition hover:bg-[#10182A]"
+              >
                 Etsy Profit Calculator
-              </Link>{" "}
-              and the{" "}
+                <span className="mt-1 block text-base font-normal text-[#D6DEEE]">Calculate net profit and margin after fees.</span>
+              </Link>
               <Link
                 href="/etsy-break-even-calculator"
-                className="font-semibold text-[#EAF0FF] underline decoration-[#F4A261] decoration-2 underline-offset-2"
+                className="rounded-lg border border-white/15 bg-[#10182A]/70 p-4 text-lg font-semibold text-[#EAF0FF] transition hover:bg-[#10182A]"
               >
                 Etsy Break-even Calculator
+                <span className="mt-1 block text-base font-normal text-[#D6DEEE]">Find your minimum safe listing price.</span>
               </Link>
-              .
-            </p>
+            </div>
+          </div>
         </div>
       </section>
     </>
