@@ -132,22 +132,21 @@ export default function Page() {
       <Suspense fallback={null}>
         <CalculatorPage variant='etsy-break-even-calculator' />
       </Suspense>
-      <section className="bg-[#F7F8FA] py-10 sm:py-14">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6">
-          <div className="rounded-2xl bg-white p-6 text-slate-800 shadow-sm ring-1 ring-slate-200 sm:p-10">
-            <h2 className="text-2xl font-semibold text-[#2F3A56]">How the Etsy Break-even Calculator Works</h2>
-            <p className="mt-4 leading-7">
+      <section className="mx-auto max-w-5xl px-4 pb-12">
+        <div className="rounded-xl border border-white/10 bg-white/5 p-5 sm:p-6">
+            <h2 className="text-lg font-semibold text-[#EAF0FF]">How the Etsy Break-even Calculator Works</h2>
+            <p className="mt-3 text-sm leading-relaxed text-[#9AA6BF]">
               This calculator estimates the minimum price required to avoid losing money after Etsy fees, cost of goods, and shipping.
             </p>
 
-            <div className="mt-6 rounded-lg bg-slate-50 px-4 py-3 text-sm font-medium text-[#2F3A56] sm:text-base">
+            <div className="mt-4 rounded-lg border border-white/10 bg-[#10182A]/60 px-4 py-3 text-sm font-medium text-[#EAF0FF]">
               Break-even Price = Total costs + Estimated Etsy fees
               <br />
               Break-even per Unit = Break-even order total / Quantity
             </div>
 
-            <h3 className="mt-8 text-lg font-semibold text-[#2F3A56]">What this calculator uses</h3>
-            <ul className="mt-3 list-disc space-y-2 pl-5 leading-7">
+            <h3 className="mt-6 text-sm font-medium text-[#EAF0FF]">What this calculator uses</h3>
+            <ul className="mt-3 list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-[#9AA6BF]">
               <li>quantity</li>
               <li>shipping charged</li>
               <li>cost of goods per unit</li>
@@ -156,8 +155,8 @@ export default function Page() {
               <li>optional Offsite Ads</li>
             </ul>
 
-            <h3 className="mt-8 text-lg font-semibold text-[#2F3A56]">Example Break-even Calculation</h3>
-            <p className="mt-3 leading-7">
+            <h3 className="mt-6 text-sm font-medium text-[#EAF0FF]">Example Break-even Calculation</h3>
+            <p className="mt-3 text-sm leading-relaxed text-[#9AA6BF]">
               Quantity: 1
               <br />
               Cost of goods: $10
@@ -166,28 +165,27 @@ export default function Page() {
               <br />
               Estimated Etsy fees: $4
             </p>
-            <p className="mt-3 leading-7">
+            <p className="mt-3 text-sm leading-relaxed text-[#9AA6BF]">
               Break-even order total: $19
               <br />
               Break-even price per unit: $19
             </p>
-            <p className="mt-3 text-sm leading-6 text-slate-700">
+            <p className="mt-3 text-sm leading-relaxed text-[#9AA6BF]">
               Exact results change with seller fee region preset, shipping inputs, and Offsite Ads settings.
             </p>
 
-            <h2 className="mt-10 text-2xl font-semibold text-[#2F3A56]">Related Etsy Calculators</h2>
-            <p className="mt-3 leading-7">
+            <h2 className="mt-8 text-lg font-semibold text-[#EAF0FF]">Related Etsy Calculators</h2>
+            <p className="mt-3 text-sm leading-relaxed text-[#9AA6BF]">
               After finding your minimum safe price, compare scenarios with the{" "}
-              <Link href="/etsy-profit-calculator" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+              <Link href="/etsy-profit-calculator" className="font-semibold text-[#EAF0FF] underline decoration-[#F4A261] decoration-2 underline-offset-2">
                 Etsy Profit Calculator
               </Link>{" "}
               and the{" "}
-              <Link href="/etsy-fee-calculator" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+              <Link href="/etsy-fee-calculator" className="font-semibold text-[#EAF0FF] underline decoration-[#F4A261] decoration-2 underline-offset-2">
                 Etsy Fee Calculator
               </Link>
               .
             </p>
-          </div>
         </div>
       </section>
     </>
