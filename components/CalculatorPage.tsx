@@ -288,6 +288,16 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
     const r = calculateOrder(inputs);
     setResult(r);
     setHasCalculated(true);
+    if (typeof window !== "undefined") {
+      const umami = (window as Window & {
+        umami?: { track: (eventName: string, data?: { calculator: string }) => void };
+      }).umami;
+      if (umami) {
+        umami.track("calculator_run", {
+          calculator: contentKey,
+        });
+      }
+    }
     track("calculator_calculate_clicked");
   };
 
