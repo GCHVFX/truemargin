@@ -313,7 +313,6 @@ export default function HomePage() {
               <span className="mini">Etsy profit tools</span>
             </div>
           </Link>
-          <div className="pill">Beta</div>
         </header>
         <div dangerouslySetInnerHTML={{ __html: LANDING_HTML }} />
       </div>
