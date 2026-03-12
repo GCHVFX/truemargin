@@ -28,6 +28,7 @@ export function getCalculatorConfig(
   if (REGISTRY[normalized]) return REGISTRY[normalized];
 
   // Fallback: derive from path segments
+  if (v.includes("pricing")) return REGISTRY["etsy-pricing-calculator"] ?? null;
   if (v.includes("fee")) return REGISTRY["etsy-fee-calculator"] ?? null;
   if (v.includes("break")) return REGISTRY["etsy-break-even-calculator"] ?? null;
   if (v.includes("profit")) return REGISTRY["etsy-profit-calculator"] ?? null;

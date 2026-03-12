@@ -28,6 +28,12 @@ const ETSY_SWITCHER: SwitcherConfig = {
       label: "Break-even calculator",
       description: "find the minimum profitable price",
     },
+    {
+      key: "pricing",
+      href: "/etsy-pricing-calculator",
+      label: "Pricing calculator",
+      description: "set Etsy price for your target margin",
+    },
   ],
 };
 
@@ -55,6 +61,14 @@ export const ETSY_CALCULATOR_CONFIGS: Record<string, CalculatorConfig> = {
     contentKey: "break-even",
     content: getCalculatorContent("break-even"),
     resultOrder: ["breakEven", "fee", "summary"],
+    switcher: ETSY_SWITCHER,
+  },
+  "etsy-pricing-calculator": {
+    id: "etsy-pricing-calculator",
+    marketplace: "etsy",
+    contentKey: "pricing",
+    content: getCalculatorContent("pricing"),
+    resultOrder: ["summary", "fee"],
     switcher: ETSY_SWITCHER,
   },
 };

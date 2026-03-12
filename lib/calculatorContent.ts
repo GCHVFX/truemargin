@@ -3,7 +3,7 @@
  * Used by CalculatorPage and CalculatorSeoSection.
  */
 
-export type CalculatorContentKey = "profit" | "fee" | "break-even";
+export type CalculatorContentKey = "profit" | "fee" | "break-even" | "pricing";
 
 export type CalculatorContent = {
   eyebrowText: string;
@@ -158,6 +158,54 @@ const CONTENT: Record<CalculatorContentKey, CalculatorContent> = {
       ],
     },
   },
+  pricing: {
+    eyebrowText: "Etsy pricing calculator (V1): target margin with full fee clarity.",
+    heroH1: "Etsy Pricing Calculator",
+    heroH2: "Set your Etsy price to hit your target margin",
+    heroSubhead:
+      "Enter your costs and target margin, then see the recommended Etsy price with net profit, margin health, and a full fee breakdown.",
+    seoHeading: "Etsy pricing calculator",
+    seoIntro:
+      "Find the Etsy price you should charge to hit your target margin after fees, cost of goods, and shipping. Use it to price with confidence before you list.",
+    includes: [
+      "Recommended Etsy price based on your target margin and selected seller region.",
+      "Estimated net profit and margin at the recommended price.",
+      "Full fee breakdown including listing, transaction, processing, and optional Offsite Ads.",
+      "Margin health indicator so you can quickly judge pricing strength.",
+    ],
+    howTo: [
+      "Enter your cost of goods and your shipping cost.",
+      "Set your target margin percentage.",
+      "Choose seller region and toggle Offsite Ads if needed.",
+      "Review the recommended Etsy price and fee breakdown instantly.",
+    ],
+    faqs: [
+      {
+        q: "How is the recommended Etsy price calculated?",
+        a: "The calculator solves for the sale price needed to hit your target margin after Etsy fees, cost of goods, and shipping cost.",
+      },
+      {
+        q: "Does this include Etsy payment processing and listing fees?",
+        a: "Yes. It includes listing fee, transaction fee, payment processing, and optional Offsite Ads based on your selected seller region preset.",
+      },
+      {
+        q: "What if I turn on Offsite Ads?",
+        a: "The calculator includes the Offsite Ads fee in the math, which usually raises the recommended Etsy price needed to keep your target margin.",
+      },
+      {
+        q: "Can I use this for different countries?",
+        a: "Yes. Select your seller region to apply region-based fee presets so your recommended price stays realistic.",
+      },
+    ],
+    supportBlock: {
+      heading: "How target-margin Etsy pricing works",
+      paragraphs: [
+        "Target-margin pricing starts with the margin you want to keep, then solves backward for the sale price required after Etsy fees and costs.",
+        "The calculator includes listing fees, transaction fees, payment processing, and optional Offsite Ads, plus your cost of goods and shipping cost.",
+        "This gives you a clear recommended Etsy price so you can avoid guesswork and protect profit before publishing a listing.",
+      ],
+    },
+  },
 };
 
 /** Maps variant/pathname to content key */
@@ -166,6 +214,7 @@ export function getCalculatorContentKey(
   pathname: string
 ): CalculatorContentKey {
   const v = (variant || pathname || "").toLowerCase();
+  if (v.includes("pricing")) return "pricing";
   if (v.includes("fee")) return "fee";
   if (v.includes("break")) return "break-even";
   return "profit";

@@ -30,6 +30,7 @@ const ETSY_ITEMS: SwitcherConfig = {
     { key: "profit", href: "/etsy-profit-calculator", label: "Profit calculator", description: "calculate real profit after Etsy fees" },
     { key: "fee", href: "/etsy-fee-calculator", label: "Fee calculator", description: "estimate Etsy fees per order" },
     { key: "break-even", href: "/etsy-break-even-calculator", label: "Break-even calculator", description: "find the minimum profitable price" },
+    { key: "pricing", href: "/etsy-pricing-calculator", label: "Pricing calculator", description: "set Etsy price for your target margin" },
   ],
 };
 
@@ -38,7 +39,7 @@ export function CalculatorSwitcher({
   dark = false,
   switcher = ETSY_ITEMS,
 }: {
-  current: "profit" | "fee" | "break-even";
+  current: "profit" | "fee" | "break-even" | "pricing";
   dark?: boolean;
   /** Config-driven switcher. Defaults to Etsy when omitted for backwards compatibility. */
   switcher?: SwitcherConfig;

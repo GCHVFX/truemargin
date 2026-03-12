@@ -11,7 +11,7 @@ import {
   type SellerRegion,
   defaultCurrencyForRegion,
 } from "@/lib/fees";
-import { calculateOrder } from "@/lib/feeEngine";
+import { calculateOrder, calculateTargetMarginItemPrice } from "@/lib/feeEngine";
 import { getMarginHealthTier, CALC_LABELS } from "@/lib/calculatorHelpers";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { CalculatorSwitcher } from "@/components/CalculatorSwitcher";
@@ -31,7 +31,12 @@ const fmt = (currency: Currency) =>
     maximumFractionDigits: 2,
   });
 
-export type CalculatorPageVariant = "home" | "etsy-profit-calculator" | "etsy-fee-calculator" | "etsy-break-even-calculator";
+export type CalculatorPageVariant =
+  | "home"
+  | "etsy-profit-calculator"
+  | "etsy-fee-calculator"
+  | "etsy-break-even-calculator"
+  | "etsy-pricing-calculator";
 
 export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageVariant }) {
   
@@ -46,10 +51,11 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
 
   const isFee = v.includes("fee");
   const isBreakEven = v.includes("break");
-  const isProfit = v.includes("profit") || (!isFee && !isBreakEven);
+  const isPricing = v.includes("pricing");
+  const isProfit = v.includes("profit") || (!isFee && !isBreakEven && !isPricing);
 
   const config = getCalculatorConfig(vRaw || pathname);
-  const contentKey = config?.contentKey ?? (isFee ? "fee" : isBreakEven ? "break-even" : "profit");
+  const contentKey = config?.contentKey ?? (isPricing ? "pricing" : isFee ? "fee" : isBreakEven ? "break-even" : "profit");
   const content = config?.content ?? getCalculatorContent(contentKey);
   const seoContent =
     "seoContent" in content && content.seoContent ? content.seoContent : getSeoContent(contentKey);
@@ -59,6 +65,49 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
   }, [vRaw, pathname, contentKey]);
 
   const logicContent = React.useMemo(() => {
+    if (isPricing) {
+      return {
+        heading: "How the Etsy Pricing Calculator Works",
+        intro:
+          "This calculator solves backwards for the Etsy sale price needed to hit your target margin after fees, cost of goods, and shipping cost.",
+        formulaLines: [
+          "Required Price = (Fixed costs + Etsy fixed fees) / (1 - variable Etsy fee % - target margin)",
+        ],
+        uses: [
+          "cost of goods per unit",
+          "your shipping cost",
+          "target margin",
+          "seller region fee preset",
+          "optional Offsite Ads",
+        ],
+        exampleTitle: "Example Target-Margin Pricing",
+        exampleBlocks: [
+          ["Cost of goods: $12", "Shipping cost: $5", "Target margin: 30%"],
+          ["Estimated Etsy fee profile: ~9.75% + fixed fees", "Recommended Etsy price: about $29.50"],
+          ["Estimated net profit: about $8.85", "Estimated margin: 30%"],
+          ["Exact results change with region fee presets and Offsite Ads settings."],
+        ],
+        relatedIntro: "Compare your price target with full profit and fee scenarios below.",
+        related: [
+          {
+            href: "/etsy-profit-calculator",
+            title: "Etsy Profit Calculator",
+            description: "Validate net profit at any sale price.",
+          },
+          {
+            href: "/etsy-fee-calculator",
+            title: "Etsy Fee Calculator",
+            description: "Estimate total Etsy fees for one order.",
+          },
+          {
+            href: "/etsy-break-even-calculator",
+            title: "Etsy Break-even Calculator",
+            description: "Find your minimum safe price floor.",
+          },
+        ],
+      };
+    }
+
     if (isFee) {
       return {
         heading: "How the Etsy Fee Calculator Works",
@@ -86,6 +135,11 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
             href: "/etsy-break-even-calculator",
             title: "Etsy Break-even Calculator",
             description: "Find your minimum safe listing price.",
+          },
+          {
+            href: "/etsy-pricing-calculator",
+            title: "Etsy Pricing Calculator",
+            description: "Set price for your target margin.",
           },
         ],
       };
@@ -125,6 +179,11 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
             href: "/etsy-fee-calculator",
             title: "Etsy Fee Calculator",
             description: "Estimate fee totals for any order value.",
+          },
+          {
+            href: "/etsy-pricing-calculator",
+            title: "Etsy Pricing Calculator",
+            description: "Set price for your target margin goal.",
           },
         ],
       };
@@ -166,9 +225,14 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
           title: "Etsy Break-even Calculator",
           description: "Find the minimum safe price per unit.",
         },
+        {
+          href: "/etsy-pricing-calculator",
+          title: "Etsy Pricing Calculator",
+          description: "Find price needed for target margin.",
+        },
       ],
     };
-  }, [isFee, isBreakEven]);
+  }, [isFee, isBreakEven, isPricing]);
 // Region drives fee rules (and defaults currency)
   const [region, setRegion] = React.useState<SellerRegion>("US");
   const [currency, setCurrency] = React.useState<Currency>(() => defaultCurrencyForRegion("US"));
@@ -188,6 +252,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
   // Optional tax estimate (V1 preview)
   const [includeTaxEstimate, setIncludeTaxEstimate] = React.useState<boolean>(false);
   const [taxRatePct, setTaxRatePct] = React.useState<string>("25");
+  const [targetMarginPct, setTargetMarginPct] = React.useState<string>("30");
 
   // Preset for current seller region
   const preset = REGION_PRESETS[region];
@@ -218,6 +283,8 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
     const offsite = p.get("offsiteAds");
     if (offsite === "true") setIncludeOffsiteAds(true);
     else if (offsite === "false") setIncludeOffsiteAds(false);
+    const targetMargin = p.get("targetMargin");
+    if (targetMargin != null) setTargetMarginPct(targetMargin);
   }, [searchParams]);
 
   const skipNextUrlWrite = React.useRef(true);
@@ -234,10 +301,11 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
     params.set("shippingCost", yourShippingCost);
     params.set("region", region);
     params.set("offsiteAds", String(includeOffsiteAds));
+    if (isPricing) params.set("targetMargin", targetMarginPct);
     const query = params.toString();
     const newUrl = query ? `${pathname}?${query}` : pathname;
     router.replace(newUrl, { scroll: false });
-  }, [pathname, router, itemPrice, quantity, shippingCharged, cogsPerUnit, yourShippingCost, region, includeOffsiteAds]);
+  }, [pathname, router, itemPrice, quantity, shippingCharged, cogsPerUnit, yourShippingCost, region, includeOffsiteAds, targetMarginPct, isPricing]);
 
   // When region changes:
   // - reset fee defaults to that region's preset
@@ -267,7 +335,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
   };
 
   const onCalculate = () => {
-    const inputs: FeeInputs = {
+    const baseInputs: FeeInputs = {
       currency,
       itemPrice: clampNonNeg(parseNumber(itemPrice)),
       quantity: Math.max(1, Math.floor(clampNonNeg(parseNumber(quantity)) || 1)),
@@ -284,6 +352,18 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
       regulatoryFeePct: clampNonNeg(parseNumber(regulatoryFeePct)) / 100,
       offsiteAdsPct: clampNonNeg(parseNumber(offsiteAdsPct)) / 100,
     };
+
+    const inputs: FeeInputs = isPricing
+      ? {
+          ...baseInputs,
+          quantity: 1,
+          shippingCharged: 0,
+          itemPrice: calculateTargetMarginItemPrice(
+            { ...baseInputs, quantity: 1, shippingCharged: 0, itemPrice: 0 },
+            clampNonNeg(parseNumber(targetMarginPct)) / 100
+          ) ?? 0,
+        }
+      : baseInputs;
 
     const r = calculateOrder(inputs);
     setResult(r);
@@ -312,6 +392,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
     setShowAdvanced(false);
     setIncludeTaxEstimate(false);
     setTaxRatePct("25");
+    setTargetMarginPct("30");
     setHasCalculated(false);
     setResult(null);
 
@@ -343,7 +424,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
     const lines = [
       "Etsy Calculator Results",
       "—",
-      `Item price: ${currencyFmt.format(itemSubtotal)}`,
+      `${isPricing ? "Recommended Etsy price" : "Item price"}: ${currencyFmt.format(itemSubtotal)}`,
       `${CALC_LABELS.SHIPPING_CHARGED_TO_BUYER}: ${currencyFmt.format(clampNonNeg(parseNumber(shippingCharged)))}`,
       `Net profit: ${currencyFmt.format(result.netProfit)}`,
       `Margin: ${(result.marginPct * 100).toFixed(2)}%`,
@@ -357,7 +438,12 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
     ];
     navigator.clipboard.writeText(lines.join("\n"));
     track("calculator_copy_results_clicked");
-  }, [result, shippingCharged, currencyFmt]);
+  }, [result, shippingCharged, currencyFmt, isPricing]);
+
+  React.useEffect(() => {
+    if (!isPricing) return;
+    onCalculate();
+  }, [isPricing, cogsPerUnit, yourShippingCost, targetMarginPct, region, includeOffsiteAds, listingFee, transactionFeePct, paymentFeePct, paymentFeeFixed, regulatoryFeePct, offsiteAdsPct]);
 
   return (
     <main className="calculator-page-bg min-h-screen text-[#EAF0FF]">
@@ -381,6 +467,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
 
         <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
           <CalculatorInputs
+            isPricing={isPricing}
             itemPrice={itemPrice}
             setItemPrice={setItemPrice}
             quantity={quantity}
@@ -399,6 +486,8 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
             setIncludeTaxEstimate={setIncludeTaxEstimate}
             taxRatePct={taxRatePct}
             setTaxRatePct={setTaxRatePct}
+            targetMarginPct={targetMarginPct}
+            setTargetMarginPct={setTargetMarginPct}
             showAdvanced={showAdvanced}
             setShowAdvanced={setShowAdvanced}
             currency={currency}
@@ -427,6 +516,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
             isProfit={isProfit}
             isFee={isFee}
             isBreakEven={isBreakEven}
+            isPricing={isPricing}
             resultOrder={config?.resultOrder}
             currency={currency}
             taxRatePct={taxRatePct}
@@ -545,6 +635,33 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
                   <span className="mt-1 block text-base leading-relaxed font-normal text-[#D6DEEE]">{item.description}</span>
                 </Link>
               ))}
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-white/5 p-6 sm:p-7">
+            <h3 className="text-xl md:text-2xl font-semibold text-[#EAF0FF]">Related Etsy Guides</h3>
+            <p className="mt-4 text-base leading-relaxed text-[#D6DEEE]">
+              Prefer a quick explanation before you run numbers? These guides break down how Etsy fees work and what sellers usually miss.
+            </p>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              <Link
+                href="/how-much-does-etsy-take"
+                className="rounded-lg border border-white/15 bg-[#10182A]/70 p-4 text-lg md:text-xl font-semibold text-[#EAF0FF] transition hover:bg-[#10182A]"
+              >
+                How Much Does Etsy Take Per Sale?
+                <span className="mt-1 block text-base leading-relaxed font-normal text-[#D6DEEE]">
+                  Get a direct answer with practical fee ranges and examples.
+                </span>
+              </Link>
+              <Link
+                href="/etsy-fees-explained"
+                className="rounded-lg border border-white/15 bg-[#10182A]/70 p-4 text-lg md:text-xl font-semibold text-[#EAF0FF] transition hover:bg-[#10182A]"
+              >
+                Etsy Fees Explained (Full 2026 Breakdown)
+                <span className="mt-1 block text-base leading-relaxed font-normal text-[#D6DEEE]">
+                  Understand each Etsy fee type and how it affects take-home profit.
+                </span>
+              </Link>
             </div>
           </div>
         </div>

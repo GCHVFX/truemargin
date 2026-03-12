@@ -5,9 +5,9 @@ import { Logo } from "@/components/Logo";
 import { WaitlistMount } from "@/components/WaitlistMount";
 
 export const metadata: Metadata = {
-  title: "TrueMargin | Etsy Profit & Fee Calculators",
+  title: "TrueMargin | Etsy Seller Calculators",
   description:
-    "Free Etsy profit, fee, and break-even calculators built for sellers who want accurate margins and clear pricing decisions."
+    "Free Etsy profit, fee, break-even, and pricing calculators built for sellers who want accurate margins and clear pricing decisions."
 };
 
 const LANDING_HTML = `<main class="grid">
@@ -23,6 +23,7 @@ const LANDING_HTML = `<main class="grid">
             <a class="btn btnPrimary" href="/etsy-profit-calculator">Use the Etsy Profit Calculator</a>
             <a class="btn" href="/etsy-fee-calculator">Use the Etsy Fee Calculator</a>
             <a class="btn" href="/etsy-break-even-calculator">Use the Etsy Break-even Calculator</a>
+            <a class="btn" href="/etsy-pricing-calculator">Use the Etsy Pricing Calculator</a>
           </div>
           <p class="mini" style="margin-top: 8px;">
             Prefer to start now? The calculators are free and work without an account.
@@ -97,6 +98,7 @@ const LANDING_HTML = `<main class="grid">
               <li>Etsy Profit Calculator</li>
               <li>Etsy Fee Calculator</li>
               <li>Etsy Break-even Calculator</li>
+              <li>Etsy Pricing Calculator - Set your Etsy price to hit your target margin</li>
             </ul>
           </div>
         </aside>
@@ -310,7 +312,7 @@ export default function HomePage() {
             <div>
               <b>TrueMargin</b>
               <br />
-              <span className="mini">Etsy profit tools</span>
+              <span className="mini">Etsy calculator tools</span>
             </div>
           </Link>
         </header>

@@ -13,6 +13,7 @@ import { CALC_LABELS } from "@/lib/calculatorHelpers";
 import { CalculatorAdvancedFields } from "@/components/CalculatorAdvancedFields";
 
 export type CalculatorInputsProps = {
+  isPricing?: boolean;
   itemPrice: string;
   setItemPrice: (v: string) => void;
   quantity: string;
@@ -31,6 +32,8 @@ export type CalculatorInputsProps = {
   setIncludeTaxEstimate: (v: boolean) => void;
   taxRatePct: string;
   setTaxRatePct: (v: string) => void;
+  targetMarginPct?: string;
+  setTargetMarginPct?: (v: string) => void;
   showAdvanced: boolean;
   setShowAdvanced: (v: boolean) => void;
   currency: Currency;
@@ -58,6 +61,7 @@ export type CalculatorInputsProps = {
 
 export function CalculatorInputs(props: CalculatorInputsProps) {
   const {
+    isPricing = false,
     itemPrice,
     setItemPrice,
     quantity,
@@ -76,6 +80,8 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
     setIncludeTaxEstimate,
     taxRatePct,
     setTaxRatePct,
+    targetMarginPct = "",
+    setTargetMarginPct,
     showAdvanced,
     setShowAdvanced,
     currency,
@@ -111,29 +117,33 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
 
       <CardContent className="space-y-6">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          <div>
-            <Label htmlFor="itemPrice">Item price</Label>
-            <Input
-              id="itemPrice"
-              inputMode="decimal"
-              placeholder="0.00"
-              value={itemPrice}
-              onChange={(e) => setItemPrice(e.target.value)}
-              className="mt-2 h-11"
-            />
-          </div>
+          {!isPricing && (
+            <>
+              <div>
+                <Label htmlFor="itemPrice">Item price</Label>
+                <Input
+                  id="itemPrice"
+                  inputMode="decimal"
+                  placeholder="0.00"
+                  value={itemPrice}
+                  onChange={(e) => setItemPrice(e.target.value)}
+                  className="mt-2 h-11"
+                />
+              </div>
 
-          <div>
-            <Label htmlFor="quantity">Quantity</Label>
-            <Input
-              id="quantity"
-              inputMode="numeric"
-              placeholder="1"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              className="mt-2 h-11"
-            />
-          </div>
+              <div>
+                <Label htmlFor="quantity">Quantity</Label>
+                <Input
+                  id="quantity"
+                  inputMode="numeric"
+                  placeholder="1"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                  className="mt-2 h-11"
+                />
+              </div>
+            </>
+          )}
 
           <div>
             <Label htmlFor="region">Seller region</Label>
@@ -158,18 +168,6 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
-            <Label htmlFor="shippingCharged">{CALC_LABELS.SHIPPING_CHARGED_TO_BUYER}</Label>
-            <Input
-              id="shippingCharged"
-              inputMode="decimal"
-              placeholder="0.00"
-              value={shippingCharged}
-              onChange={(e) => setShippingCharged(e.target.value)}
-              className="mt-2 h-11"
-            />
-          </div>
-
-          <div>
             <Label htmlFor="cogsPerUnit">{CALC_LABELS.COST_OF_GOODS_PER_UNIT}</Label>
             <Input
               id="cogsPerUnit"
@@ -193,6 +191,34 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
             />
           </div>
 
+          {isPricing && (
+            <div>
+              <Label htmlFor="targetMarginPct">Target margin (%)</Label>
+              <Input
+                id="targetMarginPct"
+                inputMode="decimal"
+                placeholder="30"
+                value={targetMarginPct}
+                onChange={(e) => setTargetMarginPct?.(e.target.value)}
+                className="mt-2 h-11"
+              />
+            </div>
+          )}
+
+          {!isPricing && (
+            <div>
+              <Label htmlFor="shippingCharged">{CALC_LABELS.SHIPPING_CHARGED_TO_BUYER}</Label>
+              <Input
+                id="shippingCharged"
+                inputMode="decimal"
+                placeholder="0.00"
+                value={shippingCharged}
+                onChange={(e) => setShippingCharged(e.target.value)}
+                className="mt-2 h-11"
+              />
+            </div>
+          )}
+
           <div className="flex items-center justify-between rounded-lg border p-4">
             <div className="space-y-1">
               <div className="flex items-center gap-2">
@@ -213,33 +239,35 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <div className="flex items-center justify-between rounded-lg border p-4">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <Label htmlFor="taxEstimate" className="cursor-pointer">
-                  Include income tax estimate
-                </Label>
-                <span className="text-xs text-muted-foreground">(optional preview)</span>
+        {!isPricing && (
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="flex items-center justify-between rounded-lg border p-4">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <Label htmlFor="taxEstimate" className="cursor-pointer">
+                    Include income tax estimate
+                  </Label>
+                  <span className="text-xs text-muted-foreground">(optional preview)</span>
+                </div>
               </div>
+              <Switch id="taxEstimate" checked={includeTaxEstimate} onCheckedChange={setIncludeTaxEstimate} />
             </div>
-            <Switch id="taxEstimate" checked={includeTaxEstimate} onCheckedChange={setIncludeTaxEstimate} />
-          </div>
 
-          <div>
-            <Label htmlFor="taxRatePct">Estimated tax rate (%)</Label>
-            <Input
-              id="taxRatePct"
-              inputMode="decimal"
-              placeholder="25"
-              value={taxRatePct}
-              onChange={(e) => setTaxRatePct(e.target.value)}
-              className="mt-2 h-11"
-              disabled={!includeTaxEstimate}
-            />
-            <p className="mt-2 text-xs text-muted-foreground">Applied to net profit only (no deductions modelled).</p>
+            <div>
+              <Label htmlFor="taxRatePct">Estimated tax rate (%)</Label>
+              <Input
+                id="taxRatePct"
+                inputMode="decimal"
+                placeholder="25"
+                value={taxRatePct}
+                onChange={(e) => setTaxRatePct(e.target.value)}
+                className="mt-2 h-11"
+                disabled={!includeTaxEstimate}
+              />
+              <p className="mt-2 text-xs text-muted-foreground">Applied to net profit only (no deductions modelled).</p>
+            </div>
           </div>
-        </div>
+        )}
 
         <Separator />
 
@@ -274,7 +302,7 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
 
         <div className="flex flex-col gap-3 sm:flex-row">
           <Button onClick={onCalculate} className="h-11">
-            Calculate My True Margin
+            {isPricing ? "Update Recommended Price" : "Calculate My True Margin"}
           </Button>
           <Button variant="secondary" onClick={onReset} className="h-11">
             Reset

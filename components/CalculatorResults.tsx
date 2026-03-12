@@ -24,6 +24,7 @@ export type CalculatorResultsProps = {
   isProfit: boolean;
   isFee: boolean;
   isBreakEven: boolean;
+  isPricing?: boolean;
   /** Config-driven result block order. When provided, overrides isProfit/isFee/isBreakEven ordering. */
   resultOrder?: ResultBlockKey[];
   includeTaxEstimate: boolean;
@@ -40,6 +41,7 @@ export function CalculatorResults({
   isProfit,
   isFee,
   isBreakEven,
+  isPricing = false,
   resultOrder,
   includeTaxEstimate,
   taxRatePct,
@@ -63,6 +65,15 @@ export function CalculatorResults({
           </div>
         ) : (
           <>
+            {isPricing && (
+              <div className="rounded-lg border p-4">
+                <div className="text-xs text-muted-foreground">Recommended Etsy price</div>
+                <div className="mt-1 text-2xl font-semibold">{currencyFmt.format(result.orderRevenue)}</div>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  This is the sale price estimated to hit your target margin.
+                </p>
+              </div>
+            )}
             <Button
               variant="secondary"
               size="sm"
