@@ -12,7 +12,7 @@ function jsonLd() {
       "@type": "WebPage",
       "@id": CANONICAL + "#webpage",
       "name": "Etsy Break-even Calculator",
-      "description": "Find your minimum price to cover fees and costs. Get the break-even price per unit so you don't lose money on a sale.",
+      "description": "Find your minimum Etsy price to cover fees, product costs, and shipping. Get a clear break-even per-unit target.",
       "url": CANONICAL,
       "isPartOf": {
         "@type": "WebSite",
@@ -35,7 +35,7 @@ function jsonLd() {
       "@id": CANONICAL + "#app",
       "name": 'Etsy Break-even Calculator',
       "url": CANONICAL,
-      "description": "Calculate the minimum item price per unit to cover Etsy fees, cost of goods, and shipping. Set a safe minimum price for your listings.",
+      "description": "Find the minimum Etsy price needed to avoid losing money after listing, transaction, processing, and shipping costs.",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "All",
       "offers": {
@@ -88,8 +88,9 @@ function jsonLd() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = 'Etsy Break-even Calculator (Minimum Price After Fees) | TrueMargin';
-  const description = 'Calculate the minimum Etsy item price needed to cover fees, cost of goods, and shipping. Get your break-even price instantly.';
+  const title = "Etsy Break Even Calculator - Minimum Etsy Price";
+  const description =
+    "Find your minimum Etsy price after fees, cost of goods, and shipping. Use it to set a safer floor before listing.";
 
   return {
     title,

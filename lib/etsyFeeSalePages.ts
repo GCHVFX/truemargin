@@ -84,8 +84,8 @@ export function getEtsyFeeSaleScenario(amount: number): FeeSaleScenario {
   const estimatedKeepWithOffsiteBeforeCosts = round2(amount - withOffsiteAdsEstimate);
 
   const h1 = `Etsy Fees on a $${amount} Sale`;
-  const title = `${h1} (Seller Fee Breakdown) | TrueMargin`;
-  const metaDescription = `How much does Etsy take on a $${amount} sale? See listing, transaction, and processing fee estimates, plus what you may keep before costs.`;
+  const title = `Etsy Fees on a $${amount} Sale - Full Breakdown`;
+  const metaDescription = `See exactly how much Etsy takes from a $${amount} sale including listing, transaction and payment fees.`;
 
   return {
     amount,

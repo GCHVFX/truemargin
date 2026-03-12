@@ -10,9 +10,9 @@ function jsonLd() {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "@id": `${CANONICAL}#webpage`,
-      name: "Etsy Fees Explained (Full 2026 Breakdown)",
+      name: "Etsy Fees Explained - Listing, Transaction and Payment Fees",
       description:
-        "A practical Etsy fee guide for sellers. Understand listing, transaction, processing, regulatory, and offsite ad fees with real sale examples.",
+        "See the full breakdown of Etsy listing fees, transaction fees, payment processing costs, regulatory fees, and Offsite Ads.",
       url: CANONICAL,
       isPartOf: {
         "@type": "WebSite",
@@ -57,9 +57,9 @@ function jsonLd() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = "Etsy Fees Explained (Full 2026 Breakdown) | TrueMargin";
+  const title = "Etsy Fees Explained - Listing, Transaction and Payment Fees";
   const description =
-    "Understand Etsy fees clearly in 2026: listing, transaction, processing, regulatory, and offsite ads. See practical sale examples and calculate exact fees.";
+    "See the full breakdown of Etsy listing fees, transaction fees, payment processing costs, and Offsite Ads in one practical guide.";
 
   return {
     title,

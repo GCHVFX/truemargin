@@ -12,7 +12,7 @@ function jsonLd() {
       "@type": "WebPage",
       "@id": CANONICAL + "#webpage",
       "name": "Etsy Fee Calculator",
-      "description": "See exactly how much Etsy takes per order. Estimate listing, transaction, payment processing, offsite ads, and shipping fees with a clear breakdown.",
+      "description": "See exactly what Etsy takes per sale. Estimate listing, transaction, payment processing, and optional Offsite Ads fees.",
       "url": CANONICAL,
       "isPartOf": {
         "@type": "WebSite",
@@ -35,7 +35,7 @@ function jsonLd() {
       "@id": CANONICAL + "#app",
       "name": 'Etsy Fee Calculator',
       "url": CANONICAL,
-      "description": "Estimate total Etsy fees per order: listing, transaction, payment processing, offsite ads, and shipping. See the fee breakdown instantly.",
+      "description": "Calculate exactly how much Etsy takes from each sale including listing, transaction, processing, and optional ad fees.",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "All",
       "offers": {
@@ -88,8 +88,9 @@ function jsonLd() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = 'Etsy Fee Calculator (How Much Etsy Takes) | TrueMargin';
-  const description = 'Estimate Etsy fees per order with a clear breakdown: listing, transaction, processing, offsite ads, and shipping. See total fees instantly.';
+  const title = "Etsy Fee Calculator - See What Etsy Takes";
+  const description =
+    "Calculate exactly how much Etsy takes from each sale including listing fees, transaction fees, payment processing, and optional ad fees.";
 
   return {
     title,

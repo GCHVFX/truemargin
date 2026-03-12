@@ -12,7 +12,7 @@ function jsonLd() {
       "@type": "WebPage",
       "@id": CANONICAL + "#webpage",
       "name": "Etsy Profit Calculator",
-      "description": "Calculate real Etsy profit per order after fees, cost of goods, and shipping. See net profit, margin, and a full fee breakdown instantly.",
+      "description": "Calculate Etsy profit after fees, shipping, and costs. See net profit, margin, and a full fee breakdown per order.",
       "url": CANONICAL,
       "isPartOf": {
         "@type": "WebSite",
@@ -32,11 +32,12 @@ function jsonLd() {
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
+      "@id": CANONICAL + "#app",
       "name": "Etsy Profit Calculator",
       "url": CANONICAL,
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Any",
-      "description": "Calculate your real Etsy profit after fees, shipping, and costs. Instantly see what you keep from every order.",
+      "description": "Calculate Etsy profit after listing, transaction, processing, and optional ad fees. See exactly what you keep from each sale.",
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -93,48 +94,10 @@ function jsonLd() {
   return JSON.stringify(data);
 }
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "How much does Etsy take per sale?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Etsy fees can include listing fees, transaction fees, payment processing fees, and optional Offsite Ads fees depending on the order."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does this Etsy profit calculator include shipping?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. You can include both shipping charged to the buyer and your own shipping cost to estimate real profit more accurately."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does this calculator include Offsite Ads?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. You can toggle Offsite Ads on or off to see how Etsy ad fees affect your profit margin."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is a healthy Etsy profit margin?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "It depends on the product, but many sellers aim for a margin that leaves room for fees, refunds, promotions, and rising costs."
-      }
-    }
-  ]
-};
-
 export async function generateMetadata(): Promise<Metadata> {
-  const title = 'Etsy Profit Calculator (What You Keep After Fees) | TrueMargin';
-  const description = 'Calculate Etsy profit and margin per order after listing, transaction, processing, offsite ads, and shipping. See a clear fee breakdown instantly.';
+  const title = "Etsy Profit Calculator (2026) - Profit After Fees";
+  const description =
+    "Calculate Etsy profit after listing fees, transaction fees, payment processing, shipping, and costs. See net profit and margin clearly.";
 
   return {
     title,
@@ -176,10 +139,6 @@ export default function Page() {
       <Suspense fallback={null}>
         <CalculatorPage variant='etsy-profit-calculator' />
       </Suspense>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
     </>
   );
 }

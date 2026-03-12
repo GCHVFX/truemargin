@@ -50,9 +50,12 @@ const LANDING_HTML = `<main class="grid">
                 <p>Quick USD and CAD conversion so you can price across markets.</p>
               </div>
             </div>
-            <p class="mini" style="margin-top: 10px;">
-              New to Etsy fees? <a href="/etsy-fees-explained" style="text-decoration:underline;">See the full Etsy fee breakdown</a>.
-            </p>
+            <div style="margin-top: 10px;">
+              <p class="mini" style="font-weight:600;">New to Etsy fees?</p>
+              <p class="mini" style="margin-top:4px;">
+                <a href="/etsy-fees-explained" style="text-decoration:underline;">See the full Etsy fee breakdown</a>
+              </p>
+            </div>
           </div>
 
           <div class="section" id="waitlist-card">

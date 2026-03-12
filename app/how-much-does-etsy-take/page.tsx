@@ -10,9 +10,9 @@ function jsonLd() {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "@id": `${CANONICAL}#webpage`,
-      name: "How Much Does Etsy Take Per Sale?",
+      name: "How Much Does Etsy Take? (Full Fee Breakdown)",
       description:
-        "How much Etsy takes per sale depends on listing fees, transaction fees, payment processing, and optional Offsite Ads. See practical examples and calculate your exact numbers.",
+        "How much Etsy takes depends on listing, transaction, processing, and optional ad fees. See clear examples and practical fee ranges.",
       url: CANONICAL,
       isPartOf: {
         "@type": "WebSite",
@@ -57,9 +57,9 @@ function jsonLd() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = "How Much Does Etsy Take Per Sale? (Full Fee Breakdown) | TrueMargin";
+  const title = "How Much Does Etsy Take? (Full Fee Breakdown)";
   const description =
-    "How much Etsy takes per sale depends on listing, transaction, processing, and optional ad fees. See $10, $25, $50, and $100 examples and calculate your exact numbers.";
+    "Learn how much Etsy takes per sale with clear examples for common order amounts, plus a practical breakdown of each fee type.";
 
   return {
     title,

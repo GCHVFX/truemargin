@@ -13,7 +13,7 @@ function jsonLd() {
       "@id": `${CANONICAL}#webpage`,
       name: "Etsy Pricing Calculator",
       description:
-        "Find the Etsy price to charge for your target margin after fees, cost of goods, and shipping. See recommended price, net profit, and fee breakdown instantly.",
+        "Set your Etsy price for a target profit margin after fees, cost of goods, and shipping. Get a recommended price instantly.",
       url: CANONICAL,
       isPartOf: {
         "@type": "WebSite",
@@ -37,7 +37,7 @@ function jsonLd() {
       name: "Etsy Pricing Calculator",
       url: CANONICAL,
       description:
-        "Solve for the Etsy sale price required to hit your target margin after Etsy fees, cost of goods, and shipping cost.",
+        "Solve for the Etsy sale price needed to hit your target margin after Etsy listing, transaction, processing, and optional ad fees.",
       applicationCategory: "BusinessApplication",
       operatingSystem: "All",
       offers: {
@@ -90,9 +90,9 @@ function jsonLd() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = "Etsy Pricing Calculator (Price for Target Margin) | TrueMargin";
+  const title = "Etsy Pricing Calculator - Price for Target Profit";
   const description =
-    "Calculate the Etsy price you should charge to hit your target margin after fees, cost of goods, shipping, and optional Offsite Ads.";
+    "Set your Etsy price for target profit after listing fees, transaction fees, payment processing, shipping, and costs.";
 
   return {
     title,
