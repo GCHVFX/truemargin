@@ -3,9 +3,9 @@ import { EtsyFeeSalePage } from "@/components/EtsyFeeSalePage";
 import { buildEtsyFeeSaleMetadata } from "@/lib/etsyFeeSalePages";
 
 export async function generateMetadata(): Promise<Metadata> {
-  return buildEtsyFeeSaleMetadata(100);
+  return buildEtsyFeeSaleMetadata(500);
 }
 
 export default function Page() {
-  return <EtsyFeeSalePage amount={100} />;
+  return <EtsyFeeSalePage amount={500} />;
 }
