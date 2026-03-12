@@ -193,6 +193,66 @@ export default function Page() {
             </section>
 
             <section className="mt-10 space-y-4">
+              <h2 className="text-2xl font-semibold text-[#2F3A56]">Example Etsy Fee Calculations</h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <Link
+                  href="/etsy-fees-on-10-dollar-sale"
+                  className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-base font-semibold text-[#2F3A56] transition hover:bg-slate-100"
+                >
+                  Etsy fees on a $10 sale
+                  <span className="mt-1 block text-sm font-normal text-slate-700">
+                    See a practical fee breakdown for a low-ticket order.
+                  </span>
+                </Link>
+                <Link
+                  href="/etsy-fees-on-25-dollar-sale"
+                  className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-base font-semibold text-[#2F3A56] transition hover:bg-slate-100"
+                >
+                  Etsy fees on a $25 sale
+                  <span className="mt-1 block text-sm font-normal text-slate-700">
+                    Review a common mid-range example with estimated fee totals.
+                  </span>
+                </Link>
+                <Link
+                  href="/etsy-fees-on-50-dollar-sale"
+                  className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-base font-semibold text-[#2F3A56] transition hover:bg-slate-100"
+                >
+                  Etsy fees on a $50 sale
+                  <span className="mt-1 block text-sm font-normal text-slate-700">
+                    Understand how fee dollars scale as order value grows.
+                  </span>
+                </Link>
+                <Link
+                  href="/etsy-fees-on-100-dollar-sale"
+                  className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-base font-semibold text-[#2F3A56] transition hover:bg-slate-100"
+                >
+                  Etsy fees on a $100 sale
+                  <span className="mt-1 block text-sm font-normal text-slate-700">
+                    Check a higher-value example and expected payout range.
+                  </span>
+                </Link>
+                <Link
+                  href="/etsy-fees-on-250-dollar-sale"
+                  className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-base font-semibold text-[#2F3A56] transition hover:bg-slate-100"
+                >
+                  Etsy fees on a $250 sale
+                  <span className="mt-1 block text-sm font-normal text-slate-700">
+                    See why fee dollars become significant on larger orders.
+                  </span>
+                </Link>
+                <Link
+                  href="/etsy-fees-on-500-dollar-sale"
+                  className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-base font-semibold text-[#2F3A56] transition hover:bg-slate-100"
+                >
+                  Etsy fees on a $500 sale
+                  <span className="mt-1 block text-sm font-normal text-slate-700">
+                    Review a high-ticket fee example before setting price targets.
+                  </span>
+                </Link>
+              </div>
+            </section>
+
+            <section className="mt-10 space-y-4">
               <h2 className="text-2xl font-semibold text-[#2F3A56]">Why Etsy Fees Are Often Underestimated</h2>
               <p className="leading-7">
                 Many sellers price from product cost and forget that Etsy fees are layered. Transaction and processing fees scale with order value,

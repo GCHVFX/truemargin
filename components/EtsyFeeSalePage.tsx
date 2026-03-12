@@ -88,6 +88,19 @@ export function EtsyFeeSalePage({ amount }: { amount: number }) {
               </div>
             </section>
 
+            <section className="mt-10 rounded-xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
+              <h2 className="text-2xl font-semibold text-[#2F3A56]">Learn how Etsy fees work</h2>
+              <p className="mt-3 leading-7">
+                Want the full breakdown of Etsy listing fees, transaction fees, payment processing and offsite ads?
+              </p>
+              <Link
+                href="/etsy-fees-explained"
+                className="mt-4 inline-flex items-center rounded-md bg-[#2F3A56] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
+              >
+                Read the full Etsy Fees Explained guide
+              </Link>
+            </section>
+
             <section className="mt-12 space-y-4">
               <h2 className="text-2xl font-semibold text-[#2F3A56]">FAQ</h2>
 
