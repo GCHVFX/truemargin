@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     }
 
     const supabase = getSupabaseAdmin();
-    const { error } = await supabase.from("waitlist_signups").insert([{ email }]);
+    const { error } = await supabase.from("tm_waitlist_signups").insert([{ email }]);
 
     if (error) {
       const m = (error.message || "").toLowerCase();
