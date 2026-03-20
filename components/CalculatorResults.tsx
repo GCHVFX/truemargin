@@ -5,9 +5,16 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Copy } from "lucide-react";
 import type { CalcResult } from "@/lib/feeEngine";
-import type { Currency } from "@/lib/fees";
+import type { Currency, SellerRegion } from "@/lib/fees";
 import type { ResultBlockKey } from "@/config/calculators/types";
-import { getMarginHealthTier, MARGIN_INSIGHT_MESSAGES, CALC_LABELS } from "@/lib/calculatorHelpers";
+import {
+  getMarginHealthTier,
+  getMarginVerdictMessage,
+  CALC_LABELS,
+  getTransactionFeeBreakdownLabel,
+  getPaymentProcessingBreakdownLabel,
+  getOffsiteAdsBreakdownLabel,
+} from "@/lib/calculatorHelpers";
 
 const fmt = (currency: Currency) =>
   new Intl.NumberFormat(currency === "CAD" ? "en-CA" : "en-US", {
@@ -27,7 +34,18 @@ export type CalculatorResultsProps = {
   isPricing?: boolean;
   /** Config-driven result block order. When provided, overrides isProfit/isFee/isBreakEven ordering. */
   resultOrder?: ResultBlockKey[];
+  /** Drives Canada-only payment processing label; fee breakdown is shared across US/CA calculators. */
+  sellerRegion: SellerRegion;
+  /** Current fee inputs (decimals for % fields), used only for breakdown row labels. */
+  transactionFeePct: number;
+  paymentProcessingPct: number;
+  paymentProcessingFixed: number;
+  offsiteAdsPct: number;
   includeTaxEstimate: boolean;
+  /** Per-unit item subtotal for pricing mode (order revenue minus shipping charged). */
+  recommendedItemSubtotal?: number;
+  /** When Offsite Ads is on: net profit without ads minus net profit with ads. */
+  offsiteAdsProfitReduction?: number | null;
   taxRatePct: string;
   onCopyResults: () => void;
   parseNumber: (s: string) => number;
@@ -43,13 +61,50 @@ export function CalculatorResults({
   isBreakEven,
   isPricing = false,
   resultOrder,
+  sellerRegion,
+  transactionFeePct,
+  paymentProcessingPct,
+  paymentProcessingFixed,
+  offsiteAdsPct,
   includeTaxEstimate,
+  recommendedItemSubtotal,
+  offsiteAdsProfitReduction = null,
   taxRatePct,
   onCopyResults,
   parseNumber,
   clampNonNeg,
 }: CalculatorResultsProps) {
   const currencyFmt = React.useMemo(() => fmt(currency), [currency]);
+
+  const transactionFeeLabel = React.useMemo(
+    () => getTransactionFeeBreakdownLabel(transactionFeePct),
+    [transactionFeePct]
+  );
+  const paymentProcessingLabel = React.useMemo(
+    () =>
+      getPaymentProcessingBreakdownLabel(sellerRegion, paymentProcessingPct, paymentProcessingFixed),
+    [sellerRegion, paymentProcessingPct, paymentProcessingFixed]
+  );
+  const offsiteAdsLabel = React.useMemo(() => getOffsiteAdsBreakdownLabel(offsiteAdsPct), [offsiteAdsPct]);
+
+  const blockKeys = React.useMemo((): ResultBlockKey[] => {
+    if (!result) return [];
+    const baseOrder =
+      resultOrder ??
+      (isProfit
+        ? (["summary", "fee", ...(result.breakEvenItemPrice != null ? (["breakEven"] as const) : [])] as ResultBlockKey[])
+        : isFee
+          ? (["fee", ...(result.breakEvenItemPrice != null ? (["breakEven"] as const) : []), "summary"] as ResultBlockKey[])
+          : (["breakEven", "fee", "summary"] as ResultBlockKey[]).filter(
+              (k) => k !== "breakEven" || result.breakEvenItemPrice != null
+            ));
+
+    return baseOrder.filter((key) => {
+      if (key === "breakEven" && isBreakEven) return false;
+      if (key === "breakEven" && result.breakEvenItemPrice == null) return false;
+      return true;
+    });
+  }, [result, resultOrder, isProfit, isFee, isBreakEven]);
 
   return (
     <Card className="border-white/10 bg-emerald-50/95 shadow-lg backdrop-blur-sm">
@@ -59,19 +114,45 @@ export function CalculatorResults({
       </CardHeader>
 
       <CardContent className="space-y-4">
-        {!hasCalculated || !result ? (
+        {!hasCalculated ? (
           <div className="text-sm text-muted-foreground">
-            Enter values and click <span className="font-medium">Calculate</span>.
+            Enter values and click{" "}
+            <span className="font-medium">
+              {isPricing ? "Update Recommended Price" : "Calculate"}
+            </span>
+            .
+          </div>
+        ) : !result ? (
+          <div className="text-sm text-muted-foreground">
+            These inputs don&apos;t produce a valid price. Try adjusting your margin, shipping, or fee
+            settings.
           </div>
         ) : (
           <>
-            {isPricing && (
+            {isPricing && recommendedItemSubtotal != null && (
               <div className="rounded-lg border p-4">
-                <div className="text-xs text-muted-foreground">Recommended Etsy price</div>
-                <div className="mt-1 text-2xl font-semibold">{currencyFmt.format(result.orderRevenue)}</div>
+                <div className="text-xs text-muted-foreground">Recommended Etsy item price (per unit)</div>
+                <div className="mt-1 text-2xl font-semibold">
+                  {currencyFmt.format(recommendedItemSubtotal)}
+                </div>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  This is the sale price estimated to hit your target margin.
+                  Item price before shipping charged to buyer, estimated to hit your target margin.
                 </p>
+              </div>
+            )}
+            {isFee && (
+              <div className="space-y-2 rounded-xl border-2 border-primary/30 bg-primary/5 p-4">
+                <div className="text-xs text-muted-foreground">{CALC_LABELS.TOTAL_FEES}</div>
+                <div className="mt-1 text-2xl font-semibold">{currencyFmt.format(result.totalFees)}</div>
+              </div>
+            )}
+            {isBreakEven && result.breakEvenItemPrice != null && (
+              <div className="space-y-2 rounded-xl border-2 border-primary/30 bg-primary/5 p-4">
+                <div className="text-xs text-muted-foreground">{CALC_LABELS.MINIMUM_PRICE_PER_UNIT}</div>
+                <div className="mt-1 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+                  {currencyFmt.format(result.breakEvenItemPrice)}
+                </div>
+                <p className="mt-1 text-sm text-muted-foreground">{CALC_LABELS.BREAK_EVEN_DESCRIPTION}</p>
               </div>
             )}
             <Button
@@ -83,64 +164,78 @@ export function CalculatorResults({
               <Copy className="mr-2 h-4 w-4" />
               Copy results
             </Button>
-            {/* 1. Top 3: Net profit, Margin %, Margin health — always first */}
-            <div className="rounded-lg border p-4">
-              <div className="text-xs text-muted-foreground">Net profit</div>
-              <div className="mt-1 text-2xl font-semibold">{currencyFmt.format(result.netProfit)}</div>
-              <div className="mt-2 text-sm text-muted-foreground">
-                Margin: <span className="font-medium">{(result.marginPct * 100).toFixed(2)}%</span>
-              </div>
-              <div className="mt-3">
+            {/* Profit & pricing: you keep, margin, verdict, segmented margin bar, optional offsite impact */}
+            {(isProfit || isPricing) && !isFee && (
+              <div className="rounded-lg border p-4">
                 {(() => {
-                  const { label: tierLabel, badge: tierBadge } = getMarginHealthTier(result.marginPct);
                   const m = typeof result.marginPct === "number" ? result.marginPct : 0;
-                  const mPct = m * 100;
-                  const clamp = (x: number) => Math.max(0, Math.min(100, x));
-                  const markerLeft = `calc(${clamp(mPct)}% - 6px)`;
+                  const mPct = Math.max(0, Math.min(100, m * 100));
+                  const markerLeft = `clamp(0px, calc(${mPct}% - 2px), calc(100% - 4px))`;
+                  const { label: tierLabel, badge: tierBadge } = getMarginHealthTier(m);
                   return (
-                    <div>
-                      <div className="flex items-center justify-between text-xs text-slate-600">
-                        <span className="flex items-center gap-2">
-                          <span>{CALC_LABELS.MARGIN_HEALTH}</span>
-                          <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${tierBadge}`}>
-                            {tierLabel}
-                          </span>
-                        </span>
-                        <span>Risky → Strong</span>
-                      </div>
-                      <div className="relative mt-2 h-3 w-full overflow-hidden rounded-full bg-slate-100">
-                        <div className="absolute inset-y-0 left-0 w-[15%] bg-rose-200" />
-                        <div className="absolute inset-y-0 left-[15%] w-[10%] bg-amber-200" />
-                        <div className="absolute inset-y-0 left-[25%] w-[10%] bg-teal-200" />
-                        <div className="absolute inset-y-0 left-[35%] w-[65%] bg-emerald-200" />
-                        <div
-                          className="absolute top-1/2 h-5 w-1 -translate-y-1/2 rounded-full bg-slate-900"
-                          style={{ left: markerLeft }}
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <div className="mt-1 flex justify-between text-[11px] text-slate-500">
-                        <span>&lt;15%</span>
-                        <span>15–25%</span>
-                        <span>25–35%</span>
-                        <span>&gt;35%</span>
-                      </div>
-                      <p className="mt-2 text-xs text-slate-500 leading-snug">
-                        {MARGIN_INSIGHT_MESSAGES[tierLabel]}
+                    <>
+                      <p className="text-2xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+                        You keep:{" "}
+                        <span className="font-extrabold">{currencyFmt.format(result.netProfit)}</span> per
+                        order
                       </p>
-                    </div>
+                      <p className="mt-2 text-base font-medium text-slate-800">
+                        Your margin: {(m * 100).toFixed(2)}%
+                      </p>
+                      <p className="mt-2 text-sm leading-snug text-slate-600">
+                        {getMarginVerdictMessage(m)}
+                      </p>
+                      <div className="mt-3">
+                        <div className="flex items-center justify-between gap-2 text-xs text-slate-600">
+                          <span className="flex flex-wrap items-center gap-2">
+                            <span>{CALC_LABELS.MARGIN_HEALTH}</span>
+                            <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${tierBadge}`}>
+                              {tierLabel}
+                            </span>
+                          </span>
+                          <span className="hidden shrink-0 text-right text-[10px] text-slate-500 sm:inline sm:text-[11px]">
+                            Low → Strong
+                          </span>
+                        </div>
+                        {/* Segmented track: segment widths match margin scale (15% / 10% / 10% / 65%) */}
+                        <div className="relative mt-2 h-3 w-full overflow-hidden rounded-full bg-slate-100 ring-1 ring-slate-200/90">
+  <div className="absolute inset-0 flex w-full">
+    <div className="h-full w-[15%] shrink-0 border-r border-white/70 bg-rose-200" />
+    <div className="h-full w-[10%] shrink-0 border-r border-white/70 bg-amber-200" />
+    <div className="h-full w-[10%] shrink-0 border-r border-white/70 bg-teal-200" />
+    <div className="h-full min-w-0 flex-1 bg-emerald-200" />
+  </div>
+  <div
+    className="absolute top-1/2 z-[2] h-4 w-1 -translate-y-1/2 rounded-full bg-slate-900 shadow-sm ring-1 ring-white/90"
+    style={{ left: markerLeft }}
+    aria-hidden
+  />
+</div>
+                        <div className="relative mt-1.5 h-4 text-[10px] text-slate-500 sm:text-[11px]">
+                          <span className="absolute left-[6%] -translate-x-1/2 whitespace-nowrap">Low</span>
+                          <span className="absolute left-[17%] -translate-x-1/2 whitespace-nowrap">OK</span>
+                          <span className="absolute left-[28%] -translate-x-1/2 whitespace-nowrap">Good</span>
+                          <span className="absolute left-[72%] -translate-x-1/2 whitespace-nowrap">Strong</span>
+                        </div>
+<p className="mt-1 text-[10px] text-slate-500">
+  Based on typical Etsy fee ranges
+</p>
+                      </div>
+                      {offsiteAdsProfitReduction != null && offsiteAdsProfitReduction > 0 ? (
+                        <p className="mt-3 text-sm text-slate-600">
+                          Offsite ads reduced your profit by{" "}
+                          <span className="font-semibold text-slate-800">
+                            {currencyFmt.format(offsiteAdsProfitReduction)}
+                          </span>
+                        </p>
+                      ) : null}
+                    </>
                   );
                 })()}
               </div>
-            </div>
+            )}
 
-            {/* Config-driven or fallback ordering: profit = summary→fee→be; fee = fee→be→summary; break-even = be→fee→summary */}
-            {(resultOrder ?? (isProfit
-              ? ["summary", "fee", ...(result.breakEvenItemPrice != null ? ["breakEven"] : [])]
-              : isFee
-                ? ["fee", ...(result.breakEvenItemPrice != null ? ["breakEven"] : []), "summary"]
-                : ["breakEven", "fee", "summary"].filter((k) => k !== "breakEven" || result.breakEvenItemPrice != null)
-            )).filter((key) => key !== "breakEven" || result.breakEvenItemPrice != null).map((key) => {
+            {blockKeys.map((key) => {
               if (key === "breakEven") {
                 return (
                   <div
@@ -152,7 +247,7 @@ export function CalculatorResults({
                     }
                   >
                     <div className="text-xs text-muted-foreground">
-                      {CALC_LABELS.BREAK_EVEN_PRICE_PER_UNIT}
+                      {isBreakEven ? CALC_LABELS.MINIMUM_PRICE_PER_UNIT : CALC_LABELS.BREAK_EVEN_PRICE_PER_UNIT}
                     </div>
                     <div
                       className={
@@ -163,9 +258,9 @@ export function CalculatorResults({
                     >
                       {currencyFmt.format(result.breakEvenItemPrice!)}
                     </div>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {CALC_LABELS.BREAK_EVEN_DESCRIPTION}
-                    </p>
+                    {!isBreakEven ? (
+                      <p className="mt-1 text-sm text-muted-foreground">{CALC_LABELS.BREAK_EVEN_DESCRIPTION}</p>
+                    ) : null}
                   </div>
                 );
               }
@@ -194,13 +289,13 @@ export function CalculatorResults({
                         </span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-muted-foreground">{CALC_LABELS.TRANSACTION_FEE}</span>
+                        <span className="text-muted-foreground">{transactionFeeLabel}</span>
                         <span className="font-medium">
                           {currencyFmt.format(result.fees.transactionFee)}
                         </span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-muted-foreground">{CALC_LABELS.PAYMENT_PROCESSING}</span>
+                        <span className="text-muted-foreground">{paymentProcessingLabel}</span>
                         <span className="font-medium">
                           {currencyFmt.format(result.fees.paymentProcessingFee)}
                         </span>
@@ -212,7 +307,7 @@ export function CalculatorResults({
                         </span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-muted-foreground">{CALC_LABELS.OFFSITE_ADS}</span>
+                        <span className="text-muted-foreground">{offsiteAdsLabel}</span>
                         <span className="font-medium">
                           {currencyFmt.format(result.fees.offsiteAdsFee)}
                         </span>
@@ -247,7 +342,7 @@ export function CalculatorResults({
                       {currencyFmt.format(result.totalYourShipping)}
                     </span>
                   </div>
-                  {includeTaxEstimate && (
+                  {includeTaxEstimate && isProfit && (
                     <div className="flex items-center justify-between">
                       <span className="text-muted-foreground">Tax rate</span>
                       <span className="font-medium">
@@ -259,8 +354,8 @@ export function CalculatorResults({
               );
             })}
 
-            {/* Tax estimate (optional) */}
-            {includeTaxEstimate && (
+            {/* Tax estimate (optional) — profit calculator only */}
+            {includeTaxEstimate && isProfit && (
               <div className="rounded-lg border p-4 space-y-2 text-sm">
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground">Estimated tax</span>

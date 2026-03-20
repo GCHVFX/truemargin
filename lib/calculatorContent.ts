@@ -78,16 +78,14 @@ const CONTENT: Record<CalculatorContentKey, CalculatorContent> = {
       "Estimate Etsy fees per order with a clear breakdown: listing, transaction, processing, offsite ads, and shipping. See total fees instantly.",
     seoHeading: "Etsy fee calculator",
     seoIntro:
-      "Estimate Etsy fees for an order, including listing, transaction, payment processing, and optional Offsite Ads. See fees alongside net profit so you can price with confidence.",
+      "Estimate Etsy fees for an order, including listing, transaction, payment processing, and optional Offsite Ads. Results focus on total fees and the line-item breakdown.",
     includes: [
       "Transaction, payment processing, and listing fee estimates (based on your seller region preset).",
       "Optional Offsite Ads fee when you toggle it on.",
-      "A clear fee breakdown plus net profit and margin.",
-      "Break-even and target margin insights when available.",
+      "A clear fee breakdown with total fees highlighted.",
     ],
     howTo: [
-      "Enter item price, quantity, and shipping charged.",
-      "Add cost of goods per unit and your shipping cost.",
+      "Enter item price, quantity, and shipping charged to the buyer.",
       "Select seller region and toggle Offsite Ads if needed.",
       "Click Calculate to see total fees and the breakdown.",
     ],
@@ -124,16 +122,14 @@ const CONTENT: Record<CalculatorContentKey, CalculatorContent> = {
     seoIntro:
       "Find the minimum price per unit you need to charge to avoid losing money after fees and costs. Useful for new listings and price checks before running ads.",
     includes: [
-      "Break-even price per unit based on fees, cost of goods per unit, and shipping cost.",
+      "Minimum price per unit based on fees, cost of goods per unit, and shipping costs.",
       "Fee estimates including listing, transaction, payment processing, and optional Offsite Ads.",
-      "Net profit and margin at your current price for comparison.",
-      "Optional income tax estimate (preview) applied to net profit only.",
+      "Full fee breakdown at the solved minimum price.",
     ],
     howTo: [
-      "Enter item price, quantity, and shipping charged.",
-      "Add cost of goods per unit and your shipping cost.",
+      "Enter quantity, shipping charged to the buyer, cost of goods per unit, and your shipping cost.",
       "Choose seller region and toggle Offsite Ads if needed.",
-      "Click Calculate to see break-even per unit and your current profit.",
+      "Click Calculate to solve for minimum price per unit and see the fee breakdown.",
     ],
     faqs: [
       {
@@ -163,26 +159,27 @@ const CONTENT: Record<CalculatorContentKey, CalculatorContent> = {
     heroH1: "Etsy Pricing Calculator",
     heroH2: "Set your Etsy price to hit your target margin",
     heroSubhead:
-      "Enter your costs and target margin, then see the recommended Etsy price with net profit, margin health, and a full fee breakdown.",
+      "Enter your costs, shipping charged to the buyer, and target margin, then see the recommended item price per unit with net profit, margin health, and a full fee breakdown.",
     seoHeading: "Etsy pricing calculator",
     seoIntro:
-      "Find the Etsy price you should charge to hit your target margin after fees, cost of goods, and shipping. Use it to price with confidence before you list.",
+      "Find the Etsy item price you should charge to hit your target margin after fees, cost of goods, shipping charged to the buyer, and your shipping cost. Use it to price with confidence before you list.",
     includes: [
-      "Recommended Etsy price based on your target margin and selected seller region.",
+      "Recommended Etsy item price per unit based on your target margin and selected seller region.",
+      "Shipping charged to the buyer included in the solve.",
       "Estimated net profit and margin at the recommended price.",
       "Full fee breakdown including listing, transaction, processing, and optional Offsite Ads.",
       "Margin health indicator so you can quickly judge pricing strength.",
     ],
     howTo: [
-      "Enter your cost of goods and your shipping cost.",
+      "Enter your cost of goods, your shipping cost, and shipping charged to the buyer.",
       "Set your target margin percentage.",
       "Choose seller region and toggle Offsite Ads if needed.",
-      "Review the recommended Etsy price and fee breakdown instantly.",
+      "Click Update Recommended Price to refresh the item price and fee breakdown.",
     ],
     faqs: [
       {
         q: "How is the recommended Etsy price calculated?",
-        a: "The calculator solves for the sale price needed to hit your target margin after Etsy fees, cost of goods, and shipping cost.",
+        a: "The calculator solves for the item price per unit needed to hit your target margin after Etsy fees, cost of goods, shipping charged to the buyer, and your shipping cost.",
       },
       {
         q: "Does this include Etsy payment processing and listing fees?",
@@ -200,9 +197,9 @@ const CONTENT: Record<CalculatorContentKey, CalculatorContent> = {
     supportBlock: {
       heading: "How target-margin Etsy pricing works",
       paragraphs: [
-        "Target-margin pricing starts with the margin you want to keep, then solves backward for the sale price required after Etsy fees and costs.",
-        "The calculator includes listing fees, transaction fees, payment processing, and optional Offsite Ads, plus your cost of goods and shipping cost.",
-        "This gives you a clear recommended Etsy price so you can avoid guesswork and protect profit before publishing a listing.",
+        "Target-margin pricing starts with the margin you want to keep, then solves backward for the item price per unit required after Etsy fees and costs.",
+        "The calculator includes listing fees, transaction fees, payment processing, and optional Offsite Ads, plus your cost of goods, shipping charged to the buyer, and your shipping cost.",
+        "This gives you a clear recommended item price so you can avoid guesswork and protect profit before publishing a listing.",
       ],
     },
   },

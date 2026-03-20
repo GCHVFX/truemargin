@@ -52,7 +52,7 @@ export const ETSY_CALCULATOR_CONFIGS: Record<string, CalculatorConfig> = {
     marketplace: "etsy",
     contentKey: "fee",
     content: getCalculatorContent("fee"),
-    resultOrder: ["fee", "breakEven", "summary"],
+    resultOrder: ["fee"],
     switcher: ETSY_SWITCHER,
   },
   "etsy-break-even-calculator": {

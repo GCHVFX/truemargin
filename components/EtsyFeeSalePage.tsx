@@ -30,7 +30,7 @@ export function EtsyFeeSalePage({ amount }: { amount: number }) {
                 <br />
                 Transaction fee (6.5%): {currency(s.fees.transactionFee)}
                 <br />
-                Payment processing (~3% + $0.25): about {currency(s.fees.processingFee)}
+                Payment processing: {currency(s.fees.processingFee)}
               </p>
               <p className="leading-7">
                 <strong>Estimated total fees before Offsite Ads: {currency(s.fees.totalEstimatedFees)}</strong>

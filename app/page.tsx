@@ -80,11 +80,11 @@ const LANDING_HTML = `<main class="grid">
               <div class="value">$16.80</div>
             </div>
             <div>
-              <div class="label">Net profit</div>
+              <div class="label">You keep per order</div>
               <div class="value">$28.20</div>
             </div>
             <div>
-              <div class="label">Margin</div>
+              <div class="label">Your margin</div>
               <div class="value">62.7%</div>
             </div>
           </div>

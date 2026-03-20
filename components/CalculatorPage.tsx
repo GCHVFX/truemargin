@@ -11,11 +11,15 @@ import {
   type SellerRegion,
   defaultCurrencyForRegion,
 } from "@/lib/fees";
-import { calculateOrder, calculateTargetMarginItemPrice } from "@/lib/feeEngine";
-import { getMarginHealthTier, CALC_LABELS } from "@/lib/calculatorHelpers";
+import {
+  calculateOrder,
+  calculateTargetMarginItemPrice,
+  calculateBreakEvenItemPrice,
+} from "@/lib/feeEngine";
+import { getMarginHealthTier, getMarginVerdictMessage, CALC_LABELS } from "@/lib/calculatorHelpers";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { CalculatorSwitcher } from "@/components/CalculatorSwitcher";
-import { CalculatorInputs } from "@/components/CalculatorInputs";
+import { CalculatorInputs, type EtsyCalculatorVariant } from "@/components/CalculatorInputs";
 import { CalculatorResults } from "@/components/CalculatorResults";
 import { getCalculatorConfig } from "@/config/calculators";
 import { getCalculatorContent, getSeoContent } from "@/lib/calculatorContent";
@@ -54,6 +58,14 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
   const isPricing = v.includes("pricing");
   const isProfit = v.includes("profit") || (!isFee && !isBreakEven && !isPricing);
 
+  const calculatorVariant: EtsyCalculatorVariant = isPricing
+    ? "pricing"
+    : isFee
+      ? "fee"
+      : isBreakEven
+        ? "breakEven"
+        : "profit";
+
   const config = getCalculatorConfig(vRaw || pathname);
   const contentKey = config?.contentKey ?? (isPricing ? "pricing" : isFee ? "fee" : isBreakEven ? "break-even" : "profit");
   const content = config?.content ?? getCalculatorContent(contentKey);
@@ -76,15 +88,16 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
         uses: [
           "cost of goods per unit",
           "your shipping cost",
+          "shipping charged to buyer",
           "target margin",
           "seller region fee preset",
           "optional Offsite Ads",
         ],
         exampleTitle: "Example Target-Margin Pricing",
         exampleBlocks: [
-          ["Cost of goods: $12", "Shipping cost: $5", "Target margin: 30%"],
+          ["Cost of goods: $12", "Shipping cost: $5", "Shipping charged: $0", "Target margin: 30%"],
           ["Estimated Etsy fee profile: ~9.75% + fixed fees", "Recommended Etsy price: about $29.50"],
-          ["Estimated net profit: about $8.85", "Estimated margin: 30%"],
+          ["You keep per order: about $8.85", "Your margin: 30%"],
           ["Exact results change with region fee presets and Offsite Ads settings."],
         ],
         relatedIntro: "Compare your price target with full profit and fee scenarios below.",
@@ -156,16 +169,16 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
         ],
         uses: [
           "quantity",
-          "shipping charged",
+          "shipping charged to buyer",
           "cost of goods per unit",
-          "shipping cost",
+          "your shipping cost",
           "seller region fee preset",
           "optional Offsite Ads",
         ],
         exampleTitle: "Example Break-even Calculation",
         exampleBlocks: [
-          ["Quantity: 1", "Cost of goods: $10", "Shipping cost: $5", "Estimated Etsy fees: $4"],
-          ["Break-even order total: $19", "Break-even price per unit: $19"],
+          ["Quantity: 1", "Cost of goods: $10", "Your shipping cost: $5", "Shipping charged: $0"],
+          ["Minimum price per unit solves to about $19", "Estimated Etsy fees at that price: about $4"],
           ["Exact results change with seller fee region preset, shipping inputs, and Offsite Ads settings."],
         ],
         relatedIntro: "After finding your minimum safe price, compare scenarios with the calculators below.",
@@ -210,7 +223,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
       exampleBlocks: [
         ["Item price: $40", "Quantity: 1", "Shipping charged: $5", "Revenue: $45"],
         ["Estimated Etsy fees: $5", "Cost of goods: $12", "Shipping cost: $6"],
-        ["Net profit: $22", "Profit margin: 48.9%"],
+        ["You keep per order: $22", "Your margin: 48.9%"],
         ["Exact results vary by seller region preset and Offsite Ads settings."],
       ],
       relatedIntro: "Explore fee-only and break-even scenarios with the calculators below.",
@@ -335,16 +348,10 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
   };
 
   const onCalculate = () => {
-    const baseInputs: FeeInputs = {
-      currency,
-      itemPrice: clampNonNeg(parseNumber(itemPrice)),
-      quantity: Math.max(1, Math.floor(clampNonNeg(parseNumber(quantity)) || 1)),
-      shippingCharged: clampNonNeg(parseNumber(shippingCharged)),
-      cogsPerUnit: clampNonNeg(parseNumber(cogsPerUnit)),
-      yourShippingCost: clampNonNeg(parseNumber(yourShippingCost)),
-      includeOffsiteAds,
+    const qty = Math.max(1, Math.floor(clampNonNeg(parseNumber(quantity)) || 1));
+    const shippingChargedNum = clampNonNeg(parseNumber(shippingCharged));
 
-      // Advanced overrides (defaults come from region preset)
+    const feePresetFields = {
       listingFeeFixed: clampNonNeg(parseNumber(listingFee)),
       transactionFeePct: clampNonNeg(parseNumber(transactionFeePct)) / 100,
       paymentProcessingPct: clampNonNeg(parseNumber(paymentFeePct)) / 100,
@@ -353,20 +360,85 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
       offsiteAdsPct: clampNonNeg(parseNumber(offsiteAdsPct)) / 100,
     };
 
-    const inputs: FeeInputs = isPricing
-      ? {
-          ...baseInputs,
-          quantity: 1,
-          shippingCharged: 0,
-          itemPrice: calculateTargetMarginItemPrice(
-            { ...baseInputs, quantity: 1, shippingCharged: 0, itemPrice: 0 },
-            clampNonNeg(parseNumber(targetMarginPct)) / 100
-          ) ?? 0,
-        }
-      : baseInputs;
+    let inputs: FeeInputs;
+
+    if (isFee) {
+      inputs = {
+        currency,
+        itemPrice: clampNonNeg(parseNumber(itemPrice)),
+        quantity: qty,
+        shippingCharged: shippingChargedNum,
+        cogsPerUnit: 0,
+        yourShippingCost: 0,
+        includeOffsiteAds,
+        ...feePresetFields,
+      };
+    } else if (isBreakEven) {
+      const baseForBreakEven: FeeInputs = {
+        currency,
+        itemPrice: 0,
+        quantity: qty,
+        shippingCharged: shippingChargedNum,
+        cogsPerUnit: clampNonNeg(parseNumber(cogsPerUnit)),
+        yourShippingCost: clampNonNeg(parseNumber(yourShippingCost)),
+        includeOffsiteAds,
+        ...feePresetFields,
+      };
+      const solvedItemPrice = calculateBreakEvenItemPrice(baseForBreakEven);
+      if (solvedItemPrice == null) {
+        setResult(null);
+        setOffsiteAdsProfitReduction(null);
+        setHasCalculated(true);
+        track("calculator_calculate_clicked");
+        return;
+      }
+      inputs = { ...baseForBreakEven, itemPrice: solvedItemPrice };
+    } else if (isPricing) {
+      const baseForPricing: FeeInputs = {
+        currency,
+        itemPrice: 0,
+        quantity: 1,
+        shippingCharged: shippingChargedNum,
+        cogsPerUnit: clampNonNeg(parseNumber(cogsPerUnit)),
+        yourShippingCost: clampNonNeg(parseNumber(yourShippingCost)),
+        includeOffsiteAds,
+        ...feePresetFields,
+      };
+      const solvedItemPrice = calculateTargetMarginItemPrice(
+        baseForPricing,
+        clampNonNeg(parseNumber(targetMarginPct)) / 100
+      );
+      if (solvedItemPrice == null) {
+        setResult(null);
+        setOffsiteAdsProfitReduction(null);
+        setHasCalculated(true);
+        track("calculator_calculate_clicked");
+        return;
+      }
+      inputs = { ...baseForPricing, itemPrice: solvedItemPrice };
+    } else {
+      inputs = {
+        currency,
+        itemPrice: clampNonNeg(parseNumber(itemPrice)),
+        quantity: qty,
+        shippingCharged: shippingChargedNum,
+        cogsPerUnit: clampNonNeg(parseNumber(cogsPerUnit)),
+        yourShippingCost: clampNonNeg(parseNumber(yourShippingCost)),
+        includeOffsiteAds,
+        ...feePresetFields,
+      };
+    }
 
     const r = calculateOrder(inputs);
     setResult(r);
+    if (isFee) {
+      setOffsiteAdsProfitReduction(null);
+    } else if (inputs.includeOffsiteAds && (isProfit || isPricing)) {
+      const withoutAds = calculateOrder({ ...inputs, includeOffsiteAds: false });
+      setOffsiteAdsProfitReduction(Math.max(0, withoutAds.netProfit - r.netProfit));
+    } else {
+      setOffsiteAdsProfitReduction(null);
+    }
     setHasCalculated(true);
     if (typeof window !== "undefined") {
       const umami = (window as Window & {
@@ -395,6 +467,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
     setTargetMarginPct("30");
     setHasCalculated(false);
     setResult(null);
+    setOffsiteAdsProfitReduction(null);
 
     setCurrencyOverridden(false);
     setCurrency(defaultCurrencyForRegion(region));
@@ -411,6 +484,8 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
   // Results
   const [hasCalculated, setHasCalculated] = React.useState<boolean>(false);
   const [result, setResult] = React.useState<ReturnType<typeof calculateOrder> | null>(null);
+  /** Profit without offsite ads minus profit with ads, when ads are on (same inputs, comparison only). */
+  const [offsiteAdsProfitReduction, setOffsiteAdsProfitReduction] = React.useState<number | null>(null);
 
   const onCurrencyChange = (next: Currency) => {
     setCurrency(next);
@@ -419,31 +494,100 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
 
   const onCopyResults = React.useCallback(() => {
     if (!result) return;
-    const { label: tierLabel } = getMarginHealthTier(result.marginPct);
-    const itemSubtotal = result.orderRevenue - clampNonNeg(parseNumber(shippingCharged));
-    const lines = [
-      "Etsy Calculator Results",
-      "—",
-      `${isPricing ? "Recommended Etsy price" : "Item price"}: ${currencyFmt.format(itemSubtotal)}`,
-      `${CALC_LABELS.SHIPPING_CHARGED_TO_BUYER}: ${currencyFmt.format(clampNonNeg(parseNumber(shippingCharged)))}`,
-      `Net profit: ${currencyFmt.format(result.netProfit)}`,
-      `Margin: ${(result.marginPct * 100).toFixed(2)}%`,
-      `Margin health: ${tierLabel}`,
-      `Total fees: ${currencyFmt.format(result.totalFees)}`,
-      `Cost of goods: ${currencyFmt.format(result.totalCogs)}`,
-      `${CALC_LABELS.YOUR_SHIPPING_COST}: ${currencyFmt.format(result.totalYourShipping)}`,
-      result.breakEvenItemPrice != null
-        ? `Break-even price per unit: ${currencyFmt.format(result.breakEvenItemPrice)}`
-        : "Break-even price per unit: —",
-    ];
-    navigator.clipboard.writeText(lines.join("\n"));
-    track("calculator_copy_results_clicked");
-  }, [result, shippingCharged, currencyFmt, isPricing]);
+    const shippingNum = clampNonNeg(parseNumber(shippingCharged));
+    const itemSubtotal = result.orderRevenue - shippingNum;
+
+    if (isFee) {
+      const lines = [
+        "Etsy Fee Calculator Results",
+        "—",
+        `${CALC_LABELS.TOTAL_FEES}: ${currencyFmt.format(result.totalFees)}`,
+        `${CALC_LABELS.LISTING_FEE}: ${currencyFmt.format(result.fees.listingFee)}`,
+        `Transaction fee: ${currencyFmt.format(result.fees.transactionFee)}`,
+        `${CALC_LABELS.PAYMENT_PROCESSING}: ${currencyFmt.format(result.fees.paymentProcessingFee)}`,
+        `${CALC_LABELS.REGULATORY_FEE}: ${currencyFmt.format(result.fees.regulatoryFee)}`,
+        `${CALC_LABELS.OFFSITE_ADS}: ${currencyFmt.format(result.fees.offsiteAdsFee)}`,
+      ];
+      navigator.clipboard.writeText(lines.join("\n"));
+      track("calculator_copy_results_clicked");
+      return;
+    }
+
+    if (isBreakEven) {
+      const lines = [
+        "Etsy Break-even Calculator Results",
+        "—",
+        `${CALC_LABELS.MINIMUM_PRICE_PER_UNIT}: ${result.breakEvenItemPrice != null ? currencyFmt.format(result.breakEvenItemPrice) : "—"}`,
+        `${CALC_LABELS.BREAK_EVEN_DESCRIPTION}`,
+        "—",
+        `${CALC_LABELS.FEE_BREAKDOWN}`,
+        `${CALC_LABELS.LISTING_FEE}: ${currencyFmt.format(result.fees.listingFee)}`,
+        `Transaction fee: ${currencyFmt.format(result.fees.transactionFee)}`,
+        `${CALC_LABELS.PAYMENT_PROCESSING}: ${currencyFmt.format(result.fees.paymentProcessingFee)}`,
+        `${CALC_LABELS.REGULATORY_FEE}: ${currencyFmt.format(result.fees.regulatoryFee)}`,
+        `${CALC_LABELS.OFFSITE_ADS}: ${currencyFmt.format(result.fees.offsiteAdsFee)}`,
+        "—",
+        `${CALC_LABELS.ORDER_REVENUE}: ${currencyFmt.format(result.orderRevenue)}`,
+        `${CALC_LABELS.TOTAL_FEES}: ${currencyFmt.format(result.totalFees)}`,
+        `${CALC_LABELS.COST_OF_GOODS}: ${currencyFmt.format(result.totalCogs)}`,
+        `${CALC_LABELS.YOUR_SHIPPING_COST}: ${currencyFmt.format(result.totalYourShipping)}`,
+      ];
+      navigator.clipboard.writeText(lines.join("\n"));
+      track("calculator_copy_results_clicked");
+      return;
+    }
+
+    if (isProfit || isPricing) {
+      const { label: tierLabel } = getMarginHealthTier(result.marginPct);
+      const lines = [
+        isPricing ? "Etsy Pricing Calculator Results" : "Etsy Profit Calculator Results",
+        "—",
+        isPricing
+          ? `Recommended Etsy item price (per unit): ${currencyFmt.format(itemSubtotal)}`
+          : `Item price: ${currencyFmt.format(itemSubtotal)}`,
+        `${CALC_LABELS.SHIPPING_CHARGED_TO_BUYER}: ${currencyFmt.format(shippingNum)}`,
+        `You keep: ${currencyFmt.format(result.netProfit)} per order`,
+        `Your margin: ${(result.marginPct * 100).toFixed(2)}%`,
+        getMarginVerdictMessage(result.marginPct),
+        ...(offsiteAdsProfitReduction != null && offsiteAdsProfitReduction > 0
+          ? [`Offsite ads reduced your profit by ${currencyFmt.format(offsiteAdsProfitReduction)}`]
+          : []),
+        `Margin health: ${tierLabel}`,
+        `Total fees: ${currencyFmt.format(result.totalFees)}`,
+        `Cost of goods: ${currencyFmt.format(result.totalCogs)}`,
+        `${CALC_LABELS.YOUR_SHIPPING_COST}: ${currencyFmt.format(result.totalYourShipping)}`,
+        ...(isProfit
+          ? [
+              result.breakEvenItemPrice != null
+                ? `Break-even price per unit: ${currencyFmt.format(result.breakEvenItemPrice)}`
+                : "Break-even price per unit: —",
+            ]
+          : []),
+      ];
+      navigator.clipboard.writeText(lines.join("\n"));
+      track("calculator_copy_results_clicked");
+      return;
+    }
+  }, [result, shippingCharged, currencyFmt, isPricing, isFee, isBreakEven, isProfit, offsiteAdsProfitReduction]);
 
   React.useEffect(() => {
     if (!isPricing) return;
     onCalculate();
-  }, [isPricing, cogsPerUnit, yourShippingCost, targetMarginPct, region, includeOffsiteAds, listingFee, transactionFeePct, paymentFeePct, paymentFeeFixed, regulatoryFeePct, offsiteAdsPct]);
+  }, [
+    isPricing,
+    cogsPerUnit,
+    yourShippingCost,
+    shippingCharged,
+    targetMarginPct,
+    region,
+    includeOffsiteAds,
+    listingFee,
+    transactionFeePct,
+    paymentFeePct,
+    paymentFeeFixed,
+    regulatoryFeePct,
+    offsiteAdsPct,
+  ]);
 
   return (
     <main className="calculator-page-bg min-h-screen text-[#EAF0FF]">
@@ -467,7 +611,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
 
         <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
           <CalculatorInputs
-            isPricing={isPricing}
+            calculatorVariant={calculatorVariant}
             itemPrice={itemPrice}
             setItemPrice={setItemPrice}
             quantity={quantity}
@@ -519,8 +663,19 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
             isPricing={isPricing}
             resultOrder={config?.resultOrder}
             currency={currency}
+            sellerRegion={region}
+            transactionFeePct={clampNonNeg(parseNumber(transactionFeePct)) / 100}
+            paymentProcessingPct={clampNonNeg(parseNumber(paymentFeePct)) / 100}
+            paymentProcessingFixed={clampNonNeg(parseNumber(paymentFeeFixed))}
+            offsiteAdsPct={clampNonNeg(parseNumber(offsiteAdsPct)) / 100}
             taxRatePct={taxRatePct}
-            includeTaxEstimate={includeTaxEstimate}
+            includeTaxEstimate={isFee ? false : includeTaxEstimate}
+            recommendedItemSubtotal={
+              isPricing && result
+                ? result.orderRevenue - clampNonNeg(parseNumber(shippingCharged))
+                : undefined
+            }
+            offsiteAdsProfitReduction={offsiteAdsProfitReduction}
             parseNumber={parseNumber}
             clampNonNeg={clampNonNeg}
             onCopyResults={onCopyResults}
