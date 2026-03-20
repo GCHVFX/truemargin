@@ -213,8 +213,8 @@ export function CalculatorResults({
 </div>
                         <div className="relative mt-1.5 h-4 text-[10px] text-slate-500 sm:text-[11px]">
                           <span className="absolute left-[6%] -translate-x-1/2 whitespace-nowrap">Low</span>
-                          <span className="absolute left-[17%] -translate-x-1/2 whitespace-nowrap">OK</span>
-                          <span className="absolute left-[28%] -translate-x-1/2 whitespace-nowrap">Good</span>
+                          <span className="absolute left-[18%] -translate-x-1/2 whitespace-nowrap">OK</span>
+                          <span className="absolute left-[30%] -translate-x-1/2 whitespace-nowrap">Good</span>
                           <span className="absolute left-[72%] -translate-x-1/2 whitespace-nowrap">Strong</span>
                         </div>
 <p className="mt-1 text-[10px] text-slate-500">
@@ -234,6 +234,30 @@ export function CalculatorResults({
                 })()}
               </div>
             )}
+
+            <div className="mt-4 rounded-lg border border-slate-200 bg-white p-4">
+              <p className="text-sm font-medium leading-snug text-slate-900">
+                Get smarter about Etsy pricing
+              </p>
+
+              <p className="mt-1 text-xs leading-snug text-slate-500">
+                New tools, fee updates, and ways to improve your margins.
+              </p>
+
+              <div className="mt-3 space-y-2">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10"
+                />
+
+                <button
+                  className="w-full rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-800"
+                >
+                  Get updates
+                </button>
+              </div>
+            </div>
 
             {blockKeys.map((key) => {
               if (key === "breakEven") {
