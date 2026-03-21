@@ -253,6 +253,65 @@ export default function Page() {
             </section>
 
             <section className="mt-10 space-y-4">
+              <h2 className="text-2xl font-semibold text-[#2F3A56]">Etsy Fees on Different Sale Prices</h2>
+              <p className="leading-7">
+                Etsy fees vary depending on your price point. Here&apos;s a breakdown of what Etsy takes at different sale amounts.
+              </p>
+              <ul className="list-disc space-y-2 pl-6 leading-7">
+                <li>
+                  <Link href="/etsy-fees-on-10-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                    Etsy fees on a $10 sale
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/etsy-fees-on-15-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                    What Etsy takes from a $15 sale
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/etsy-fees-on-20-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                    Etsy fee breakdown for a $20 item
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/etsy-fees-on-25-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                    Etsy fees on a $25 sale
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/etsy-fees-on-30-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                    What you keep from a $30 Etsy sale
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/etsy-fees-on-40-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                    Etsy fees on a $40 sale
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/etsy-fees-on-50-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                    What Etsy takes from a $50 sale
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/etsy-fees-on-75-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                    Etsy fee breakdown for a $75 item
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/etsy-fees-on-100-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                    Etsy fees on a $100 sale
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/etsy-fees-on-150-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                    What Etsy takes from a $150 sale
+                  </Link>
+                </li>
+              </ul>
+            </section>
+
+            <section className="mt-10 space-y-4">
               <h2 className="text-2xl font-semibold text-[#2F3A56]">Why Etsy Fees Are Often Underestimated</h2>
               <p className="leading-7">
                 Many sellers price from product cost and forget that Etsy fees are layered. Transaction and processing fees scale with order value,
