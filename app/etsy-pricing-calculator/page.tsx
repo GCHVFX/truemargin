@@ -1,3 +1,4 @@
+import { EtsyCalculatorStaticContent }from "../../components/EtsyCalculatorStaticContent";
 import type { Metadata } from "next";
 import Script from "next/script";
 import { Suspense } from "react";
@@ -133,6 +134,7 @@ export default function Page() {
       />
       <Suspense fallback={null}>
         <CalculatorPage variant="etsy-pricing-calculator" />
+        <EtsyCalculatorStaticContent contentKey="pricing" />
       </Suspense>
     </>
   );

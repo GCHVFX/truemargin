@@ -257,6 +257,20 @@ export default function Page() {
               <p className="leading-7">
                 Etsy fees vary depending on your price point. Here&apos;s a breakdown of what Etsy takes at different sale amounts.
               </p>
+              <p className="leading-7">
+                If you want to calculate your exact profit after fees, use the{" "}
+                <Link href="/etsy-profit-calculator" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                  Etsy profit calculator
+                </Link>
+                .
+              </p>
+              <p className="leading-7">
+                You can also use the{" "}
+                <Link href="/etsy-fee-calculator" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                  Etsy fee calculator
+                </Link>
+                {" "}to break down each fee individually.
+              </p>
               <ul className="list-disc space-y-2 pl-6 leading-7">
                 <li>
                   <Link href="/etsy-fees-on-10-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
