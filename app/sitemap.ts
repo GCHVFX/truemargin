@@ -1,8 +1,19 @@
 import type { MetadataRoute } from "next";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://gettruemargin.com";
+const baseUrl = "https://gettruemargin.com";
 
+const pricePoints = [
+  5, 10, 12, 15, 18, 20, 25, 30, 35, 40, 50, 60, 75, 80, 100, 120, 150, 200, 250, 300, 400, 500, 750,
+];
+
+const pricePageRoutes: MetadataRoute.Sitemap = pricePoints.map((price) => ({
+  url: `${baseUrl}/etsy-fees-on-${price}-dollar-sale`,
+  lastModified: new Date(),
+  changeFrequency: "weekly" as const,
+  priority: 0.7,
+}));
+
+export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: baseUrl,
@@ -46,41 +57,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.8,
     },
-    {
-      url: `${baseUrl}/etsy-fees-on-10-dollar-sale`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/etsy-fees-on-25-dollar-sale`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/etsy-fees-on-50-dollar-sale`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/etsy-fees-on-100-dollar-sale`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/etsy-fees-on-250-dollar-sale`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/etsy-fees-on-500-dollar-sale`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.7,
-    },
+    ...pricePageRoutes,
   ];
 }
