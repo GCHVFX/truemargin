@@ -380,16 +380,16 @@ export function CalculatorResults({
                 </div>
               </div>
             )}
-            <div className="mt-2 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
-              <p className="text-sm font-medium text-slate-700">
-                Want to compare pricing scenarios?
+            <div className="mt-2 rounded-lg border border-amber-300/50 bg-amber-50 px-4 py-3">
+              <p className="text-sm font-medium text-amber-800">
+                Want to save your calculations and compare scenarios?
               </p>
-              <p className="mt-1 text-xs text-slate-500">
-                TrueMargin Pro lets you run multiple scenarios side by side and save your products.
+              <p className="mt-1 text-xs text-amber-700/80">
+                TrueMargin Pro is coming. Lock in $9/mo founder pricing forever (normally $15).
               </p>
               <a
                 href="/pricing"
-                className="mt-2 inline-block text-xs font-semibold text-slate-600 underline underline-offset-2 hover:text-slate-900"
+                className="mt-2 inline-block text-xs font-semibold text-amber-700 underline underline-offset-2 hover:text-amber-900"
               >
                 See Pro features →
               </a>
