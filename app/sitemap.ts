@@ -3,10 +3,10 @@ import type { MetadataRoute } from "next";
 const baseUrl = "https://gettruemargin.com";
 
 /** Update when price page content changes */
-const PRICE_PAGES_DATE = "2025-03-20";
+const PRICE_PAGES_DATE = "2026-03-21";
 
 /** Homepage, calculators, informational, regional — update when content changes */
-const CORE_PAGES_DATE = "2025-03-20";
+const CORE_PAGES_DATE = "2026-03-21";
 
 /** Legal pages — update only when terms/privacy change */
 const LEGAL_PAGES_DATE = "2025-01-01";

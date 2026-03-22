@@ -72,28 +72,28 @@ export function EtsyFeeSalePage({ amount }: { amount: number }) {
                   className="rounded-md border border-white/20 bg-white/5 px-4 py-3 text-sm font-semibold text-[#EAF0FF] transition hover:bg-white/10"
                 >
                   Etsy Fee Calculator
-                  <span className="mt-1 block text-xs font-normal text-slate-600">Get an exact fee estimate for your order.</span>
+                  <span className="mt-1 block text-xs font-normal text-[#9AA6BF]">Get an exact fee estimate for your order.</span>
                 </Link>
                 <Link
                   href="/etsy-profit-calculator"
                   className="rounded-md border border-white/20 bg-white/5 px-4 py-3 text-sm font-semibold text-[#EAF0FF] transition hover:bg-white/10"
                 >
                   Etsy Profit Calculator
-                  <span className="mt-1 block text-xs font-normal text-slate-600">See what you keep after fees and costs.</span>
+                  <span className="mt-1 block text-xs font-normal text-[#9AA6BF]">See what you keep after fees and costs.</span>
                 </Link>
                 <Link
                   href="/etsy-pricing-calculator"
                   className="rounded-md border border-white/20 bg-white/5 px-4 py-3 text-sm font-semibold text-[#EAF0FF] transition hover:bg-white/10"
                 >
                   Etsy Pricing Calculator
-                  <span className="mt-1 block text-xs font-normal text-slate-600">Set your price for your target margin.</span>
+                  <span className="mt-1 block text-xs font-normal text-[#9AA6BF]">Set your price for your target margin.</span>
                 </Link>
                 <Link
                   href="/etsy-fees-explained"
                   className="rounded-md border border-white/20 bg-white/5 px-4 py-3 text-sm font-semibold text-[#EAF0FF] transition hover:bg-white/10"
                 >
                   Etsy Fees Explained
-                  <span className="mt-1 block text-xs font-normal text-slate-600">Review the full Etsy fee system in one guide.</span>
+                  <span className="mt-1 block text-xs font-normal text-[#9AA6BF]">Review the full Etsy fee system in one guide.</span>
                 </Link>
               </div>
             </section>
@@ -106,7 +106,7 @@ export function EtsyFeeSalePage({ amount }: { amount: number }) {
                     <Link
                       key={neighbour}
                       href={`/etsy-fees-on-${neighbour}-dollar-sale`}
-                      className="rounded-md border border-slate-200 bg-white px-3 py-2 text-sm font-medium text-[#EAF0FF] transition hover:bg-slate-50 hover:border-slate-300"
+                      className="rounded-md border border-white/15 bg-white/5 px-3 py-2 text-sm font-medium text-[#EAF0FF] transition hover:bg-white/10"
                     >
                       Etsy fees on a ${neighbour} sale
                     </Link>
@@ -118,20 +118,20 @@ export function EtsyFeeSalePage({ amount }: { amount: number }) {
             <p className="mt-10">
               <Link
                 href="/etsy-fees-explained"
-                className="text-sm font-medium text-[#EAF0FF] underline decoration-[#F4A261] decoration-2 underline-offset-2 transition hover:text-slate-600"
+                className="text-sm font-medium text-[#EAF0FF] underline decoration-[#F4A261] decoration-2 underline-offset-2 transition hover:text-[#9AA6BF]"
               >
                 See the full Etsy fee breakdown →
               </Link>
             </p>
 
-            <section className="mt-10 rounded-xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
+            <section className="mt-10 rounded-xl border border-white/10 bg-white/5 p-5 sm:p-6">
               <h2 className="text-2xl font-semibold text-[#EAF0FF]">Learn how Etsy fees work</h2>
               <p className="mt-3 leading-7 text-[#9AA6BF]">
                 Want the full breakdown of Etsy listing fees, transaction fees, payment processing and offsite ads?
               </p>
               <Link
                 href="/etsy-fees-explained"
-                className="mt-4 inline-flex items-center rounded-md bg-[#2F3A56] px-4 py-2 text-sm font-semibold text-white transition hover:opacity-90"
+                className="mt-4 inline-flex items-center rounded-md bg-white/10 border border-white/20 px-4 py-2 text-sm font-semibold text-[#EAF0FF] transition hover:bg-white/15"
               >
                 Read the full Etsy Fees Explained guide
               </Link>
