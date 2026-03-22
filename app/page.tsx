@@ -60,7 +60,7 @@ const LANDING_HTML = `<main class="grid">
 
           <div class="section" id="waitlist-card">
             <h2>Join the waitlist</h2>
-            <p class="mini">This is a simple MVP. If you join, you’ll get early access and launch pricing.</p>
+            <p class="mini">Get notified about new calculators, fee updates, and Pro features.</p>
 
             <div id="waitlist-mount"></div>
           </div>

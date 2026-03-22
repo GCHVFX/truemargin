@@ -96,6 +96,12 @@ export default function Page() {
             <h1 className="text-3xl font-semibold tracking-tight text-[#2F3A56] sm:text-4xl">
               Etsy Fees Explained (Full 2026 Breakdown)
             </h1>
+            <div className="mt-6">
+              <p className="text-xs font-medium uppercase tracking-wide text-[#9AA6BF] mb-2">Quick answer</p>
+              <div className="border-l-4 border-emerald-500/60 pl-4 py-2 bg-white/5 text-[#EAF0FF] text-base">
+                <p className="leading-7">Etsy charges sellers four main fees per order: a $0.20 listing fee, a 6.5% transaction fee, a payment processing fee (around 3%), and an optional Offsite Ads fee of 12–15%.</p>
+              </div>
+            </div>
 
             <section className="mt-6 space-y-4">
               <h2 className="text-2xl font-semibold text-[#2F3A56]">How Much Does Etsy Take?</h2>
@@ -278,8 +284,18 @@ export default function Page() {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/etsy-fees-on-12-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                    Etsy fees on a $12 sale
+                  </Link>
+                </li>
+                <li>
                   <Link href="/etsy-fees-on-15-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
                     What Etsy takes from a $15 sale
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/etsy-fees-on-18-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                    What Etsy takes from an $18 sale
                   </Link>
                 </li>
                 <li>
@@ -298,6 +314,11 @@ export default function Page() {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/etsy-fees-on-35-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                    Etsy fee breakdown for a $35 item
+                  </Link>
+                </li>
+                <li>
                   <Link href="/etsy-fees-on-40-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
                     Etsy fees on a $40 sale
                   </Link>
@@ -308,13 +329,28 @@ export default function Page() {
                   </Link>
                 </li>
                 <li>
+                  <Link href="/etsy-fees-on-60-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                    What you keep from a $60 Etsy sale
+                  </Link>
+                </li>
+                <li>
                   <Link href="/etsy-fees-on-75-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
                     Etsy fee breakdown for a $75 item
                   </Link>
                 </li>
                 <li>
+                  <Link href="/etsy-fees-on-80-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                    Etsy fees on an $80 sale
+                  </Link>
+                </li>
+                <li>
                   <Link href="/etsy-fees-on-100-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
                     Etsy fees on a $100 sale
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/etsy-fees-on-120-dollar-sale" className="font-semibold text-[#2F3A56] underline decoration-[#F4A261] decoration-2 underline-offset-2">
+                    What Etsy takes from a $120 sale
                   </Link>
                 </li>
                 <li>

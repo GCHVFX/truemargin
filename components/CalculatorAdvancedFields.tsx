@@ -53,44 +53,44 @@ export function CalculatorAdvancedFields({
     <div className="space-y-6">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div className="md:col-span-1">
-          <Label htmlFor="currency">Display currency</Label>
+          <Label htmlFor="currency" className="text-[#9AA6BF] text-sm font-medium">Display currency</Label>
           <select
             id="currency"
             value={currency}
             onChange={(e) => onCurrencyChange(e.target.value as Currency)}
-            className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3 text-sm shadow-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            className="mt-2 h-11 w-full rounded-md border border-white/15 bg-[#0A1628] px-3 text-sm text-[#EAF0FF] shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <option value="USD">USD</option>
             <option value="CAD">CAD</option>
           </select>
-          <p className="mt-2 text-xs text-muted-foreground">
+          <p className="mt-2 text-xs text-[#9AA6BF]">
             Formatting only. No FX conversion in V1.
           </p>
         </div>
 
-        <div className="md:col-span-2 rounded-lg border p-4">
-          <div className="text-sm font-medium">Current preset</div>
-          <div className="mt-1 text-xs text-muted-foreground">
-            Region: <span className="font-medium">{region === "US" ? "United States" : "Canada"}</span>
+        <div className="md:col-span-2 rounded-lg border border-white/15 bg-white/[0.05] p-4">
+          <div className="text-sm font-medium text-[#EAF0FF]">Current preset</div>
+          <div className="mt-1 text-xs text-[#9AA6BF]">
+            Region: <span className="font-medium text-[#EAF0FF]">{region === "US" ? "United States" : "Canada"}</span>
             {" • "}
-            Updated: <span className="font-medium">{preset.updatedAt}</span>
+            Updated: <span className="font-medium text-[#EAF0FF]">{preset.updatedAt}</span>
           </div>
           <div className="mt-3 grid grid-cols-2 gap-2 text-sm">
-            <div className="flex items-center justify-between rounded-md bg-muted/50 px-3 py-2">
-              <span className="text-muted-foreground">Listing</span>
-              <span className="font-medium">{currencyFmt.format(preset.listingFeeFixed)}</span>
+            <div className="flex items-center justify-between rounded-md bg-white/5 px-3 py-2">
+              <span className="text-[#9AA6BF]">Listing</span>
+              <span className="font-medium text-[#EAF0FF]">{currencyFmt.format(preset.listingFeeFixed)}</span>
             </div>
-            <div className="flex items-center justify-between rounded-md bg-muted/50 px-3 py-2">
-              <span className="text-muted-foreground">Transaction</span>
-              <span className="font-medium">{(preset.transactionFeePct * 100).toFixed(2)}%</span>
+            <div className="flex items-center justify-between rounded-md bg-white/5 px-3 py-2">
+              <span className="text-[#9AA6BF]">Transaction</span>
+              <span className="font-medium text-[#EAF0FF]">{(preset.transactionFeePct * 100).toFixed(2)}%</span>
             </div>
-            <div className="flex items-center justify-between rounded-md bg-muted/50 px-3 py-2">
-              <span className="text-muted-foreground">Payment %</span>
-              <span className="font-medium">{(preset.paymentProcessingPct * 100).toFixed(2)}%</span>
+            <div className="flex items-center justify-between rounded-md bg-white/5 px-3 py-2">
+              <span className="text-[#9AA6BF]">Payment %</span>
+              <span className="font-medium text-[#EAF0FF]">{(preset.paymentProcessingPct * 100).toFixed(2)}%</span>
             </div>
-            <div className="flex items-center justify-between rounded-md bg-muted/50 px-3 py-2">
-              <span className="text-muted-foreground">Payment fixed</span>
-              <span className="font-medium">{currencyFmt.format(preset.paymentProcessingFixed)}</span>
+            <div className="flex items-center justify-between rounded-md bg-white/5 px-3 py-2">
+              <span className="text-[#9AA6BF]">Payment fixed</span>
+              <span className="font-medium text-[#EAF0FF]">{currencyFmt.format(preset.paymentProcessingFixed)}</span>
             </div>
           </div>
         </div>
@@ -98,68 +98,68 @@ export function CalculatorAdvancedFields({
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div>
-          <Label htmlFor="listingFee">Listing fee (fixed)</Label>
+          <Label htmlFor="listingFee" className="text-[#9AA6BF] text-sm font-medium">Listing fee (fixed)</Label>
           <Input
             id="listingFee"
             inputMode="decimal"
             value={listingFee}
             onChange={(e) => setListingFee(e.target.value)}
-            className="mt-2 h-11"
+            className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
           />
         </div>
 
         <div>
-          <Label htmlFor="transactionFeePct">Transaction fee (%)</Label>
+          <Label htmlFor="transactionFeePct" className="text-[#9AA6BF] text-sm font-medium">Transaction fee (%)</Label>
           <Input
             id="transactionFeePct"
             inputMode="decimal"
             value={transactionFeePct}
             onChange={(e) => setTransactionFeePct(e.target.value)}
-            className="mt-2 h-11"
+            className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
           />
         </div>
 
         <div>
-          <Label htmlFor="paymentFeePct">Payment fee (%)</Label>
+          <Label htmlFor="paymentFeePct" className="text-[#9AA6BF] text-sm font-medium">Payment fee (%)</Label>
           <Input
             id="paymentFeePct"
             inputMode="decimal"
             value={paymentFeePct}
             onChange={(e) => setPaymentFeePct(e.target.value)}
-            className="mt-2 h-11"
+            className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
           />
         </div>
 
         <div>
-          <Label htmlFor="paymentFeeFixed">Payment fee (fixed)</Label>
+          <Label htmlFor="paymentFeeFixed" className="text-[#9AA6BF] text-sm font-medium">Payment fee (fixed)</Label>
           <Input
             id="paymentFeeFixed"
             inputMode="decimal"
             value={paymentFeeFixed}
             onChange={(e) => setPaymentFeeFixed(e.target.value)}
-            className="mt-2 h-11"
+            className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
           />
         </div>
 
         <div>
-          <Label htmlFor="regulatoryFeePct">Regulatory fee (%)</Label>
+          <Label htmlFor="regulatoryFeePct" className="text-[#9AA6BF] text-sm font-medium">Regulatory fee (%)</Label>
           <Input
             id="regulatoryFeePct"
             inputMode="decimal"
             value={regulatoryFeePct}
             onChange={(e) => setRegulatoryFeePct(e.target.value)}
-            className="mt-2 h-11"
+            className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
           />
         </div>
 
         <div>
-          <Label htmlFor="offsiteAdsPct">Offsite ads fee (%)</Label>
+          <Label htmlFor="offsiteAdsPct" className="text-[#9AA6BF] text-sm font-medium">Offsite ads fee (%)</Label>
           <Input
             id="offsiteAdsPct"
             inputMode="decimal"
             value={offsiteAdsPct}
             onChange={(e) => setOffsiteAdsPct(e.target.value)}
-            className="mt-2 h-11"
+            className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
           />
         </div>
       </div>

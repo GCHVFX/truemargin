@@ -21,6 +21,7 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { CalculatorSwitcher } from "@/components/CalculatorSwitcher";
 import { CalculatorInputs, type EtsyCalculatorVariant } from "@/components/CalculatorInputs";
 import { CalculatorResults } from "@/components/CalculatorResults";
+import WaitlistForm from "@/components/WaitlistForm";
 import { getCalculatorConfig } from "@/config/calculators";
 import { getCalculatorContent, getSeoContent } from "@/lib/calculatorContent";
 import { track } from "@/lib/analytics";
@@ -500,7 +501,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
     if (isFee) {
       const lines = [
         "Etsy Fee Calculator Results",
-        "—",
+        "N/A",
         `${CALC_LABELS.TOTAL_FEES}: ${currencyFmt.format(result.totalFees)}`,
         `${CALC_LABELS.LISTING_FEE}: ${currencyFmt.format(result.fees.listingFee)}`,
         `Transaction fee: ${currencyFmt.format(result.fees.transactionFee)}`,
@@ -516,17 +517,17 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
     if (isBreakEven) {
       const lines = [
         "Etsy Break-even Calculator Results",
-        "—",
-        `${CALC_LABELS.MINIMUM_PRICE_PER_UNIT}: ${result.breakEvenItemPrice != null ? currencyFmt.format(result.breakEvenItemPrice) : "—"}`,
+        "N/A",
+        `${CALC_LABELS.MINIMUM_PRICE_PER_UNIT}: ${result.breakEvenItemPrice != null ? currencyFmt.format(result.breakEvenItemPrice) : "N/A"}`,
         `${CALC_LABELS.BREAK_EVEN_DESCRIPTION}`,
-        "—",
+        "N/A",
         `${CALC_LABELS.FEE_BREAKDOWN}`,
         `${CALC_LABELS.LISTING_FEE}: ${currencyFmt.format(result.fees.listingFee)}`,
         `Transaction fee: ${currencyFmt.format(result.fees.transactionFee)}`,
         `${CALC_LABELS.PAYMENT_PROCESSING}: ${currencyFmt.format(result.fees.paymentProcessingFee)}`,
         `${CALC_LABELS.REGULATORY_FEE}: ${currencyFmt.format(result.fees.regulatoryFee)}`,
         `${CALC_LABELS.OFFSITE_ADS}: ${currencyFmt.format(result.fees.offsiteAdsFee)}`,
-        "—",
+        "N/A",
         `${CALC_LABELS.ORDER_REVENUE}: ${currencyFmt.format(result.orderRevenue)}`,
         `${CALC_LABELS.TOTAL_FEES}: ${currencyFmt.format(result.totalFees)}`,
         `${CALC_LABELS.COST_OF_GOODS}: ${currencyFmt.format(result.totalCogs)}`,
@@ -541,7 +542,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
       const { label: tierLabel } = getMarginHealthTier(result.marginPct);
       const lines = [
         isPricing ? "Etsy Pricing Calculator Results" : "Etsy Profit Calculator Results",
-        "—",
+        "N/A",
         isPricing
           ? `Recommended Etsy item price (per unit): ${currencyFmt.format(itemSubtotal)}`
           : `Item price: ${currencyFmt.format(itemSubtotal)}`,
@@ -560,7 +561,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
           ? [
               result.breakEvenItemPrice != null
                 ? `Break-even price per unit: ${currencyFmt.format(result.breakEvenItemPrice)}`
-                : "Break-even price per unit: —",
+                : "Break-even price per unit: N/A",
             ]
           : []),
       ];
@@ -590,7 +591,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
   ]);
 
   return (
-    <main className="calculator-page-bg min-h-screen text-[#EAF0FF]">
+    <main className="calculator-page-bg text-[#EAF0FF]">
       <section className="mx-auto max-w-5xl px-4 py-10">
         <div className="flex flex-col gap-3">
           <div className="inline-flex items-center gap-2 text-sm text-[#9AA6BF]">
@@ -680,6 +681,16 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
             clampNonNeg={clampNonNeg}
             onCopyResults={onCopyResults}
           />
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-4 pb-8">
+        <div className="flex flex-col gap-4 rounded-xl border border-white/10 bg-white/5 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="text-sm font-medium text-[#EAF0FF]">Get Etsy fee updates and pricing tips</p>
+            <p className="text-xs text-[#9AA6BF] mt-0.5">No spam. Unsubscribe any time.</p>
+          </div>
+          <WaitlistForm variant="calculator" inputId="calculator-page-email" />
         </div>
       </section>
 

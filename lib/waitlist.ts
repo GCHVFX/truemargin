@@ -14,7 +14,7 @@ export function isValidWaitlistEmail(email: string): boolean {
   return EMAIL_REGEX.test(String(email || "").trim());
 }
 
-export async function submitWaitlistEmail(email: string): Promise<WaitlistSubmitResult> {
+export async function submitWaitlistEmail(email: string, endpoint = "/api/waitlist"): Promise<WaitlistSubmitResult> {
   const normalized = String(email || "").trim().toLowerCase();
   if (!normalized) {
     return { status: "error" };
@@ -23,7 +23,7 @@ export async function submitWaitlistEmail(email: string): Promise<WaitlistSubmit
     return { status: "error" };
   }
 
-  const res = await fetch("/api/waitlist", {
+  const res = await fetch(endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email: normalized }),

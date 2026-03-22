@@ -107,7 +107,7 @@ export function CalculatorResults({
   }, [result, resultOrder, isProfit, isFee, isBreakEven]);
 
   return (
-    <Card className="border-white/10 bg-emerald-50/95 shadow-lg backdrop-blur-sm">
+    <Card className="border-emerald-200/40 bg-emerald-50/80 shadow-lg">
       <CardHeader>
         <CardTitle>Results</CardTitle>
         <CardDescription>Per order (all values include quantity).</CardDescription>
@@ -156,9 +156,9 @@ export function CalculatorResults({
               </div>
             )}
             <Button
-              variant="secondary"
+              variant="ghost"
               size="sm"
-              className="h-9 w-full"
+              className="h-9 w-full text-slate-500 hover:text-slate-700 hover:bg-slate-100/60"
               onClick={onCopyResults}
             >
               <Copy className="mr-2 h-4 w-4" />
@@ -174,15 +174,17 @@ export function CalculatorResults({
                   const { label: tierLabel, badge: tierBadge } = getMarginHealthTier(m);
                   return (
                     <>
-                      <p className="text-2xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-                        You keep:{" "}
-                        <span className="font-extrabold">{currencyFmt.format(result.netProfit)}</span> per
-                        order
+                      <p className="text-sm font-medium uppercase tracking-wide text-slate-500">
+                        You keep
                       </p>
-                      <p className="mt-2 text-base font-medium text-slate-800">
+                      <p className="text-5xl font-extrabold tracking-tight text-slate-900 sm:text-6xl">
+                        {currencyFmt.format(result.netProfit)}
+                      </p>
+                      <p className="text-base text-slate-500">per order</p>
+                      <p className="mt-2 text-xl font-semibold text-slate-800">
                         Your margin: {(m * 100).toFixed(2)}%
                       </p>
-                      <p className="mt-2 text-sm leading-snug text-slate-600">
+                      <p className="mt-1 text-sm italic leading-snug text-slate-500">
                         {getMarginVerdictMessage(m)}
                       </p>
                       <div className="mt-3">
@@ -206,7 +208,7 @@ export function CalculatorResults({
     <div className="h-full min-w-0 flex-1 bg-emerald-200" />
   </div>
   <div
-    className="absolute top-1/2 z-[2] h-4 w-1 -translate-y-1/2 rounded-full bg-slate-900 shadow-sm ring-1 ring-white/90"
+    className="absolute top-1/2 z-[2] h-4 w-1 -translate-y-1/2 rounded-full bg-slate-900 shadow-sm ring-1 ring-slate-300"
     style={{ left: markerLeft }}
     aria-hidden
   />
@@ -229,35 +231,27 @@ export function CalculatorResults({
                           </span>
                         </p>
                       ) : null}
+                      {m < 0.30 && (
+                        <div className="mt-4 rounded-lg border border-amber-300/50 bg-amber-50 px-4 py-3">
+                          <p className="text-sm font-medium text-amber-800">
+                            Thin margin: pricing adjustments could help.
+                          </p>
+                          <p className="mt-1 text-xs text-amber-700/80">
+                            TrueMargin Pro lets you model multiple pricing scenarios to find a healthier number.
+                          </p>
+                          <a
+                            href="/pricing"
+                            className="mt-2 inline-block text-xs font-semibold text-amber-700 underline underline-offset-2 hover:text-amber-900"
+                          >
+                            See Pro features →
+                          </a>
+                        </div>
+                      )}
                     </>
                   );
                 })()}
               </div>
             )}
-
-            <div className="mt-4 rounded-lg border border-slate-200 bg-white p-4">
-              <p className="text-sm font-medium leading-snug text-slate-900">
-                Get smarter about Etsy pricing
-              </p>
-
-              <p className="mt-1 text-xs leading-snug text-slate-500">
-                New tools, fee updates, and ways to improve your margins.
-              </p>
-
-              <div className="mt-3 space-y-2">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10"
-                />
-
-                <button
-                  className="w-full rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-800"
-                >
-                  Get updates
-                </button>
-              </div>
-            </div>
 
             {blockKeys.map((key) => {
               if (key === "breakEven") {

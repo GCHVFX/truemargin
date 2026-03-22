@@ -119,13 +119,13 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
   const showTaxEstimate = calculatorVariant === "profit";
 
   return (
-    <Card className="border-white/10 bg-white/95 shadow-lg backdrop-blur-sm lg:col-span-2">
+    <Card className="border-white/15 bg-[#0F1E30] shadow-lg lg:col-span-2">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center gap-2 text-[#EAF0FF]">
           <Calculator className="h-5 w-5" />
           Calculator
         </CardTitle>
-        <CardDescription>Enter one order. Get a clear breakdown.</CardDescription>
+        <CardDescription className="text-[#9AA6BF]">Enter one order. Get a clear breakdown.</CardDescription>
       </CardHeader>
 
       <CardContent className="space-y-6">
@@ -133,26 +133,26 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
           {showItemPriceAndQuantity && (
             <>
               <div>
-                <Label htmlFor="itemPrice">Item price</Label>
+                <Label htmlFor="itemPrice" className="text-[#9AA6BF] text-sm font-medium">Item price</Label>
                 <Input
                   id="itemPrice"
                   inputMode="decimal"
                   placeholder="0.00"
                   value={itemPrice}
                   onChange={(e) => setItemPrice(e.target.value)}
-                  className="mt-2 h-11"
+                  className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
                 />
               </div>
 
               <div>
-                <Label htmlFor="quantity">Quantity</Label>
+                <Label htmlFor="quantity" className="text-[#9AA6BF] text-sm font-medium">Quantity</Label>
                 <Input
                   id="quantity"
                   inputMode="numeric"
                   placeholder="1"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
-                  className="mt-2 h-11"
+                  className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
                 />
               </div>
             </>
@@ -160,20 +160,20 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
 
           {showQuantityOnly && (
             <div>
-              <Label htmlFor="quantity">Quantity</Label>
+              <Label htmlFor="quantity" className="text-[#9AA6BF] text-sm font-medium">Quantity</Label>
               <Input
                 id="quantity"
                 inputMode="numeric"
                 placeholder="1"
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
-                className="mt-2 h-11"
+                className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
               />
             </div>
           )}
 
           <div>
-            <Label htmlFor="region">Seller region</Label>
+            <Label htmlFor="region" className="text-[#9AA6BF] text-sm font-medium">Seller region</Label>
             <select
               id="region"
               value={region}
@@ -182,12 +182,12 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
                 setRegion(v);
                 onRegionChange?.(v);
               }}
-              className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3 text-sm shadow-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="mt-2 h-11 w-full rounded-md border border-white/15 bg-[#0A1628] px-3 text-sm text-[#EAF0FF] shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/20 disabled:cursor-not-allowed disabled:opacity-50"
             >
               <option value="US">United States</option>
               <option value="CA">Canada</option>
             </select>
-            <p className="mt-2 text-xs text-muted-foreground">
+            <p className="mt-2 text-xs text-[#9AA6BF]">
               Region drives fee rules. Currency auto-sets by region.
             </p>
           </div>
@@ -197,26 +197,26 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
           {showCogsAndYourShipping && (
             <>
               <div>
-                <Label htmlFor="cogsPerUnit">{CALC_LABELS.COST_OF_GOODS_PER_UNIT}</Label>
+                <Label htmlFor="cogsPerUnit" className="text-[#9AA6BF] text-sm font-medium">{CALC_LABELS.COST_OF_GOODS_PER_UNIT}</Label>
                 <Input
                   id="cogsPerUnit"
                   inputMode="decimal"
                   placeholder="0.00"
                   value={cogsPerUnit}
                   onChange={(e) => setCogsPerUnit(e.target.value)}
-                  className="mt-2 h-11"
+                  className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
                 />
               </div>
 
               <div>
-                <Label htmlFor="yourShippingCost">{CALC_LABELS.YOUR_SHIPPING_COST}</Label>
+                <Label htmlFor="yourShippingCost" className="text-[#9AA6BF] text-sm font-medium">{CALC_LABELS.YOUR_SHIPPING_COST}</Label>
                 <Input
                   id="yourShippingCost"
                   inputMode="decimal"
                   placeholder="0.00"
                   value={yourShippingCost}
                   onChange={(e) => setYourShippingCost(e.target.value)}
-                  className="mt-2 h-11"
+                  className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
                 />
               </div>
             </>
@@ -224,42 +224,41 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
 
           {calculatorVariant === "pricing" && (
             <div>
-              <Label htmlFor="targetMarginPct">Target margin (%)</Label>
+              <Label htmlFor="targetMarginPct" className="text-[#9AA6BF] text-sm font-medium">Target margin (%)</Label>
               <Input
                 id="targetMarginPct"
                 inputMode="decimal"
                 placeholder="30"
                 value={targetMarginPct}
                 onChange={(e) => setTargetMarginPct?.(e.target.value)}
-                className="mt-2 h-11"
+                className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
               />
             </div>
           )}
 
           {showShippingCharged && (
             <div>
-              <Label htmlFor="shippingCharged">{CALC_LABELS.SHIPPING_CHARGED_TO_BUYER}</Label>
+              <Label htmlFor="shippingCharged" className="text-[#9AA6BF] text-sm font-medium">{CALC_LABELS.SHIPPING_CHARGED_TO_BUYER}</Label>
               <Input
                 id="shippingCharged"
                 inputMode="decimal"
                 placeholder="0.00"
                 value={shippingCharged}
                 onChange={(e) => setShippingCharged(e.target.value)}
-                className="mt-2 h-11"
+                className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
               />
             </div>
           )}
 
-          <div className="flex items-center justify-between rounded-lg border p-4">
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <Label htmlFor="offsiteAds" className="cursor-pointer">
-                  Offsite Ads
-                </Label>
-                <span className="text-xs text-muted-foreground">(if this order came from Etsy Offsite Ads)</span>
-              </div>
+          <div className="flex items-center justify-between gap-4 rounded-lg border border-white/15 bg-white/[0.05] p-4">
+            <div className="flex min-w-0 flex-col gap-0.5">
+              <Label htmlFor="offsiteAds" className="cursor-pointer text-[#EAF0FF] text-sm font-medium">
+                Offsite Ads
+              </Label>
+              <span className="text-xs text-[#9AA6BF]">Order came via Etsy Offsite Ads</span>
             </div>
             <Switch
+              className="data-[state=unchecked]:bg-white/20 data-[state=checked]:bg-[#6EE7B7] border-white/10"
               id="offsiteAds"
               checked={includeOffsiteAds}
               onCheckedChange={(v) => {
@@ -272,42 +271,40 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
 
         {showTaxEstimate && (
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="flex items-center justify-between rounded-lg border p-4">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <Label htmlFor="taxEstimate" className="cursor-pointer">
-                    Include income tax estimate
-                  </Label>
-                  <span className="text-xs text-muted-foreground">(optional preview)</span>
-                </div>
+            <div className="flex items-center justify-between gap-4 rounded-lg border border-white/15 bg-white/[0.05] p-4">
+              <div className="flex min-w-0 flex-col gap-0.5">
+                <Label htmlFor="taxEstimate" className="cursor-pointer text-[#EAF0FF] text-sm font-medium">
+                  Include income tax estimate
+                </Label>
+                <span className="text-xs text-[#9AA6BF]">Optional, preview only</span>
               </div>
-              <Switch id="taxEstimate" checked={includeTaxEstimate} onCheckedChange={setIncludeTaxEstimate} />
+              <Switch className="data-[state=unchecked]:bg-white/20 data-[state=checked]:bg-[#6EE7B7] border-white/10" id="taxEstimate" checked={includeTaxEstimate} onCheckedChange={setIncludeTaxEstimate} />
             </div>
 
             <div>
-              <Label htmlFor="taxRatePct">Estimated tax rate (%)</Label>
+              <Label htmlFor="taxRatePct" className="text-[#9AA6BF] text-sm font-medium">Estimated tax rate (%)</Label>
               <Input
                 id="taxRatePct"
                 inputMode="decimal"
                 placeholder="25"
                 value={taxRatePct}
                 onChange={(e) => setTaxRatePct(e.target.value)}
-                className="mt-2 h-11"
+                className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
                 disabled={!includeTaxEstimate}
               />
-              <p className="mt-2 text-xs text-muted-foreground">Applied to net profit only (no deductions modelled).</p>
+              <p className="mt-2 text-xs text-[#9AA6BF]">Applied to net profit only (no deductions modelled).</p>
             </div>
           </div>
         )}
 
-        <Separator />
+        <Separator className="bg-white/10" />
 
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Info className="h-4 w-4 text-muted-foreground" />
-            <span className="text-sm text-muted-foreground">Advanced</span>
+            <Info className="h-4 w-4 text-[#9AA6BF]" />
+            <span className="text-sm text-[#9AA6BF]">Advanced</span>
           </div>
-          <Switch checked={showAdvanced} onCheckedChange={setShowAdvanced} />
+          <Switch className="data-[state=unchecked]:bg-white/20 data-[state=checked]:bg-[#6EE7B7] border-white/10" checked={showAdvanced} onCheckedChange={setShowAdvanced} />
         </div>
 
         {showAdvanced && (

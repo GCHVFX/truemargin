@@ -1,6 +1,5 @@
 import { EtsyCalculatorStaticContent }from "../../components/EtsyCalculatorStaticContent";
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Suspense } from "react";
 import { CalculatorPage } from "@/components/CalculatorPage";
 
@@ -126,10 +125,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function Page() {
   return (
     <>
-      <Script
-        id="tm-etsy-pricing-jsonld"
+      <script
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: jsonLd() }}
       />
       <Suspense fallback={null}>

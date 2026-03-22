@@ -94,6 +94,12 @@ export default function Page() {
         <div className="mx-auto max-w-4xl px-4 sm:px-6">
           <article className="rounded-2xl bg-white p-6 text-slate-800 shadow-sm ring-1 ring-slate-200 sm:p-10">
             <h1 className="text-3xl font-semibold tracking-tight text-[#2F3A56] sm:text-4xl">How Much Does Etsy Take Per Sale?</h1>
+            <div className="mt-6">
+              <p className="text-xs font-medium uppercase tracking-wide text-[#9AA6BF] mb-2">Quick answer</p>
+              <div className="border-l-4 border-emerald-500/60 pl-4 py-2 bg-white/5 text-[#EAF0FF] text-base">
+                <p className="leading-7">Etsy takes between 9.5% and 15% of each sale depending on your fees. Every order incurs a $0.20 listing fee, a 6.5% transaction fee, and a payment processing fee of around 3%.</p>
+              </div>
+            </div>
             <p className="mt-5 text-base leading-7">
               Etsy does not take one flat fee. Most sellers often see total Etsy fees around 10% to 15% on a typical order, but your exact fee
               amount depends on order value, shipping charged, seller region, and whether Offsite Ads applies.
