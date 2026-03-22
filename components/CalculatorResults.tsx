@@ -156,9 +156,9 @@ export function CalculatorResults({
               </div>
             )}
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
-              className="h-9 w-full text-slate-500 hover:text-slate-700 hover:bg-slate-100/60"
+              className="h-9 w-full border-slate-300 text-slate-600 hover:text-slate-900 hover:bg-slate-100 hover:border-slate-400"
               onClick={onCopyResults}
             >
               <Copy className="mr-2 h-4 w-4" />
@@ -231,22 +231,6 @@ export function CalculatorResults({
                           </span>
                         </p>
                       ) : null}
-                      {m < 0.30 && (
-                        <div className="mt-4 rounded-lg border border-amber-300/50 bg-amber-50 px-4 py-3">
-                          <p className="text-sm font-medium text-amber-800">
-                            Thin margin: pricing adjustments could help.
-                          </p>
-                          <p className="mt-1 text-xs text-amber-700/80">
-                            TrueMargin Pro lets you model multiple pricing scenarios to find a healthier number.
-                          </p>
-                          <a
-                            href="/pricing"
-                            className="mt-2 inline-block text-xs font-semibold text-amber-700 underline underline-offset-2 hover:text-amber-900"
-                          >
-                            See Pro features →
-                          </a>
-                        </div>
-                      )}
                     </>
                   );
                 })()}
@@ -396,6 +380,20 @@ export function CalculatorResults({
                 </div>
               </div>
             )}
+            <div className="mt-2 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
+              <p className="text-sm font-medium text-slate-700">
+                Want to compare pricing scenarios?
+              </p>
+              <p className="mt-1 text-xs text-slate-500">
+                TrueMargin Pro lets you run multiple scenarios side by side and save your products.
+              </p>
+              <a
+                href="/pricing"
+                className="mt-2 inline-block text-xs font-semibold text-slate-600 underline underline-offset-2 hover:text-slate-900"
+              >
+                See Pro features →
+              </a>
+            </div>
           </>
         )}
       </CardContent>
