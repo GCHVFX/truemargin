@@ -329,10 +329,17 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
         )}
 
         <div className="flex flex-col gap-3 sm:flex-row">
-          <Button onClick={onCalculate} className="h-11">
+          <Button
+            onClick={onCalculate}
+            className="h-11 w-full sm:w-auto sm:px-8 bg-white/90 text-[#0D1829] font-semibold hover:bg-white border-0"
+          >
             {calculatorVariant === "pricing" ? "Update Recommended Price" : "Calculate My True Margin"}
           </Button>
-          <Button variant="secondary" onClick={onReset} className="h-11">
+          <Button
+            variant="ghost"
+            onClick={onReset}
+            className="h-11 px-5 text-[#9AA6BF] hover:text-[#EAF0FF] hover:bg-white/10 border border-white/10"
+          >
             Reset
           </Button>
         </div>
