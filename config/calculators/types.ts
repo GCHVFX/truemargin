@@ -3,7 +3,7 @@
  * Supports multiple marketplaces (Etsy, future: Amazon, eBay, etc.).
  */
 
-export type CalculatorContentKey = "profit" | "fee" | "break-even" | "pricing" | "offsite-ads";
+export type CalculatorContentKey = "profit" | "fee" | "break-even" | "pricing";
 
 /** Order of result blocks in CalculatorResults. breakEven is shown only when result has breakEvenItemPrice. */
 export type ResultBlockKey = "summary" | "fee" | "breakEven";
@@ -39,7 +39,7 @@ export type SeoContent = {
 };
 
 export type SwitcherItem = {
-  key: CalculatorContentKey;
+  key: string;
   href: string;
   label: string;
   description: string;
