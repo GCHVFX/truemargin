@@ -127,6 +127,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd() }}
       />
+      <h1 className="sr-only">Etsy Break-Even Calculator</h1>
       <Suspense fallback={null}>
         <CalculatorPage variant='etsy-break-even-calculator' />
         <EtsyCalculatorStaticContent contentKey="break-even" />

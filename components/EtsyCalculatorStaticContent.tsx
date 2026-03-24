@@ -135,6 +135,15 @@ export function EtsyCalculatorStaticContent({ contentKey }: { contentKey: Calcul
                   </span>
                 </Link>
               ))}
+              <Link
+                href="/etsy-offsite-ads-calculator"
+                className="rounded-lg border border-white/15 bg-[#10182A]/70 p-4 text-lg md:text-xl font-semibold text-[#EAF0FF] transition hover:bg-[#10182A]"
+              >
+                Etsy Offsite Ads Calculator
+                <span className="mt-1 block text-base leading-relaxed font-normal text-[#D6DEEE]">
+                  See your threshold status and per-order margin impact before and after enrollment.
+                </span>
+              </Link>
             </div>
           </div>
 

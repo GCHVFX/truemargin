@@ -59,6 +59,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    {
+      url: `${baseUrl}/etsy-offsite-ads-calculator`,
+      lastModified: CORE_PAGES_DATE,
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    },
 
     // ── High-value informational / hub pages ─────────────────────
     {

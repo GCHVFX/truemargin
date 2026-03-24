@@ -126,7 +126,11 @@ export default function Page() {
                 <strong>Regulatory fees:</strong> Additional region-based operating fee in some markets.
               </p>
               <p className="leading-7 text-[#9AA6BF]">
-                <strong>Offsite Ads:</strong> Optional percentage fee when Etsy attributes a sale to Offsite Ads.
+                <strong>Offsite Ads:</strong> Optional percentage fee when Etsy attributes a sale to Offsite Ads. Use the{" "}
+                <Link href="/etsy-offsite-ads-calculator" className="font-semibold text-[#6EE7B7] underline decoration-[#6EE7B7] decoration-2 underline-offset-2">
+                  Offsite Ads calculator
+                </Link>{" "}
+                to see your threshold status and per-order impact.
               </p>
             </section>
 

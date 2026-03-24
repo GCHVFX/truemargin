@@ -1,3 +1,5 @@
+'use client'
+
 import Link from "next/link";
 import type { SwitcherConfig } from "@/config/calculators/types";
 import { track } from "@/lib/analytics";
@@ -31,6 +33,7 @@ const ETSY_ITEMS: SwitcherConfig = {
     { key: "fee", href: "/etsy-fee-calculator", label: "Fee calculator", description: "estimate Etsy fees per order" },
     { key: "break-even", href: "/etsy-break-even-calculator", label: "Break-even calculator", description: "find the minimum profitable price" },
     { key: "pricing", href: "/etsy-pricing-calculator", label: "Pricing calculator", description: "set Etsy price for your target margin" },
+    { key: "offsite-ads", href: "/etsy-offsite-ads-calculator", label: "Offsite Ads calculator", description: "track threshold and margin impact" },
   ],
 };
 
@@ -39,7 +42,7 @@ export function CalculatorSwitcher({
   dark = false,
   switcher = ETSY_ITEMS,
 }: {
-  current: "profit" | "fee" | "break-even" | "pricing";
+  current: "profit" | "fee" | "break-even" | "pricing" | "offsite-ads";
   dark?: boolean;
   /** Config-driven switcher. Defaults to Etsy when omitted for backwards compatibility. */
   switcher?: SwitcherConfig;

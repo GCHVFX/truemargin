@@ -129,6 +129,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLd() }}
       />
+      <h1 className="sr-only">Etsy Pricing Calculator</h1>
       <Suspense fallback={null}>
         <CalculatorPage variant="etsy-pricing-calculator" />
         <EtsyCalculatorStaticContent contentKey="pricing" />

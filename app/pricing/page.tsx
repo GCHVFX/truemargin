@@ -27,28 +27,20 @@ const PRO_FEATURES = [
     desc: 'Save products you calculate regularly — no re-entering every time',
   },
   {
-    label: 'Price increase simulator',
-    desc: 'See the exact margin impact of raising your price by any amount',
-  },
-  {
-    label: 'Shipping cost optimizer',
-    desc: 'Compare charging shipping separately vs rolling it into item price',
-  },
-  {
-    label: 'CSV import',
-    desc: 'Bulk calculate your entire catalogue at once',
-  },
-  {
     label: 'Offsite Ads threshold tracker',
     desc: 'Get alerted before you hit $10K mandatory Offsite Ads enrollment',
   },
   {
-    label: 'Break-even quantity',
-    desc: 'How many units at this price before you cover fixed costs',
+    label: 'Listing health score',
+    desc: 'Flags saved SKUs where margin is below your target — red, yellow, green at a glance',
   },
   {
-    label: 'Export to PDF',
-    desc: 'Clean one-page profit report for your records or accountant',
+    label: 'Fee change alerts',
+    desc: 'Get emailed when Etsy updates their fees so your pricing stays accurate',
+  },
+  {
+    label: 'CSV import',
+    desc: 'Bulk calculate your entire catalogue at once',
   },
   {
     label: 'Tax mode',

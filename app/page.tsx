@@ -50,6 +50,10 @@ const LANDING_HTML = `<main class="grid">
                 <b>Currency conversion</b>
                 <p>Quick USD and CAD conversion so you can price across markets.</p>
               </div>
+              <div class="feat">
+                <b>Offsite Ads tracker</b>
+                <p>See how close you are to the $10K mandatory enrollment threshold and what it costs your margins per order.</p>
+              </div>
             </div>
             <div style="margin-top: 10px;">
               <p class="mini" style="font-weight:600;">New to Etsy fees?</p>
