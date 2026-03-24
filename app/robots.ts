@@ -9,7 +9,6 @@ const PRIVATE_ROUTES = [
   "/(dashboard)/",
   "/auth/",
   "/success",
-  "/pricing",
   "/disclaimer",
 ];
 

@@ -163,6 +163,33 @@ export function EtsyCalculatorStaticContent({ contentKey }: { contentKey: Calcul
                   Understand each Etsy fee type and how it affects take-home profit.
                 </span>
               </Link>
+              <Link
+                href="/etsy-transaction-fee"
+                className="rounded-lg border border-white/15 bg-[#10182A]/70 p-4 text-lg md:text-xl font-semibold text-[#EAF0FF] transition hover:bg-[#10182A]"
+              >
+                Etsy Transaction Fee Explained
+                <span className="mt-1 block text-base leading-relaxed font-normal text-[#D6DEEE]">
+                  How the 6.5% transaction fee works and what it applies to.
+                </span>
+              </Link>
+              <Link
+                href="/etsy-payment-processing-fee"
+                className="rounded-lg border border-white/15 bg-[#10182A]/70 p-4 text-lg md:text-xl font-semibold text-[#EAF0FF] transition hover:bg-[#10182A]"
+              >
+                Etsy Payment Processing Fee Explained
+                <span className="mt-1 block text-base leading-relaxed font-normal text-[#D6DEEE]">
+                  Processing fee rates by country and how they affect take-home.
+                </span>
+              </Link>
+              <Link
+                href="/etsy-seller-fees-2026"
+                className="rounded-lg border border-white/15 bg-[#10182A]/70 p-4 text-lg md:text-xl font-semibold text-[#EAF0FF] transition hover:bg-[#10182A]"
+              >
+                Etsy Seller Fees 2026
+                <span className="mt-1 block text-base leading-relaxed font-normal text-[#D6DEEE]">
+                  Complete breakdown of every fee Etsy charges sellers this year.
+                </span>
+              </Link>
             </div>
           </div>
 

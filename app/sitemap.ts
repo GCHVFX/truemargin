@@ -85,6 +85,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/etsy-transaction-fee`,
+      lastModified: CORE_PAGES_DATE,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/etsy-payment-processing-fee`,
+      lastModified: CORE_PAGES_DATE,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/etsy-seller-fees-2026`,
+      lastModified: CORE_PAGES_DATE,
+      changeFrequency: "yearly" as const,
+      priority: 0.75,
+    },
 
     // ── Regional fee pages ────────────────────────────────────────
     {

@@ -89,7 +89,11 @@ const SITE_SCHEMA = JSON.stringify([
       width: 512,
       height: 512,
     },
-    sameAs: [],
+    sameAs: [
+      // Add social profile URLs here when available
+      // e.g. "https://twitter.com/truemargin",
+      // e.g. "https://pinterest.com/truemargin"
+    ],
     contactPoint: {
       "@type": "ContactPoint",
       email: "support@gettruemargin.com",

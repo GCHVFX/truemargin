@@ -158,7 +158,7 @@ export function CalculatorResults({
             <Button
               variant="outline"
               size="sm"
-              className="h-9 w-full border-slate-300 text-slate-600 hover:text-slate-900 hover:bg-slate-100 hover:border-slate-400"
+              className="hidden sm:flex h-9 w-full border-slate-300 text-slate-600 hover:text-slate-900 hover:bg-slate-100 hover:border-slate-400"
               onClick={onCopyResults}
             >
               <Copy className="mr-2 h-4 w-4" />

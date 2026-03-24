@@ -50,6 +50,9 @@ export function CalculatorSwitcher({
         <p className={getLabelClassName(dark)}>
           {switcher.label}
         </p>
+        <p className={`mt-1 text-xs ${dark ? "text-[#9AA6BF]" : "text-muted-foreground"}`}>
+          {switcher.items.map((item, i) => `${i > 0 ? ' · ' : ''}${item.description}`).join('')}
+        </p>
         <nav
           className="mt-2 flex flex-wrap items-center gap-2"
           aria-label={`${switcher.marketplace} calculator switcher`}
@@ -69,17 +72,6 @@ export function CalculatorSwitcher({
             );
           })}
         </nav>
-      </div>
-      <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs">
-        {switcher.items.map((item) => {
-          const active = item.key === current;
-          return (
-            <span key={item.key} className={getDescriptionClassName(dark, active)}>
-              <span className="font-medium">{item.label}</span>
-              <span className="font-normal"> – {item.description}</span>
-            </span>
-          );
-        })}
       </div>
     </div>
   );

@@ -111,10 +111,16 @@ export default function Page() {
                 <strong>Listing fee:</strong> A fixed fee per listing or renewal.
               </p>
               <p className="leading-7 text-[#9AA6BF]">
-                <strong>Transaction fee:</strong> A percentage Etsy applies to the order total.
+                <strong>Transaction fee:</strong>{" "}
+                <Link href="/etsy-transaction-fee" className="font-semibold text-[#6EE7B7] underline decoration-[#6EE7B7] decoration-2 underline-offset-2">
+                  A percentage Etsy applies to the order total.
+                </Link>
               </p>
               <p className="leading-7 text-[#9AA6BF]">
-                <strong>Payment processing:</strong> Usually a percentage plus fixed amount, based on seller region.
+                <strong>Payment processing:</strong>{" "}
+                <Link href="/etsy-payment-processing-fee" className="font-semibold text-[#6EE7B7] underline decoration-[#6EE7B7] decoration-2 underline-offset-2">
+                  Usually a percentage plus fixed amount, based on seller region.
+                </Link>
               </p>
               <p className="leading-7 text-[#9AA6BF]">
                 <strong>Regulatory fees:</strong> Additional region-based operating fee in some markets.

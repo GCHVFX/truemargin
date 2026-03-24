@@ -226,6 +226,15 @@ export default function Page() {
                   <span className="mt-1 block text-xs font-normal text-[#9AA6BF]">Set your Etsy price to hit your target margin</span>
                 </Link>
               </div>
+              <Link
+                href="/etsy-seller-fees-2026"
+                className="rounded-md border border-white/20 bg-white/5 px-4 py-3 text-sm font-semibold text-[#EAF0FF] transition hover:bg-white/10"
+              >
+                Etsy Seller Fees 2026
+                <span className="mt-1 block text-xs font-normal text-[#9AA6BF]">
+                  Complete breakdown of every fee Etsy charges sellers this year.
+                </span>
+              </Link>
             </section>
 
             <section className="mt-12 space-y-4">

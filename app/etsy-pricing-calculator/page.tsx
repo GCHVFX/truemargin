@@ -106,7 +106,7 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "TrueMargin",
       images: [
         {
-          url: "https://gettruemargin.com/og/etsy-pricing-calculator.png",
+          url: "https://gettruemargin.com/og-image.png",
           width: 1200,
           height: 630,
           alt: "TrueMargin Etsy Pricing Calculator",
@@ -117,7 +117,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title,
       description,
-      images: ["https://gettruemargin.com/og/etsy-pricing-calculator.png"],
+      images: ["https://gettruemargin.com/og-image.png"],
     },
   };
 }

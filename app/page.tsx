@@ -5,9 +5,10 @@ import { Logo } from "@/components/Logo";
 import { WaitlistMount } from "@/components/WaitlistMount";
 
 export const metadata: Metadata = {
-  title: "TrueMargin | Etsy Seller Calculators",
+  title: "Free Etsy Profit & Fee Calculator — TrueMargin",
   description:
-    "Free Etsy profit, fee, break-even, and pricing calculators built for sellers who want accurate margins and clear pricing decisions."
+    "Free Etsy profit, fee, break-even, and pricing calculators built for sellers who want accurate margins and clear pricing decisions.",
+  alternates: { canonical: "https://gettruemargin.com" },
 };
 
 const LANDING_HTML = `<main class="grid">
@@ -55,6 +56,23 @@ const LANDING_HTML = `<main class="grid">
               <p class="mini" style="margin-top:4px;">
                 <a href="/etsy-fees-explained" style="text-decoration:underline;">See the full Etsy fee breakdown</a>
               </p>
+            </div>
+          </div>
+
+          <div class="section" id="fee-examples">
+            <h2>Etsy fees by sale price</h2>
+            <p class="mini">See exactly what Etsy takes at common price points.</p>
+            <div class="feeLinks">
+              <a href="/etsy-fees-on-10-dollar-sale">Fees on a $10 sale</a>
+              <a href="/etsy-fees-on-20-dollar-sale">Fees on a $20 sale</a>
+              <a href="/etsy-fees-on-25-dollar-sale">Fees on a $25 sale</a>
+              <a href="/etsy-fees-on-35-dollar-sale">Fees on a $35 sale</a>
+              <a href="/etsy-fees-on-50-dollar-sale">Fees on a $50 sale</a>
+              <a href="/etsy-fees-on-75-dollar-sale">Fees on a $75 sale</a>
+              <a href="/etsy-fees-on-100-dollar-sale">Fees on a $100 sale</a>
+              <a href="/etsy-fees-on-150-dollar-sale">Fees on a $150 sale</a>
+              <a href="/etsy-fees-on-200-dollar-sale">Fees on a $200 sale</a>
+              <a href="/etsy-fees-on-500-dollar-sale">Fees on a $500 sale</a>
             </div>
           </div>
 
@@ -310,6 +328,39 @@ const LANDING_CSS = `:root{
 export default function HomePage() {
   return (
     <main suppressHydrationWarning>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What does Etsy take from each sale?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Etsy typically takes a $0.20 listing fee, a 6.5% transaction fee, and a payment processing fee of around 3% plus a fixed amount. Sellers enrolled in Offsite Ads also pay 12–15% on attributed sales."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is TrueMargin free to use?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. All four calculators — profit, fee, break-even, and pricing — are free with no account required and unlimited calculations."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What calculators does TrueMargin include?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "TrueMargin includes an Etsy profit calculator, Etsy fee calculator, break-even calculator, and pricing calculator. Each shows a full fee breakdown per order."
+              }
+            }
+          ]
+        })}}
+      />
       <style dangerouslySetInnerHTML={{ __html: LANDING_CSS }} />
       <div className="wrap">
         <header>

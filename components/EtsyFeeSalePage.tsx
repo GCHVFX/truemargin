@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Script from "next/script";
 import { buildEtsyFeeSaleJsonLd, getEtsyFeeSaleScenario } from "@/lib/etsyFeeSalePages";
 
 const currency = (n: number) => `$${n.toFixed(2)}`;
@@ -19,10 +18,9 @@ export function EtsyFeeSalePage({ amount }: { amount: number }) {
 
   return (
     <>
-      <Script
+      <script
         id={`tm-etsy-fees-on-${amount}-jsonld`}
         type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{ __html: buildEtsyFeeSaleJsonLd(amount) }}
       />
 
