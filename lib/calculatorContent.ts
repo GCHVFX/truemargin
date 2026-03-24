@@ -218,11 +218,12 @@ export function getCalculatorContentKey(
 }
 
 /** Returns full content for a calculator variant, including seoContent for CalculatorSeoSection */
-export function getCalculatorContent(key: CalculatorContentKey): CalculatorContent & { seoContent: ReturnType<typeof getSeoContent> } {
-  const c = CONTENT[key];
+export function getCalculatorContent(key: string): (CalculatorContent & { seoContent: ReturnType<typeof getSeoContent> }) | null {
+  if (!(key in CONTENT)) return null;
+  const c = CONTENT[key as CalculatorContentKey];
   return {
     ...c,
-    seoContent: getSeoContent(key),
+    seoContent: getSeoContent(key as CalculatorContentKey),
   };
 }
 

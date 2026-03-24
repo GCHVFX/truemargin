@@ -68,7 +68,13 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
 
   const config = getCalculatorConfig(vRaw || pathname);
   const contentKey = config?.contentKey ?? (isPricing ? "pricing" : isFee ? "fee" : isBreakEven ? "break-even" : "profit");
-  const content = config?.content ?? getCalculatorContent(contentKey);
+
+  const knownContentKeys = ["profit", "fee", "break-even", "pricing"] as const;
+  type KnownContentKey = typeof knownContentKeys[number];
+  const isKnownKey = (k: string): k is KnownContentKey =>
+    knownContentKeys.includes(k as KnownContentKey);
+
+  const content = config?.content ?? (isKnownKey(contentKey) ? getCalculatorContent(contentKey) : null);
 
   React.useEffect(() => {
     track("calculator_page_view", { variant: vRaw || pathname, contentKey });
@@ -421,14 +427,18 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
     <main className="calculator-page-bg text-[#EAF0FF]">
       <section className="mx-auto max-w-5xl px-4 py-10">
         <div className="flex flex-col gap-3">
-          <div className="inline-flex items-center gap-2 text-sm text-[#9AA6BF]">
-            <BadgeCheck className="h-4 w-4" />
-            <span>{content.eyebrowText}</span>
-          </div>
+          {content && (
+            <>
+              <div className="inline-flex items-center gap-2 text-sm text-[#9AA6BF]">
+                <BadgeCheck className="h-4 w-4" />
+                <span>{content.eyebrowText}</span>
+              </div>
 
-          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-[#EAF0FF]">{content.heroH1}</h1>
-          <h2 className="text-lg font-medium text-[#9AA6BF]">{content.heroH2}</h2>
-          <p className="max-w-2xl text-[#9AA6BF]">{content.heroSubhead}</p>
+              <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-[#EAF0FF]">{content.heroH1}</h1>
+              <h2 className="text-lg font-medium text-[#9AA6BF]">{content.heroH2}</h2>
+              <p className="max-w-2xl text-[#9AA6BF]">{content.heroSubhead}</p>
+            </>
+          )}
 
           <CalculatorSwitcher
             current={contentKey}
