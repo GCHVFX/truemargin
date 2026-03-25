@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Copy } from "lucide-react";
+import { Copy, Check } from "lucide-react";
 import type { CalcResult } from "@/lib/feeEngine";
 import type { Currency, SellerRegion } from "@/lib/fees";
 import type { ResultBlockKey } from "@/config/calculators/types";
@@ -75,6 +75,12 @@ export function CalculatorResults({
   clampNonNeg,
 }: CalculatorResultsProps) {
   const currencyFmt = React.useMemo(() => fmt(currency), [currency]);
+  const [isCopied, setIsCopied] = React.useState(false);
+  const handleCopy = React.useCallback(() => {
+    onCopyResults();
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 1500);
+  }, [onCopyResults]);
 
   const transactionFeeLabel = React.useMemo(
     () => getTransactionFeeBreakdownLabel(transactionFeePct),
@@ -158,11 +164,11 @@ export function CalculatorResults({
             <Button
               variant="outline"
               size="sm"
-              className="hidden sm:flex h-9 w-full border-slate-300 text-slate-600 hover:text-slate-900 hover:bg-slate-100 hover:border-slate-400"
-              onClick={onCopyResults}
+              className={`hidden sm:flex h-9 w-full border-slate-300 transition-all duration-150 ${isCopied ? "bg-slate-100 border-slate-400 text-slate-900 scale-[0.97] shadow-inner" : "text-slate-600 hover:text-slate-900 hover:bg-slate-100 hover:border-slate-400"}`}
+              onClick={handleCopy}
             >
-              <Copy className="mr-2 h-4 w-4" />
-              Copy results
+              {isCopied ? <Check className="mr-2 h-4 w-4 text-green-600" /> : <Copy className="mr-2 h-4 w-4" />}
+              {isCopied ? "Copied!" : "Copy results"}
             </Button>
             {/* Profit & pricing: you keep, margin, verdict, segmented margin bar, optional offsite impact */}
             {(isProfit || isPricing) && !isFee && (
