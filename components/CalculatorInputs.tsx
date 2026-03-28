@@ -140,6 +140,7 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
                   placeholder="0.00"
                   value={itemPrice}
                   onChange={(e) => setItemPrice(e.target.value)}
+                  onFocus={(e) => e.target.select()}
                   className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
                 />
               </div>
@@ -152,6 +153,7 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
                   placeholder="1"
                   value={quantity}
                   onChange={(e) => setQuantity(e.target.value)}
+                  onFocus={(e) => e.target.select()}
                   className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
                 />
               </div>
@@ -167,6 +169,7 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
                 placeholder="1"
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
+                onFocus={(e) => e.target.select()}
                 className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
               />
             </div>
@@ -204,6 +207,7 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
                   placeholder="0.00"
                   value={cogsPerUnit}
                   onChange={(e) => setCogsPerUnit(e.target.value)}
+                  onFocus={(e) => e.target.select()}
                   className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
                 />
               </div>
@@ -216,6 +220,7 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
                   placeholder="0.00"
                   value={yourShippingCost}
                   onChange={(e) => setYourShippingCost(e.target.value)}
+                  onFocus={(e) => e.target.select()}
                   className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
                 />
               </div>
@@ -231,6 +236,7 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
                 placeholder="30"
                 value={targetMarginPct}
                 onChange={(e) => setTargetMarginPct?.(e.target.value)}
+                onFocus={(e) => e.target.select()}
                 className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
               />
             </div>
@@ -245,6 +251,7 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
                 placeholder="0.00"
                 value={shippingCharged}
                 onChange={(e) => setShippingCharged(e.target.value)}
+                onFocus={(e) => e.target.select()}
                 className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
               />
             </div>
@@ -289,6 +296,7 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
                 placeholder="25"
                 value={taxRatePct}
                 onChange={(e) => setTaxRatePct(e.target.value)}
+                onFocus={(e) => e.target.select()}
                 className="mt-2 h-11 bg-[#0A1628] border-white/15 text-[#EAF0FF] placeholder:text-[#4A5568] focus-visible:ring-white/20"
                 disabled={!includeTaxEstimate}
               />

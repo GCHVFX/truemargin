@@ -19,32 +19,28 @@ const FREE_FEATURES = [
 
 const PRO_FEATURES = [
   {
-    label: 'Scenario comparison',
-    desc: 'Run 3 pricing scenarios side by side to find the best margin',
+    label: 'Test multiple prices instantly',
+    desc: 'See which price actually makes you the most money before you list — not after.',
   },
   {
-    label: 'SKU saving',
-    desc: 'Save products you calculate regularly — no re-entering every time',
+    label: 'Save your products',
+    desc: 'No more re-entering costs every time you tweak a listing. Your numbers stay put.',
   },
   {
-    label: 'Offsite Ads threshold tracker',
-    desc: 'Get alerted before you hit $10K mandatory Offsite Ads enrollment',
+    label: 'Bulk calculate your entire shop',
+    desc: 'Upload a CSV and fix your pricing across all listings at once.',
   },
   {
-    label: 'Listing health score',
-    desc: 'Flags saved SKUs where margin is below your target — red, yellow, green at a glance',
+    label: 'Spot underpriced listings instantly',
+    desc: 'Know which products are costing you money at a glance, before they erode your margins.',
   },
   {
-    label: 'Fee change alerts',
-    desc: 'Get emailed when Etsy updates their fees so your pricing stays accurate',
+    label: 'Avoid surprise Etsy fees',
+    desc: 'See exactly how Offsite Ads and hidden fees hit your real profit before they hit your bank account.',
   },
   {
-    label: 'CSV import',
-    desc: 'Bulk calculate your entire catalogue at once',
-  },
-  {
-    label: 'Tax mode',
-    desc: 'Factor in income tax to see true after-tax profit per order',
+    label: 'See your true profit after tax',
+    desc: 'Understand what you actually keep, not just the before-tax estimate.',
   },
 ]
 
@@ -55,7 +51,6 @@ const COMING_SOON = [
   'Profit history and margin trends',
 ]
 
-const FOUNDER_SPOTS_REMAINING = 50
 
 export default function PricingPage() {
 
@@ -80,7 +75,7 @@ export default function PricingPage() {
         <div className="mb-10 text-center">
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#6EE7B7]/30 bg-[#6EE7B7]/10 px-4 py-1.5 text-xs font-medium text-[#6EE7B7]">
             <Zap className="h-3 w-3" />
-            Founder Pricing — {FOUNDER_SPOTS_REMAINING} spots remaining
+            Founder Pricing — Early Access
           </div>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
             Simple, honest pricing
@@ -129,7 +124,7 @@ export default function PricingPage() {
               <span className="ml-2 text-xs text-[#9AA6BF] line-through">$15</span>
             </div>
             <p className="text-xs text-[#6EE7B7]/80 mt-1 mb-6">
-              Locked in forever for early supporters. Price increases when spots fill.
+              Locked in forever for early supporters.
             </p>
 
             <ul className="space-y-3 mb-6">

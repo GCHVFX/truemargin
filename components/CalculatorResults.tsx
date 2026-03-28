@@ -386,20 +386,62 @@ export function CalculatorResults({
                 </div>
               </div>
             )}
-            <div className="mt-2 rounded-lg border border-amber-300/50 bg-amber-50 px-4 py-3">
-              <p className="text-sm font-medium text-amber-800">
-                Want to save your calculations and compare scenarios?
-              </p>
-              <p className="mt-1 text-xs text-amber-700/80">
-                TrueMargin Pro is coming. Lock in $9/mo founder pricing forever (normally $15).
-              </p>
-              <a
-                href="/pricing"
-                className="mt-2 inline-block text-xs font-semibold text-amber-700 underline underline-offset-2 hover:text-amber-900"
-              >
-                See Pro features →
-              </a>
-            </div>
+            {(() => {
+              const m = typeof result?.marginPct === "number" ? result.marginPct : null;
+              const tier = m !== null ? getMarginHealthTier(m).label : null;
+              type UpgradeCopy = { heading: string; body: string; cta: string; scheme: string; ctaClass: string; linkClass: string };
+              const copy: UpgradeCopy =
+                tier === "Low"
+                  ? {
+                      heading: "Your margin is dangerously thin.",
+                      body: "A single refund or fee increase will put you in the red. Test different prices now to find one that actually works.",
+                      cta: "Fix my pricing →",
+                      scheme: "border-rose-300/60 bg-rose-50",
+                      ctaClass: "text-rose-800",
+                      linkClass: "text-rose-700 hover:text-rose-900",
+                    }
+                  : tier === "OK"
+                  ? {
+                      heading: "Tight margin — not much room for error.",
+                      body: "One slow week, one refund, or one fee change wipes your profit. Save this product and compare scenarios before your next listing.",
+                      cta: "Compare pricing scenarios →",
+                      scheme: "border-amber-300/60 bg-amber-50",
+                      ctaClass: "text-amber-800",
+                      linkClass: "text-amber-700 hover:text-amber-900",
+                    }
+                  : tier === "Good"
+                  ? {
+                      heading: "Solid margin. Keep it that way.",
+                      body: "Save your products and run pricing scenarios across your whole shop — before you list, not after.",
+                      cta: "Save my products →",
+                      scheme: "border-teal-300/50 bg-teal-50",
+                      ctaClass: "text-teal-800",
+                      linkClass: "text-teal-700 hover:text-teal-900",
+                    }
+                  : {
+                      heading: "Strong margin. Scale it.",
+                      body: "You have pricing power. Save your products and test ads, discounts, or new listings without guessing.",
+                      cta: "Save my products →",
+                      scheme: "border-emerald-300/50 bg-emerald-50",
+                      ctaClass: "text-emerald-800",
+                      linkClass: "text-emerald-700 hover:text-emerald-900",
+                    };
+              return (
+                <div className={`mt-2 rounded-lg border px-4 py-3 ${copy.scheme}`}>
+                  <p className={`text-sm font-semibold ${copy.ctaClass}`}>{copy.heading}</p>
+                  <p className={`mt-1 text-xs ${copy.ctaClass} opacity-80`}>{copy.body}</p>
+                  <p className="mt-1.5 text-[11px] opacity-60" style={{ color: "inherit" }}>
+                    TrueMargin Pro · Founder pricing $9/mo (normally $15)
+                  </p>
+                  <a
+                    href="/pricing"
+                    className={`mt-2 inline-block text-xs font-semibold underline underline-offset-2 ${copy.linkClass}`}
+                  >
+                    {copy.cta}
+                  </a>
+                </div>
+              );
+            })()}
           </>
         )}
       </CardContent>
