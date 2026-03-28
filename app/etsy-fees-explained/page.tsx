@@ -108,63 +108,74 @@ export default function Page() {
             <section className="mt-10 space-y-4">
               <h2 className="text-2xl font-semibold text-[#EAF0FF]">Etsy Fee Breakdown</h2>
               <p className="leading-7 text-[#9AA6BF]">
-                <strong>Listing fee:</strong> A fixed fee per listing or renewal.
+                <span className="font-semibold text-[#EAF0FF]">Listing fee: $0.20</span> &mdash; fixed per listing published or auto-renewed on sale. Applies every time the listing sells and renews.
               </p>
               <p className="leading-7 text-[#9AA6BF]">
-                <strong>Transaction fee:</strong>{" "}
-                <Link href="/etsy-transaction-fee" className="font-semibold text-[#6EE7B7] underline decoration-[#6EE7B7] decoration-2 underline-offset-2">
-                  A percentage Etsy applies to the order total.
-                </Link>
+                <span className="font-semibold text-[#EAF0FF]">
+                  <Link href="/etsy-transaction-fee" className="font-semibold text-[#6EE7B7] underline decoration-[#6EE7B7] decoration-2 underline-offset-2">
+                    Transaction fee: 6.5%
+                  </Link>
+                </span>{" "}
+                &mdash; applied to the full order total including shipping charged to the buyer. On a $35 item with $5 shipping, the fee is 6.5% of $40 = $2.60.
               </p>
               <p className="leading-7 text-[#9AA6BF]">
-                <strong>Payment processing:</strong>{" "}
-                <Link href="/etsy-payment-processing-fee" className="font-semibold text-[#6EE7B7] underline decoration-[#6EE7B7] decoration-2 underline-offset-2">
-                  Usually a percentage plus fixed amount, based on seller region.
-                </Link>
+                <span className="font-semibold text-[#EAF0FF]">
+                  <Link href="/etsy-payment-processing-fee" className="font-semibold text-[#6EE7B7] underline decoration-[#6EE7B7] decoration-2 underline-offset-2">
+                    Payment processing: 3% + $0.25 (US)
+                  </Link>
+                </span>{" "}
+                &mdash; varies by seller country. US sellers pay 3% + $0.25, UK sellers pay 4% + £0.20, EU sellers pay 4% + €0.30.
               </p>
               <p className="leading-7 text-[#9AA6BF]">
-                <strong>Regulatory fees:</strong> Additional region-based operating fee in some markets.
-              </p>
-              <p className="leading-7 text-[#9AA6BF]">
-                <strong>Offsite Ads:</strong> Optional percentage fee when Etsy attributes a sale to Offsite Ads. Use the{" "}
+                <span className="font-semibold text-[#EAF0FF]">Offsite Ads fee: 15% (12% above $10K/year)</span>{" "}
+                &mdash; only applies when Etsy attributes the sale to an external ad. Mandatory once you cross $10,000 in annual sales. Use the{" "}
                 <Link href="/etsy-offsite-ads-calculator" className="font-semibold text-[#6EE7B7] underline decoration-[#6EE7B7] decoration-2 underline-offset-2">
-                  Offsite Ads calculator
+                  Offsite Ads Calculator
                 </Link>{" "}
                 to see your threshold status and per-order impact.
               </p>
             </section>
 
             <section className="mt-10 space-y-4">
-              <h2 className="text-2xl font-semibold text-[#EAF0FF]">Example Etsy Sale Scenarios</h2>
+              <h2 className="text-2xl font-semibold text-[#EAF0FF]">Real Fee Totals at Common Price Points</h2>
               <p className="leading-7 text-[#9AA6BF]">
-                These ranges are planning examples, not exact statements. Use your own inputs for precise numbers.
+                These examples use US payment processing rates with no shipping charged and no offsite ads.
+                Your total will be higher if you charge shipping.
               </p>
               <div className="grid gap-3 sm:grid-cols-3">
                 <div className="rounded-lg border border-white/10 bg-white/5 p-4">
                   <p className="font-semibold text-[#EAF0FF]">$25 sale</p>
-                  <p className="mt-2 text-sm leading-6 text-[#9AA6BF]">
-                    Typical fees can land around a few dollars after listing, transaction, and processing.
-                  </p>
+                  <div className="mt-2 space-y-1 text-xs text-[#9AA6BF]">
+                    <div className="flex justify-between"><span>Transaction (6.5%)</span><span>$1.63</span></div>
+                    <div className="flex justify-between"><span>Processing (3% + $0.25)</span><span>$1.00</span></div>
+                    <div className="flex justify-between"><span>Listing fee</span><span>$0.20</span></div>
+                    <div className="flex justify-between font-semibold text-[#EAF0FF] border-t border-white/10 pt-1 mt-1"><span>Total</span><span>$2.83</span></div>
+                  </div>
                 </div>
                 <div className="rounded-lg border border-white/10 bg-white/5 p-4">
                   <p className="font-semibold text-[#EAF0FF]">$50 sale</p>
-                  <p className="mt-2 text-sm leading-6 text-[#9AA6BF]">
-                    Fees usually rise with order value, and Offsite Ads can increase the total further.
-                  </p>
+                  <div className="mt-2 space-y-1 text-xs text-[#9AA6BF]">
+                    <div className="flex justify-between"><span>Transaction (6.5%)</span><span>$3.25</span></div>
+                    <div className="flex justify-between"><span>Processing (3% + $0.25)</span><span>$1.75</span></div>
+                    <div className="flex justify-between"><span>Listing fee</span><span>$0.20</span></div>
+                    <div className="flex justify-between font-semibold text-[#EAF0FF] border-t border-white/10 pt-1 mt-1"><span>Total</span><span>$5.20</span></div>
+                  </div>
                 </div>
                 <div className="rounded-lg border border-white/10 bg-white/5 p-4">
                   <p className="font-semibold text-[#EAF0FF]">$100 sale</p>
-                  <p className="mt-2 text-sm leading-6 text-[#9AA6BF]">
-                    Total Etsy fees can become a meaningful dollar amount, so pricing with margin in mind is critical.
-                  </p>
+                  <div className="mt-2 space-y-1 text-xs text-[#9AA6BF]">
+                    <div className="flex justify-between"><span>Transaction (6.5%)</span><span>$6.50</span></div>
+                    <div className="flex justify-between"><span>Processing (3% + $0.25)</span><span>$3.25</span></div>
+                    <div className="flex justify-between"><span>Listing fee</span><span>$0.20</span></div>
+                    <div className="flex justify-between font-semibold text-[#EAF0FF] border-t border-white/10 pt-1 mt-1"><span>Total</span><span>$9.95</span></div>
+                  </div>
                 </div>
               </div>
               <p className="leading-7 text-[#9AA6BF]">
-                To replace rough ranges with exact fee output, run these scenarios in the{" "}
+                To get exact numbers for your specific sale including shipping and offsite ads, use the{" "}
                 <Link href="/etsy-fee-calculator" className="font-semibold text-[#6EE7B7] underline decoration-[#6EE7B7] decoration-2 underline-offset-2">
                   Etsy Fee Calculator
-                </Link>
-                .
+                </Link>.
               </p>
             </section>
 
@@ -366,14 +377,32 @@ export default function Page() {
             </section>
 
             <section className="mt-10 space-y-4">
-              <h2 className="text-2xl font-semibold text-[#EAF0FF]">Why Etsy Fees Are Often Underestimated</h2>
+              <h2 className="text-2xl font-semibold text-[#EAF0FF]">FAQ</h2>
+
+              <h3 className="text-lg font-semibold text-[#EAF0FF]">How much does Etsy take per sale?</h3>
               <p className="leading-7 text-[#9AA6BF]">
-                Many sellers price from product cost and forget that Etsy fees are layered. Transaction and processing fees scale with order value,
-                and optional ad fees can reduce take-home even more.
+                On a typical US sale with no offsite ads, Etsy takes roughly 10&ndash;12% in combined fees. On a $25 sale
+                that is $2.83. On a $50 sale it is $5.20. On a $100 sale it is $9.95. Add offsite ads and those totals
+                jump by 15%, which can push total fees to 25%+ of the sale price on lower-margin products.
               </p>
+
+              <h3 className="pt-2 text-lg font-semibold text-[#EAF0FF]">What Etsy fees are included in the total?</h3>
               <p className="leading-7 text-[#9AA6BF]">
-                Profit calculators help because they show fees, cost of goods, shipping, and margin together in one view. That makes pricing
-                decisions more reliable and prevents surprises after a sale.
+                Every sale includes the $0.20 listing fee, 6.5% transaction fee on the full order including any shipping
+                charged, and payment processing (3% + $0.25 for US sellers). Offsite ads add 15% on qualifying sales.
+                Some regions have a regulatory operating fee on top. Run all of these through the{" "}
+                <Link href="/etsy-fee-calculator" className="font-semibold text-[#6EE7B7] underline decoration-[#6EE7B7] decoration-2 underline-offset-2">
+                  fee calculator
+                </Link>{" "}
+                to see your specific total.
+              </p>
+
+              <h3 className="pt-2 text-lg font-semibold text-[#EAF0FF]">Why do Etsy profits feel lower than expected?</h3>
+              <p className="leading-7 text-[#9AA6BF]">
+                Because fees stack in ways that aren&apos;t obvious. Most sellers only mentally account for the transaction fee
+                and forget that payment processing, listing fees, and the fact that fees apply to shipping all compound
+                on the same order. Add cost of goods and your own shipping cost on top, and a $25 sale that feels like
+                $15 profit is often closer to $8. The only fix is running the full calculation before you price.
               </p>
             </section>
           </article>
