@@ -189,13 +189,13 @@ export default function Page() {
                   </div>
                 </div>
                 <p className="text-xs text-[#9AA6BF] pt-1">
-                  Etsy keeps $5.56 CAD of your $45 sale &mdash; 12.4% of item revenue &mdash; before your own costs.
+                  Etsy keeps $5.56 CAD of your $45 sale, 12.4% of item revenue, before your own costs.
                 </p>
               </div>
 
               <p className="leading-7 text-[#9AA6BF]">
-                Add a $14 CAD cost of goods and you keep $25.44 CAD &mdash; a 56.5% margin. Healthy. But price the same
-                item at $25 CAD and fees drop to ~$3.32, leaving just $7.68 &mdash; a 30.7% margin that barely holds up
+                Add a $14 CAD cost of goods and you keep $25.44 CAD, a 56.5% margin. Healthy. But price the same
+                item at $25 CAD and fees drop to ~$3.32, leaving just $7.68, a 30.7% margin that barely holds up
                 against a refund or an offsite ad sale.
               </p>
             </section>
@@ -204,18 +204,23 @@ export default function Page() {
               <h2 className="text-2xl font-semibold text-[#EAF0FF]">What Happens When Offsite Ads Apply</h2>
               <p className="leading-7 text-[#9AA6BF]">
                 If a buyer clicked an Etsy offsite ad before purchasing, Etsy charges an additional 15% on the full sale
-                price. On the $45 CAD example above, that is an extra $6.75 CAD &mdash; more than the combined total of
+                price. On the $45 CAD example above, that is an extra $6.75 CAD, more than the combined total of
                 all other fees. Your profit drops from $25.44 to $18.69 and margin falls from 56.5% to 41.5%.
               </p>
               <p className="leading-7 text-[#9AA6BF]">
                 Canadian sellers under $10,000 CAD in annual sales can opt out of offsite ads. Once you exceed that
-                threshold enrollment is mandatory, though the fee drops to 12%. Price with this in mind now &mdash;
-                building margin before you hit the threshold is far easier than trying to reprice your entire shop after.
+                threshold enrollment is mandatory, though the fee drops to 12%. Price with this in mind now. Building margin before you hit the threshold is far easier than repricing your entire shop after.
                 Use the{" "}
                 <Link href="/etsy-offsite-ads-calculator" className="font-semibold text-[#6EE7B7] underline decoration-[#6EE7B7] decoration-2 underline-offset-2">
                   Etsy Offsite Ads Calculator
                 </Link>{" "}
                 to see how ads affect your margin at any price point.
+              </p>
+              <p className="leading-7 text-[#9AA6BF]">
+                Etsy's attribution window is 30 days. If a buyer clicked an offsite ad at any point in the 30 days
+                before purchasing, the fee applies. This includes accidental clicks and clicks on a different device.
+                A buyer who tapped a Google Shopping result on their phone and returned to buy directly a week later
+                still triggers the fee. One click resets the 30-day window. There is no appeal process.
               </p>
             </section>
 
@@ -224,7 +229,7 @@ export default function Page() {
               <p className="leading-7 text-[#9AA6BF]">
                 <span className="font-semibold text-[#EAF0FF]">Transaction fee applies to shipping charged.</span>{" "}
                 Etsy's 6.5% transaction fee is calculated on the full order including any shipping you charge the buyer.
-                If you charge $10 CAD shipping on a $30 item, the transaction fee applies to $40 &mdash; adding $0.65
+                If you charge $10 CAD shipping on a $30 item, the transaction fee applies to $40, adding $0.65
                 that many sellers miss.
               </p>
               <p className="leading-7 text-[#9AA6BF]">
@@ -259,9 +264,9 @@ export default function Page() {
                   </thead>
                   <tbody className="divide-y divide-white/5 text-[#9AA6BF]">
                     <tr><td className="px-4 py-3">&lt;15%</td><td className="px-4 py-3 text-rose-400">Low</td><td className="px-4 py-3">One refund or offsite ad sale likely puts you in the red</td></tr>
-                    <tr><td className="px-4 py-3">15&ndash;29%</td><td className="px-4 py-3 text-amber-400">OK</td><td className="px-4 py-3">Workable but fragile &mdash; no room for promotions or ads</td></tr>
-                    <tr><td className="px-4 py-3">30&ndash;49%</td><td className="px-4 py-3 text-teal-400">Good</td><td className="px-4 py-3">Sustainable &mdash; can absorb fee changes and occasional ads</td></tr>
-                    <tr><td className="px-4 py-3">50%+</td><td className="px-4 py-3 text-emerald-400">Strong</td><td className="px-4 py-3">Pricing power &mdash; room to scale with ads or run promotions</td></tr>
+                    <tr><td className="px-4 py-3">15&ndash;29%</td><td className="px-4 py-3 text-amber-400">OK</td><td className="px-4 py-3">Workable but fragile . No room for promotions or ads</td></tr>
+                    <tr><td className="px-4 py-3">30&ndash;49%</td><td className="px-4 py-3 text-teal-400">Good</td><td className="px-4 py-3">Sustainable . Can absorb fee changes and occasional ads</td></tr>
+                    <tr><td className="px-4 py-3">50%+</td><td className="px-4 py-3 text-emerald-400">Strong</td><td className="px-4 py-3">Pricing power . Room to scale with ads or run promotions</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -271,7 +276,7 @@ export default function Page() {
               <p className="text-sm font-medium uppercase tracking-wide text-[#9AA6BF]">Know your real profit before you list</p>
               <p className="mt-2 text-sm leading-6 text-[#9AA6BF]">
                 Run your Canadian sale through the Etsy Profit Calculator. See exact fees in CAD, net profit, and margin
-                health &mdash; free, no account needed.
+                health, free, no account needed.
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
                 <Link
@@ -326,12 +331,12 @@ export default function Page() {
               <p className="leading-7 text-[#9AA6BF]">
                 Yes. The 6.5% transaction fee and payment processing both apply to the total order value including
                 any shipping charged to the buyer. Charging $10 CAD shipping on a $30 item means fees are calculated
-                on $40 total &mdash; not just the item price. This catches a lot of Canadian sellers off guard.
+                on $40 total, not just the item price. This catches a lot of Canadian sellers off guard.
               </p>
 
               <h3 className="pt-2 text-lg font-semibold text-[#EAF0FF]">Do Canadian Etsy sellers pay offsite ads fees on every sale?</h3>
               <p className="leading-7 text-[#9AA6BF]">
-                No &mdash; only on sales Etsy attributes to an offsite ad click. But once your shop exceeds $10,000 CAD
+                No, only on sales Etsy attributes to an offsite ad click. But once your shop exceeds $10,000 CAD
                 in annual sales, offsite ads enrollment is mandatory. The fee is 15% below that threshold and 12% above
                 it. You cannot opt out once enrolled.
               </p>

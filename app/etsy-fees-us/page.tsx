@@ -156,7 +156,7 @@ export default function Page() {
               </div>
 
               <p className="leading-7 text-[#9AA6BF]">
-                The listing fee applies twice on sold items &mdash; once when the listing is created and again when it sells
+                The listing fee applies twice on sold items. It charges once when the listing is created and again when it sells
                 via auto-renew. Most sellers factor in one listing fee per sale as a fixed cost.
               </p>
             </section>
@@ -188,13 +188,13 @@ export default function Page() {
                   </div>
                 </div>
                 <p className="text-xs text-[#9AA6BF] pt-1">
-                  Etsy keeps $4.25 of your $35 sale &mdash; 12.1% of item revenue &mdash; before you account for your own costs.
+                  Etsy keeps $4.25 of your $35 sale. That is 12.1% of item revenue, before your own costs.
                 </p>
               </div>
 
               <p className="leading-7 text-[#9AA6BF]">
-                Now add a $12 cost of goods and you keep $18.75 &mdash; a 53.6% margin. That is healthy. But drop your price
-                to $20 with the same costs and fees collapse to ~$2.85, leaving you with just $5.15 &mdash; a 25.7% margin
+                Now add a $12 cost of goods and you keep $18.75, a 53.6% margin. That is healthy. Drop your price
+                to $20 with the same costs and fees collapse to ~$2.85, leaving you with just $5.15, a 25.7% margin
                 that barely survives a refund or a slow week.
               </p>
             </section>
@@ -203,7 +203,7 @@ export default function Page() {
               <h2 className="text-2xl font-semibold text-[#EAF0FF]">What Happens When Offsite Ads Apply</h2>
               <p className="leading-7 text-[#9AA6BF]">
                 If a buyer clicked an Etsy offsite ad before purchasing, Etsy charges an additional 15% fee on the full
-                sale price. On the $35 example above that is an extra $5.25 &mdash; more than the total of all other fees
+                sale price. On the $35 example above that is an extra $5.25. That is more than the total of all other fees
                 combined. Your $18.75 profit becomes $13.50 and margin drops from 53.6% to 38.6%.
               </p>
               <p className="leading-7 text-[#9AA6BF]">
@@ -215,6 +215,13 @@ export default function Page() {
                 </Link>{" "}
                 to see exactly how it affects your margin.
               </p>
+              <p className="leading-7 text-[#9AA6BF]">
+                Etsy's attribution window is 30 days. If a buyer clicked an offsite ad at any point in the 30 days
+                before their purchase, the fee applies. It does not matter if they came back to your shop directly. It
+                does not matter if the click was accidental or on a different device. A repeat customer who returns
+                directly to your shop can still trigger the fee. One click resets the 30-day window. There is no
+                appeal process.
+              </p>
             </section>
 
             <section className="mt-12 space-y-4">
@@ -222,7 +229,7 @@ export default function Page() {
               <p className="leading-7 text-[#9AA6BF]">
                 <span className="font-semibold text-[#EAF0FF]">Transaction fee on shipping.</span>{" "}
                 Etsy charges its 6.5% transaction fee on any shipping you charge the buyer, not just the item price.
-                If you charge $8 shipping on a $25 item, the transaction fee applies to $33 &mdash; not $25. That adds
+                If you charge $8 shipping on a $25 item, the transaction fee applies to $33, not $25. That adds
                 $0.52 to your fee total that most sellers miss completely.
               </p>
               <p className="leading-7 text-[#9AA6BF]">
@@ -255,9 +262,9 @@ export default function Page() {
                   </thead>
                   <tbody className="divide-y divide-white/5 text-[#9AA6BF]">
                     <tr><td className="px-4 py-3">&lt;15%</td><td className="px-4 py-3 text-rose-400">Low</td><td className="px-4 py-3">One refund or offsite ad sale likely puts you in the red</td></tr>
-                    <tr><td className="px-4 py-3">15&ndash;29%</td><td className="px-4 py-3 text-amber-400">OK</td><td className="px-4 py-3">Workable but fragile &mdash; no room for promotions or ads</td></tr>
-                    <tr><td className="px-4 py-3">30&ndash;49%</td><td className="px-4 py-3 text-teal-400">Good</td><td className="px-4 py-3">Sustainable &mdash; can absorb fee changes and occasional ads</td></tr>
-                    <tr><td className="px-4 py-3">50%+</td><td className="px-4 py-3 text-emerald-400">Strong</td><td className="px-4 py-3">Pricing power &mdash; room to scale with ads or run promotions</td></tr>
+                    <tr><td className="px-4 py-3">15&ndash;29%</td><td className="px-4 py-3 text-amber-400">OK</td><td className="px-4 py-3">Workable but fragile. No room for promotions or ads</td></tr>
+                    <tr><td className="px-4 py-3">30&ndash;49%</td><td className="px-4 py-3 text-teal-400">Good</td><td className="px-4 py-3">Sustainable. Can absorb fee changes and occasional ads</td></tr>
+                    <tr><td className="px-4 py-3">50%+</td><td className="px-4 py-3 text-emerald-400">Strong</td><td className="px-4 py-3">Pricing power. Room to scale with ads or run promotions</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -266,8 +273,7 @@ export default function Page() {
             <section className="mt-8 rounded-xl border border-white/10 bg-white/5 p-5 sm:p-6">
               <p className="text-sm font-medium uppercase tracking-wide text-[#9AA6BF]">Know your real profit before you list</p>
               <p className="mt-2 text-sm leading-6 text-[#9AA6BF]">
-                Run your US sale through the Etsy Profit Calculator. See exact fees, net profit, and margin health &mdash;
-                free, no account needed.
+                Run your US sale through the Etsy Profit Calculator. See exact fees, net profit, and margin health. Free, no account needed.
               </p>
               <div className="mt-4 flex flex-wrap gap-3">
                 <Link
@@ -326,7 +332,7 @@ export default function Page() {
 
               <h3 className="pt-2 text-lg font-semibold text-[#EAF0FF]">Do US Etsy sellers pay offsite ads fees on every sale?</h3>
               <p className="leading-7 text-[#9AA6BF]">
-                No &mdash; only on sales Etsy attributes to an offsite ad click. But once your shop exceeds $10,000 in annual
+                No. Only on sales Etsy attributes to an offsite ad click. But once your shop exceeds $10,000 in annual
                 sales, offsite ads enrollment becomes mandatory. You cannot opt out. The fee drops from 15% to 12% above
                 that threshold, but it applies to every qualifying sale regardless.
               </p>

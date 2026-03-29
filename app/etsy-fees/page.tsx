@@ -138,7 +138,7 @@ export default function Page() {
                     </tr>
                     <tr className="bg-white/[0.02]">
                       <td className="px-4 py-3 font-semibold text-[#EAF0FF]">Total (no ads)</td>
-                      <td className="px-4 py-3 font-semibold text-[#EAF0FF]">&mdash;</td>
+                      <td className="px-4 py-3 font-semibold text-[#EAF0FF]">N/A</td>
                       <td className="px-4 py-3 font-semibold text-[#EAF0FF]">$4.25</td>
                     </tr>
                     <tr>
@@ -148,7 +148,7 @@ export default function Page() {
                     </tr>
                     <tr className="bg-white/[0.02]">
                       <td className="px-4 py-3 font-semibold text-rose-400">Total (with ads)</td>
-                      <td className="px-4 py-3 font-semibold text-rose-400">&mdash;</td>
+                      <td className="px-4 py-3 font-semibold text-rose-400">N/A</td>
                       <td className="px-4 py-3 font-semibold text-rose-400">$10.25</td>
                     </tr>
                   </tbody>
@@ -187,12 +187,12 @@ export default function Page() {
                   </div>
                 </div>
                 <p className="text-xs text-[#9AA6BF] pt-1">
-                  Etsy takes $4.82 from a $40 sale with $6 shipping &mdash; 12.1% of item revenue, before your own costs.
+                  Etsy takes $4.82 from a $40 sale with $6 shipping, 12.1% of item revenue, before your own costs.
                 </p>
               </div>
 
               <p className="leading-7 text-[#9AA6BF]">
-                Note that the transaction fee applied to the full $46 including shipping &mdash; not just the $40 item price.
+                Note that the transaction fee applied to the full $46 including shipping, not just the $40 item price.
                 That extra $0.39 on the shipping alone is what most sellers miss when estimating fees by hand.
               </p>
             </section>
@@ -201,8 +201,8 @@ export default function Page() {
               <h2 className="text-2xl font-semibold text-[#EAF0FF]">How Fees Stack With Your Costs</h2>
               <p className="leading-7 text-[#9AA6BF]">
                 Fees alone don&apos;t tell the full story. What matters is what you keep after fees and your own costs.
-                On the $40 example above, add $12 in cost of goods and you keep $23.18 &mdash; a 57.9% margin. Strong.
-                But price the same item at $22 with the same costs and margin drops to 11.8% &mdash; dangerously thin.
+                On the $40 example above, add $12 in cost of goods and you keep $23.18, a 57.9% margin. Strong.
+                But price the same item at $22 with the same costs and margin drops to 11.8%, dangerously thin.
               </p>
               <p className="leading-7 text-[#9AA6BF]">
                 Use the{" "}
@@ -309,16 +309,24 @@ export default function Page() {
 
               <h3 className="pt-2 text-lg font-semibold text-[#EAF0FF]">Are Etsy fees the same in every country?</h3>
               <p className="leading-7 text-[#9AA6BF]">
-                The 6.5% transaction fee and $0.20 USD listing fee are universal. Payment processing varies &mdash; UK
+                The 6.5% transaction fee and $0.20 USD listing fee are universal. Payment processing varies, UK
                 sellers pay 4% + £0.20, EU sellers pay 4% + €0.30, while US and Canadian sellers pay 3% + $0.25 in
                 their local currency. Some regions also have a regulatory operating fee on top.
               </p>
 
               <h3 className="pt-2 text-lg font-semibold text-[#EAF0FF]">Do offsite ads fees apply to every sale?</h3>
               <p className="leading-7 text-[#9AA6BF]">
-                No &mdash; only on sales attributed to an offsite ad click. Sellers under $10,000 in annual sales can opt
+                No, only on sales attributed to an offsite ad click. Sellers under $10,000 in annual sales can opt
                 out. Above that threshold enrollment is mandatory and the fee drops from 15% to 12%. The offsite ads fee
                 is the single largest variable in your total Etsy fee bill and the one most likely to catch sellers off guard.
+              </p>
+              <p className="leading-7 text-[#9AA6BF]">
+                What most sellers don&apos;t realise: Etsy&apos;s attribution window is 30 days. If a buyer clicked an
+                offsite ad at any point in the 30 days before their purchase, even accidentally, even on a
+                different device, the fee applies. A buyer who tapped a Google Shopping result on their phone
+                and then returned to buy directly a week later still triggers the fee. One click resets the 30-day
+                clock. There is no appeal process. This is why the offsite ads fee is less predictable than it appears
+               , repeat customers with any ad exposure in the last month all count.
               </p>
             </section>
 
