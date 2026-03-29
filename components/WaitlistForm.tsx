@@ -76,7 +76,7 @@ export default function WaitlistForm({
           disabled={status === "loading"}
           className={isPricing ? "h-9 shrink-0 bg-[#EAF0FF] text-[#070B14] font-semibold hover:bg-white border-0" : undefined}
         >
-          {status === "loading" ? "Submitting..." : isPricing ? "Lock in my spot" : "Get updates"}
+          {status === "loading" ? "Submitting..." : isPricing ? "Join waitlist" : "Get updates"}
         </Button>
       ) : (
         <button type="submit" disabled={status === "loading"} className={buttonClass}>
