@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { BadgeCheck } from "lucide-react";
 
 import {
@@ -524,7 +525,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
       <section className="mx-auto max-w-5xl px-4 pb-8">
         <div className="flex flex-col gap-4 rounded-xl border border-white/10 bg-white/5 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm font-medium text-[#EAF0FF]">Get early access to Pro features</p>
+            <p className="text-sm font-medium text-[#EAF0FF]">Get early access to <Link href="/pricing" className="underline underline-offset-2 decoration-white/40 hover:decoration-white/80 transition">Pro features</Link></p>
             <p className="text-xs text-[#9AA6BF] mt-0.5">Scenario comparison, SKU saving, and more. Free to join.</p>
           </div>
           <WaitlistForm variant="pricing" inputId="calculator-page-email" />
