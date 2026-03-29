@@ -27,13 +27,13 @@ export function HeroCTAs() {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.className = "btn btnPrimary";
-    btn.textContent = "Get early access";
+    btn.textContent = "Join the waitlist";
     btn.onclick = handleGetEarlyAccess;
 
     const link = document.createElement("a");
     link.className = "btn";
     link.href = "/etsy-profit-calculator";
-    link.textContent = "See what it does";
+    link.textContent = "Try the calculator";
     link.onclick = (e) => {
       e.preventDefault();
       router.push("/etsy-profit-calculator");

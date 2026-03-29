@@ -23,7 +23,7 @@ export type CalculatorContent = {
 
 const CONTENT: Record<CalculatorContentKey, CalculatorContent> = {
   profit: {
-    eyebrowText: "Etsy profit calculator (V1): fees, break-even, target margin.",
+    eyebrowText: "Etsy profit calculator: fees, break-even, and target margin.",
     heroH1: "Etsy Profit Calculator",
     heroH2: "Calculate real profit after every Etsy fee",
     heroSubhead:
@@ -58,7 +58,7 @@ const CONTENT: Record<CalculatorContentKey, CalculatorContent> = {
       },
       {
         q: "What is a healthy Etsy profit margin?",
-        a: "It depends on the product, but many sellers aim for a margin that leaves room for fees, refunds, promotions, and rising costs.",
+        a: "Aim for 30% or higher after all fees and costs. Below 30% is tight. Below 15% is risky. Most Etsy sellers at 20% margin find one refund or offsite ad sale wipes the profit on that order.",
       },
     ],
     supportBlock: {
@@ -71,7 +71,7 @@ const CONTENT: Record<CalculatorContentKey, CalculatorContent> = {
     },
   },
   fee: {
-    eyebrowText: "Etsy fee calculator (V1): fee breakdown, break-even, pricing targets.",
+    eyebrowText: "Etsy fee calculator: fee breakdown, break-even, and pricing targets.",
     heroH1: "Etsy Fee Calculator",
     heroH2: "See exactly how much Etsy takes per order",
     heroSubhead:
@@ -96,7 +96,7 @@ const CONTENT: Record<CalculatorContentKey, CalculatorContent> = {
       },
       {
         q: "Do Etsy fees apply to shipping?",
-        a: "Often, yes. This calculator applies fees to the combined revenue (item subtotal plus shipping charged) where applicable.",
+        a: "Yes. Etsy's 6.5% transaction fee and payment processing both apply to the full order value including shipping charged to the buyer. Charge $8 shipping on a $30 item and fees are calculated on $38 total.",
       },
       {
         q: "Is this an exact match to my Etsy statement?",
@@ -113,7 +113,7 @@ const CONTENT: Record<CalculatorContentKey, CalculatorContent> = {
     },
   },
   "break-even": {
-    eyebrowText: "Etsy break-even calculator (V1): minimum price after fees and costs.",
+    eyebrowText: "Etsy break-even calculator: minimum price after fees and costs.",
     heroH1: "Etsy Break-even Calculator",
     heroH2: "Find your minimum price to cover fees and costs",
     heroSubhead:
@@ -155,7 +155,7 @@ const CONTENT: Record<CalculatorContentKey, CalculatorContent> = {
     },
   },
   pricing: {
-    eyebrowText: "Etsy pricing calculator (V1): target margin with full fee clarity.",
+    eyebrowText: "Etsy pricing calculator: target margin with full fee clarity.",
     heroH1: "Etsy Pricing Calculator",
     heroH2: "Set your Etsy price to hit your target margin",
     heroSubhead:

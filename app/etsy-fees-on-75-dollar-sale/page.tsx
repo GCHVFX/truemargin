@@ -72,7 +72,7 @@ export default function Page() {
             </section>
 
             <section className="mt-8 rounded-xl border border-white/10 bg-white/5 p-5 sm:p-6">
-              <p className="text-sm font-medium uppercase tracking-wide text-[#9AA6BF]">Use tools to turn this estimate into exact pricing decisions</p>
+              <p className="text-sm font-medium uppercase tracking-wide text-[#9AA6BF]">Calculate your exact profit</p>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 <Link href="/etsy-fee-calculator" className="rounded-md border border-white/20 bg-white/5 px-4 py-3 text-sm font-semibold text-[#EAF0FF] transition hover:bg-white/10">
                   Etsy Fee Calculator<span className="mt-1 block text-xs font-normal text-[#9AA6BF]">Get an exact fee estimate for your order.</span>

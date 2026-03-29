@@ -53,15 +53,20 @@ export function CalculatorSeoSection({ seoContent }: { seoContent: SeoContent })
 
         <div>
           <h3 className="text-sm font-medium text-[#EAF0FF]">FAQ</h3>
-          <div className="mt-3 space-y-3">
+          <div className="mt-3 space-y-2">
             {seoContent.faqs.map((f) => (
-              <div
+              <details
                 key={f.q}
-                className="rounded-xl border border-white/10 bg-white/5 p-5"
+                className="group rounded-xl border border-white/10 bg-white/5"
               >
-                <p className="text-sm font-medium text-[#EAF0FF]">{f.q}</p>
-                <p className="mt-1.5 text-sm text-[#9AA6BF] leading-relaxed">{f.a}</p>
-              </div>
+                <summary className="flex cursor-pointer items-center justify-between gap-4 p-5 text-sm font-medium text-[#EAF0FF] list-none">
+                  {f.q}
+                  <span className="shrink-0 text-[#9AA6BF] transition-transform group-open:rotate-180">
+                    ▾
+                  </span>
+                </summary>
+                <p className="px-5 pb-5 text-sm text-[#9AA6BF] leading-relaxed">{f.a}</p>
+              </details>
             ))}
           </div>
         </div>

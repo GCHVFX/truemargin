@@ -15,25 +15,22 @@ const LANDING_HTML = `<main class="grid">
         <section class="hero">
           <h1>Know your true profit, not your guess.</h1>
           <p class="sub">
-            True Margin helps Etsy sellers calculate real profit in seconds, including fees, shipping, and currency conversion.
-            No spreadsheets. No surprises.
+            Etsy fees are confusing. Most sellers price on gut feel and find out later they are making less than they thought. Enter one order and see exactly what you keep.
           </p>
 
           <span id="hero-ctas-placeholder"></span>
           <div class="ctaRow" style="margin-top: 12px;">
-            <a class="btn btnPrimary" href="/etsy-profit-calculator">Use the Etsy Profit Calculator</a>
-            <a class="btn" href="/etsy-fee-calculator">Use the Etsy Fee Calculator</a>
-            <a class="btn" href="/etsy-break-even-calculator">Use the Etsy Break-even Calculator</a>
-            <a class="btn" href="/etsy-pricing-calculator">Use the Etsy Pricing Calculator</a>
+            <a class="btn btnPrimary" href="/etsy-profit-calculator">Calculate my profit</a>
+          </div>
+          <div class="ctaRowSecondary" style="margin-top: 8px;">
+            <a class="btn btnSmall" href="/etsy-fee-calculator">Fee calculator</a>
+            <a class="btn btnSmall" href="/etsy-break-even-calculator">Break-even calculator</a>
+            <a class="btn btnSmall" href="/etsy-pricing-calculator">Pricing calculator</a>
           </div>
           <p class="mini" style="margin-top: 8px;">
-            Prefer to start now? The calculators are free and work without an account.
+            Free. No account needed.
           </p>
 
-
-          <p class="mini">
-            Built for sellers who price with confidence. Keep more of what you earn.
-          </p>
 
           <div class="section" id="tools">
             <h2>What you get</h2>
@@ -53,6 +50,10 @@ const LANDING_HTML = `<main class="grid">
               <div class="feat">
                 <b>Offsite Ads tracker</b>
                 <p>See how close you are to the $10K mandatory enrollment threshold and what it costs your margins per order.</p>
+              </div>
+              <div class="feat">
+                <b>Break-even pricing</b>
+                <p>Find the minimum price you need to charge to cover all fees and costs before you list.</p>
               </div>
             </div>
             <div style="margin-top: 10px;">
@@ -236,6 +237,25 @@ const LANDING_CSS = `:root{
         background: linear-gradient(135deg, rgba(110,231,183,.18), rgba(96,165,250,.14));
       }
       .btn:hover{filter:brightness(1.05)}
+      .ctaRowSecondary{
+        display:flex;
+        flex-wrap:wrap;
+        gap:8px;
+      }
+      .btnSmall{
+        background: rgba(255,255,255,.06);
+        border:1px solid var(--line);
+        border-radius:8px;
+        padding:6px 14px;
+        font-size:13px;
+        color: var(--muted);
+        text-decoration:none;
+        cursor:pointer;
+      }
+      .btnSmall:hover{
+        background: rgba(255,255,255,.10);
+        color: var(--text);
+      }
       .mini{
         font-size:13px;
         color: var(--muted);
@@ -289,6 +309,28 @@ const LANDING_CSS = `:root{
       }
       .feat b{display:block; margin-bottom:6px}
       .feat p{margin:0; color: var(--muted); font-size: 14px;}
+
+      .feeLinks{
+        display:flex;
+        flex-wrap:wrap;
+        gap:8px;
+        margin-top:10px;
+      }
+      .feeLinks a{
+        display:inline-block;
+        border:1px solid var(--line);
+        background: rgba(255,255,255,.03);
+        border-radius:8px;
+        padding: 6px 12px;
+        font-size:13px;
+        color: var(--muted);
+        text-decoration:none;
+        white-space:nowrap;
+      }
+      .feeLinks a:hover{
+        background: rgba(255,255,255,.07);
+        color: var(--text);
+      }
 
       .form{
         display:flex;
