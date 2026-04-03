@@ -95,6 +95,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
 
   // Toggles / advanced
   const [includeOffsiteAds, setIncludeOffsiteAds] = React.useState<boolean>(false);
+  const [highVolumeOffsiteAds, setHighVolumeOffsiteAds] = React.useState<boolean>(false);
   const [showAdvanced, setShowAdvanced] = React.useState<boolean>(false);
 
   // Optional tax estimate (V1 preview)
@@ -193,6 +194,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
       paymentProcessingFixed: clampNonNeg(parseNumber(paymentFeeFixed)),
       regulatoryFeePct: clampNonNeg(parseNumber(regulatoryFeePct)) / 100,
       offsiteAdsPct: clampNonNeg(parseNumber(offsiteAdsPct)) / 100,
+      offsiteAdsPctHigh: preset.offsiteAdsPctHigh,
     };
 
     let inputs: FeeInputs;
@@ -206,6 +208,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
         cogsPerUnit: 0,
         yourShippingCost: 0,
         includeOffsiteAds,
+        highVolumeOffsiteAds,
         ...feePresetFields,
       };
     } else if (isBreakEven) {
@@ -217,6 +220,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
         cogsPerUnit: clampNonNeg(parseNumber(cogsPerUnit)),
         yourShippingCost: clampNonNeg(parseNumber(yourShippingCost)),
         includeOffsiteAds,
+        highVolumeOffsiteAds,
         ...feePresetFields,
       };
       const solvedItemPrice = calculateBreakEvenItemPrice(baseForBreakEven);
@@ -237,6 +241,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
         cogsPerUnit: clampNonNeg(parseNumber(cogsPerUnit)),
         yourShippingCost: clampNonNeg(parseNumber(yourShippingCost)),
         includeOffsiteAds,
+        highVolumeOffsiteAds,
         ...feePresetFields,
       };
       const solvedItemPrice = calculateTargetMarginItemPrice(
@@ -260,6 +265,7 @@ export function CalculatorPage({ variant = "home" }: { variant?: CalculatorPageV
         cogsPerUnit: clampNonNeg(parseNumber(cogsPerUnit)),
         yourShippingCost: clampNonNeg(parseNumber(yourShippingCost)),
         includeOffsiteAds,
+        highVolumeOffsiteAds,
         ...feePresetFields,
       };
     }
