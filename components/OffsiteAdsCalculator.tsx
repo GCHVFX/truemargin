@@ -42,6 +42,7 @@ export function OffsiteAdsCalculator() {
     cogsPerUnit: cogs,
     quantity: 1,
     yourShippingCost: 0,
+    highVolumeOffsiteAds: false,
   }
 
   const withoutAdsInputs = { ...baseInputs, includeOffsiteAds: false }
