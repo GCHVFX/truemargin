@@ -22,11 +22,11 @@ const BASE_URL = "https://gettruemargin.com";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "TrueMargin — Etsy Profit & Fee Calculators for Sellers",
+    default: "TrueMargin | Etsy Profit & Fee Calculators for Sellers",
     template: "%s | TrueMargin",
   },
   description:
-    "Free Etsy profit, fee, break-even, and pricing calculators. See exactly what you keep after every Etsy fee — no account required.",
+    "Free Etsy profit, fee, break-even, and pricing calculators. See exactly what you keep after every Etsy fee. No account required.",
   applicationName: "TrueMargin",
   authors: [{ name: "TrueMargin", url: BASE_URL }],
   keywords: [
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "TrueMargin",
     url: BASE_URL,
-    title: "TrueMargin — Etsy Profit & Fee Calculators",
+    title: "TrueMargin | Etsy Profit & Fee Calculators",
     description:
       "Free Etsy profit, fee, break-even, and pricing calculators. See exactly what you keep after every Etsy fee.",
     images: [
@@ -49,13 +49,13 @@ export const metadata: Metadata = {
         url: `${BASE_URL}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "TrueMargin — Etsy Profit & Fee Calculators",
+        alt: "TrueMargin | Etsy Profit & Fee Calculators",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TrueMargin — Etsy Profit & Fee Calculators",
+    title: "TrueMargin | Etsy Profit & Fee Calculators",
     description:
       "Free Etsy profit, fee, break-even, and pricing calculators. See exactly what you keep after every Etsy fee.",
     images: [`${BASE_URL}/og-image.png`],

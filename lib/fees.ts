@@ -20,6 +20,7 @@ export type FeeInputs = {
 
   // Toggles
   includeOffsiteAds: boolean;
+  highVolumeOffsiteAds: boolean;
 
   // Fee overrides
   listingFeeFixed: number;
@@ -28,6 +29,7 @@ export type FeeInputs = {
   paymentProcessingFixed: number;
   regulatoryFeePct: number;
   offsiteAdsPct: number;
+  offsiteAdsPctHigh: number;
 };
 
 export type FeePreset = {
@@ -37,7 +39,8 @@ export type FeePreset = {
   paymentProcessingPct: number; // 0.03 = 3%
   paymentProcessingFixed: number;
   regulatoryFeePct: number;
-  offsiteAdsPct: number;
+  offsiteAdsPct: number;     // standard rate — under $10K/year (15%)
+  offsiteAdsPctHigh: number; // reduced rate — over $10K/year (12%)
 };
 
 export const defaultCurrencyForRegion = (region: SellerRegion): Currency => {
@@ -56,7 +59,8 @@ export const REGION_PRESETS: Record<SellerRegion, FeePreset> = {
     paymentProcessingPct: 0.03,
     paymentProcessingFixed: 0.25,
     regulatoryFeePct: 0.0025,
-    offsiteAdsPct: 0.12,
+    offsiteAdsPct: 0.15,
+    offsiteAdsPctHigh: 0.12,
   },
   CA: {
     updatedAt: "2026-02-28",
@@ -65,6 +69,7 @@ export const REGION_PRESETS: Record<SellerRegion, FeePreset> = {
     paymentProcessingPct: 0.03,
     paymentProcessingFixed: 0.25,
     regulatoryFeePct: 0.0,
-    offsiteAdsPct: 0.12,
+    offsiteAdsPct: 0.15,
+    offsiteAdsPctHigh: 0.12,
   },
 };

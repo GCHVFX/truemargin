@@ -393,7 +393,7 @@ export default function HomePage() {
               "name": "Is TrueMargin free to use?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Yes. All four calculators — profit, fee, break-even, and pricing — are free with no account required and unlimited calculations."
+                "text": "Yes. All four calculators, profit, fee, break-even, and pricing, are all free with no account required and unlimited calculations."
               }
             },
             {

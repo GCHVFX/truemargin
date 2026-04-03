@@ -20,7 +20,7 @@ const FREE_FEATURES = [
 const PRO_FEATURES = [
   {
     label: 'Test multiple prices instantly',
-    desc: 'See which price actually makes you the most money before you list — not after.',
+    desc: 'See which price actually makes you the most money before you list, not after.',
   },
   {
     label: 'Save your products',
@@ -75,7 +75,7 @@ export default function PricingPage() {
         <div className="mb-10 text-center">
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#6EE7B7]/30 bg-[#6EE7B7]/10 px-4 py-1.5 text-xs font-medium text-[#6EE7B7]">
             <Zap className="h-3 w-3" />
-            Founder Pricing — Early Access
+            Founder Pricing: Early Access
           </div>
           <h1 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
             Simple, honest pricing
@@ -144,7 +144,7 @@ export default function PricingPage() {
                 Lock in $9/month founder pricing
               </p>
               <p className="text-xs text-[#9AA6BF] mb-3">
-                Join the waitlist. We'll email you the moment Pro launches — your rate is locked in from today.
+                Join the waitlist. We'll email you the moment Pro launches. Your rate is locked in from today.
               </p>
               <WaitlistForm variant="pricing" inputId="pricing-waitlist-email" />
             </div>

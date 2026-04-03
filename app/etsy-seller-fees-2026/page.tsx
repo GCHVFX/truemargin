@@ -9,7 +9,7 @@ function jsonLd() {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "@id": `${CANONICAL}#webpage`,
-      name: "Etsy Seller Fees 2026 — Full Breakdown",
+      name: "Etsy Seller Fees 2026: Full Breakdown",
       description:
         "Complete breakdown of all Etsy seller fees in 2026: listing, transaction, payment processing, Offsite Ads, and regulatory fees. See what each fee costs and when it applies.",
       url: CANONICAL,
@@ -56,7 +56,7 @@ function jsonLd() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = "Etsy Seller Fees 2026 — Full Breakdown";
+  const title = "Etsy Seller Fees 2026: Full Breakdown";
   const description =
     "Complete breakdown of all Etsy seller fees in 2026: listing, transaction, payment processing, Offsite Ads, and regulatory fees. See what each fee costs and when it applies.";
 
@@ -120,7 +120,7 @@ export default function Page() {
                 Three fees apply as a baseline on every Etsy order: the listing fee ($0.20), the transaction fee (6.5%), and the payment processing fee (~3% + fixed). These are unavoidable for any seller using Etsy Payments.
               </p>
               <p className="leading-7 text-[#9AA6BF]">
-                The Offsite Ads fee and regulatory operating fee are conditional — they only apply when specific criteria are met. Offsite Ads is triggered by ad attribution; regulatory fees depend on your shop's country and Etsy's regional fee policies.
+                The Offsite Ads fee and regulatory operating fee are conditional. They only apply when specific criteria are met. Offsite Ads is triggered by ad attribution; regulatory fees depend on your shop's country and Etsy's regional fee policies.
               </p>
             </section>
 
@@ -130,7 +130,7 @@ export default function Page() {
                 Both the transaction fee and the payment processing fee apply to <strong>shipping charged to the buyer</strong>, not just the item subtotal. This is one of the most commonly missed details in Etsy fee calculations.
               </p>
               <p className="leading-7 text-[#9AA6BF]">
-                If you sell a $40 item and charge $6 shipping, Etsy calculates the 6.5% transaction fee and the 3% processing component on $46 — not $40. On a $6 shipping charge, that adds roughly $0.55 in fees that many sellers don't account for.
+                If you sell a $40 item and charge $6 shipping, Etsy calculates the 6.5% transaction fee and the 3% processing component on $46, not $40. On a $6 shipping charge, that adds roughly $0.55 in fees that many sellers don't account for.
               </p>
             </section>
 
@@ -177,7 +177,7 @@ export default function Page() {
                 Etsy's core fee structure has been stable since the 6.5% transaction fee was introduced in April 2022. The listing fee ($0.20), transaction rate (6.5%), and Offsite Ads rates (12%/15%) have not changed.
               </p>
               <p className="leading-7 text-[#9AA6BF]">
-                Regional payment processing fees can be updated independently by Etsy and may differ from historical rates. Always verify the current processing fee rate for your country directly in your Etsy seller account — these are listed under your payment settings.
+                Regional payment processing fees can be updated independently by Etsy and may differ from historical rates. Always verify the current processing fee rate for your country directly in your Etsy seller account. These are listed under your payment settings.
               </p>
             </section>
 

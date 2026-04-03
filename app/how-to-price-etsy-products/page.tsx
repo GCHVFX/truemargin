@@ -29,7 +29,7 @@ function jsonLd() {
           name: "How do I calculate Etsy pricing?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Work backwards from your target margin. Add your cost of goods, shipping cost, and all Etsy fees (6.5% transaction, ~3% + $0.25 processing, $0.20 listing). Then set your price so that after all deductions, your profit divided by sale price meets your target — ideally 30% or higher.",
+            text: "Work backwards from your target margin. Add your cost of goods, shipping cost, and all Etsy fees (6.5% transaction, ~3% + $0.25 processing, $0.20 listing). Then set your price so that after all deductions, your profit divided by sale price meets your target, ideally 30% or higher.",
           },
         },
         {
@@ -37,7 +37,7 @@ function jsonLd() {
           name: "What profit margin should Etsy sellers aim for?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Aim for at least 30% after all fees and costs. Below 30% is tight — one refund, one slow week, or an offsite ad fee can wipe your profit. Below 15% is risky and usually means you are underpricing. Strong Etsy sellers typically run 40-55% margins on their core products.",
+            text: "Aim for at least 30% after all fees and costs. Below 30% is tight. One refund, one slow week, or an offsite ad fee can wipe your profit. Below 15% is risky and usually means you are underpricing. Strong Etsy sellers typically run 40-55% margins on their core products.",
           },
         },
         {
@@ -53,7 +53,7 @@ function jsonLd() {
           name: "Do Etsy fees make pricing harder?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Yes. Etsy fees stack — transaction fee, payment processing, listing fee, and potentially offsite ads all apply to the same order. On a $25 sale that is roughly $2.83 in fees before your own costs. Sellers who price based on gut feel often end up with far less than expected.",
+            text: "Yes. Etsy fees stack:, payment processing, listing fee, and potentially offsite ads all apply to the same order. On a $25 sale that is roughly $2.83 in fees before your own costs. Sellers who price based on gut feel often end up with far less than expected.",
           },
         },
       ],

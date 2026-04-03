@@ -402,7 +402,7 @@ export function CalculatorResults({
                     }
                   : tier === "OK"
                   ? {
-                      heading: "Tight margin — not much room for error.",
+                      heading: "Tight margin. Not much room for error.",
                       body: "One slow week, one refund, or one fee change wipes your profit. Save this product and compare scenarios before your next listing.",
                       cta: "Compare pricing scenarios →",
                       scheme: "border-amber-300/60 bg-amber-50",
@@ -412,7 +412,7 @@ export function CalculatorResults({
                   : tier === "Good"
                   ? {
                       heading: "Solid margin. Keep it that way.",
-                      body: "Save your products and run pricing scenarios across your whole shop — before you list, not after.",
+                      body: "Save your products and run pricing scenarios across your whole shop, before you list, not after.",
                       cta: "Save my products →",
                       scheme: "border-teal-300/50 bg-teal-50",
                       ctaClass: "text-teal-800",

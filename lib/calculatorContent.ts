@@ -107,7 +107,7 @@ const CONTENT: Record<CalculatorContentKey, CalculatorContent> = {
       heading: "Understanding Etsy fees for pricing",
       paragraphs: [
         "Etsy sellers face several fees: a listing fee per item, a transaction fee on the sale total, and payment processing fees that include both a percentage and a fixed amount. Offsite Ads add another percentage when the order comes from Etsy's advertising.",
-        "Listing, transaction, and payment processing fees are applied to the combined order value—item subtotal plus shipping charged. That means what the buyer pays for shipping also gets fee treatment.",
+        "Listing, transaction, and payment processing fees are applied to the combined order value: item subtotal plus shipping charged. That means what the buyer pays for shipping also gets fee treatment.",
         "Knowing your total fees per order helps you price accurately. Underestimate fees and you eat into margin; overestimate and you may overprice. A clear fee breakdown gives you the visibility to make better pricing decisions.",
       ],
     },
@@ -117,7 +117,7 @@ const CONTENT: Record<CalculatorContentKey, CalculatorContent> = {
     heroH1: "Etsy Break-even Calculator",
     heroH2: "Find your minimum price to cover fees and costs",
     heroSubhead:
-      "Enter your order details to get the break-even price per unit—the minimum you need to charge so fees, COGS, and shipping don't eat your margin.",
+      "Enter your order details to get the break-even price per unit, the minimum you need to charge so fees, COGS, and shipping don't eat your margin.",
     seoHeading: "Etsy break-even calculator",
     seoIntro:
       "Find the minimum price per unit you need to charge to avoid losing money after fees and costs. Useful for new listings and price checks before running ads.",

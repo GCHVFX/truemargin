@@ -12,7 +12,7 @@ function jsonLd() {
       "@context": "https://schema.org",
       "@type": "WebPage",
       "@id": `${CANONICAL}#webpage`,
-      name: "Etsy Offsite Ads Calculator — Threshold & Margin Impact (2026)",
+      name: "Etsy Offsite Ads Calculator: Threshold & Margin Impact (2026)",
       description:
         "See how close you are to Etsy's $10K Offsite Ads threshold and exactly how enrollment affects your profit per order. Free, no signup.",
       url: CANONICAL,
@@ -95,7 +95,7 @@ function jsonLd() {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = "Etsy Offsite Ads Calculator — Threshold & Margin Impact (2026)";
+  const title = "Etsy Offsite Ads Calculator: Threshold & Margin Impact (2026)";
   const description =
     "See how close you are to Etsy's $10K Offsite Ads threshold and exactly how enrollment affects your profit per order. Free, no signup.";
 

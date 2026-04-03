@@ -29,7 +29,7 @@ function jsonLd() {
           name: "What is a healthy profit margin on Etsy?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "A good Etsy profit margin is 30-50% after all fees and costs. Below 30% is fragile — one refund, one offsite ad sale, or a shipping price increase can wipe your profit. Strong sellers typically run 40-55% on core products. Below 15% is risky and usually means you are underpricing.",
+            text: "A good Etsy profit margin is 30-50% after all fees and costs. Below 30% is fragile. One refund, one offsite ad sale, or a shipping price increase can wipe your profit. Strong sellers typically run 40-55% on core products. Below 15% is risky and usually means you are underpricing.",
           },
         },
         {
@@ -45,7 +45,7 @@ function jsonLd() {
           name: "Do Etsy fees reduce profit margin a lot?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Yes, significantly. On a $30 sale, Etsy takes roughly $3.30 in stacked fees before you account for your own costs — that is transaction fee, payment processing, and listing fee. Add offsite ads and it climbs to $7.80. Sellers who do not calculate this explicitly are almost always earning less than they think.",
+            text: "Yes, significantly. On a $30 sale, Etsy takes roughly $3.30 in stacked fees before you account for your own costs: transaction fee, payment processing, and listing fee. Add offsite ads and it climbs to $7.80. Sellers who do not calculate this explicitly are almost always earning less than they think.",
           },
         },
         {

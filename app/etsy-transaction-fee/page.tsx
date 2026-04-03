@@ -91,7 +91,7 @@ export default function Page() {
             <div className="mt-6">
               <p className="text-xs font-medium uppercase tracking-wide text-[#9AA6BF] mb-2">Quick answer</p>
               <div className="border-l-4 border-emerald-500/60 pl-4 py-2 bg-white/5 text-[#D6DEEE] text-base">
-                <p className="leading-7 text-[#9AA6BF]">Etsy charges a 6.5% transaction fee on every sale. It applies to the item price plus any shipping you charge the buyer. On a $35 sale with $5 shipping, that's 6.5% of $40 — $2.60.</p>
+                <p className="leading-7 text-[#9AA6BF]">Etsy charges a 6.5% transaction fee on every sale. It applies to the item price plus any shipping you charge the buyer. On a $35 sale with $5 shipping, that's 6.5% of $40, which is $2.60.</p>
               </div>
             </div>
 
@@ -108,10 +108,10 @@ export default function Page() {
             <section className="mt-12 space-y-4">
               <h2 className="text-2xl font-semibold text-[#EAF0FF]">What It Applies To</h2>
               <p className="leading-7 text-[#9AA6BF]">
-                The transaction fee applies to the <strong>item price plus the shipping amount charged to the buyer</strong> — not just the item subtotal. This catches many sellers off guard, especially those who charge separately for shipping.
+                The transaction fee applies to the <strong>item price plus the shipping amount charged to the buyer</strong>, not just the item subtotal. This catches many sellers off guard, especially those who charge separately for shipping.
               </p>
               <p className="leading-7 text-[#9AA6BF]">
-                If you sell an item for $30 and charge $6 shipping, Etsy calculates 6.5% on $36, not $30. That means the transaction fee is $2.34 rather than $1.95 — a meaningful difference at scale.
+                If you sell an item for $30 and charge $6 shipping, Etsy calculates 6.5% on $36, not $30. That means the transaction fee is $2.34 rather than $1.95, a meaningful difference at scale.
               </p>
             </section>
 
@@ -163,7 +163,7 @@ export default function Page() {
                 <strong>Offsite Ads fee:</strong> 12–15% on orders attributed to Etsy's offsite advertising, applied on top of all other fees.
               </p>
               <p className="leading-7 text-[#9AA6BF]">
-                On a $50 order with no shipping charged, the transaction fee alone is $3.25 — but combined with listing and processing fees, the total fee bill typically reaches around $5.20 before any ad fees.
+                On a $50 order with no shipping charged, the transaction fee alone is $3.25, but combined with listing and processing fees, the total fee bill typically reaches around $5.20 before any ad fees.
               </p>
             </section>
 
@@ -176,7 +176,7 @@ export default function Page() {
 
               <h3 className="pt-2 text-lg font-semibold text-[#EAF0FF]">Does the transaction fee apply to shipping?</h3>
               <p className="leading-7 text-[#9AA6BF]">
-                Yes. Etsy applies the 6.5% transaction fee to the shipping amount charged to the buyer, not just the item subtotal. If you charge $5 for shipping, Etsy takes 6.5% of that amount too — $0.33 in this case.
+                Yes. Etsy applies the 6.5% transaction fee to the shipping amount charged to the buyer, not just the item subtotal. If you charge $5 for shipping, Etsy takes 6.5% of that amount too, $0.33 in this case.
               </p>
 
               <h3 className="pt-2 text-lg font-semibold text-[#EAF0FF]">How does the transaction fee affect profit?</h3>

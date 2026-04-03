@@ -23,14 +23,14 @@ export default function PricingSuccessPage() {
           Your Founder Pricing is locked in at $9/month forever.
         </p>
         <p className="text-[#9AA6BF] text-sm leading-relaxed mb-8">
-          Pro features are in active development. You'll get early access as they ship — we'll email you when each one is ready.
+          Pro features are in active development. You'll get early access as they ship. We'll email you when each one is ready.
         </p>
 
         <div className="rounded-xl border border-white/10 bg-white/[0.04] p-5 mb-8 text-left space-y-2.5">
           <p className="text-xs font-medium text-[#9AA6BF] uppercase tracking-wide mb-3">What's coming your way</p>
           {[
-            'Scenario comparison — 3 pricing scenarios side by side',
-            'SKU saving — save products you calculate regularly',
+            'Scenario comparison: 3 pricing scenarios side by side',
+            'SKU saving: save products you calculate regularly',
             'Price increase simulator',
             'CSV import for bulk calculations',
             'Etsy vs Amazon vs eBay profit comparison',

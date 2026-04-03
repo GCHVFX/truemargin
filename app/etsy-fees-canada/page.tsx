@@ -11,7 +11,7 @@ function jsonLd() {
       "@id": `${CANONICAL}#webpage`,
       name: "Etsy Fees for Canadian Sellers",
       description:
-        "A complete breakdown of Etsy fees for Canadian sellers in 2026 — listing fees, transaction fees, payment processing in CAD, and offsite ads. See exactly what Etsy takes from every sale.",
+        "A complete breakdown of Etsy fees for Canadian sellers in 2026: listing fees, transaction fees, payment processing in CAD, and offsite ads. See exactly what Etsy takes from every sale.",
       url: CANONICAL,
       isPartOf: {
         "@type": "WebSite",
@@ -66,7 +66,7 @@ function jsonLd() {
 export async function generateMetadata(): Promise<Metadata> {
   const title = "Etsy Fees for Canadian Sellers (2026 Breakdown) | TrueMargin";
   const description =
-    "A complete breakdown of Etsy fees for Canadian sellers — listing fees, transaction fees, payment processing in CAD, and offsite ads. See exactly what Etsy takes from every sale.";
+    "A complete breakdown of Etsy fees for Canadian sellers: listing fees, transaction fees, payment processing in CAD, and offsite ads. See exactly what Etsy takes from every sale.";
 
   return {
     title,

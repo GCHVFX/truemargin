@@ -29,7 +29,7 @@ function jsonLd() {
           name: "What percentage does Etsy take in fees?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "On a typical US sale with no offsite ads, Etsy takes roughly 9.5% to 12% of the sale price in combined fees — transaction fee (6.5%), payment processing (~3% + $0.25), and listing fee ($0.20). On a $40 sale that is about $4.10. Offsite ads add another 15% on qualifying sales.",
+            text: "On a typical US sale with no offsite ads, Etsy takes roughly 9.5% to 12% of the sale price in combined fees: transaction fee (6.5%), payment processing (~3% + $0.25), and listing fee ($0.20). On a $40 sale that is about $4.10. Offsite ads add another 15% on qualifying sales.",
           },
         },
         {
@@ -45,7 +45,7 @@ function jsonLd() {
           name: "Are Etsy fees the same in every country?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "The transaction fee (6.5%) and listing fee ($0.20 USD) are the same globally. Payment processing varies by country — US sellers pay 3% + $0.25, Canadian sellers pay 3% + $0.25 CAD. Some regions also have a regulatory operating fee that does not apply to US or Canadian sellers.",
+            text: "The transaction fee (6.5%) and listing fee ($0.20 USD) are the same globally. Payment processing varies by country. US sellers pay 3% + $0.25, Canadian sellers pay 3% + $0.25 CAD. Some regions also have a regulatory operating fee that does not apply to US or Canadian sellers.",
           },
         },
         {
@@ -53,7 +53,7 @@ function jsonLd() {
           name: "Do offsite ads fees apply to every sale?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "No — only on sales Etsy attributes to an offsite ad click. However, once your shop exceeds $10,000 in annual sales, participation is mandatory. The fee is 15% below that threshold and 12% above it.",
+            text: "No. Only on sales Etsy attributes to an offsite ad click. However, once your shop exceeds $10,000 in annual sales, participation is mandatory. The fee is 15% below that threshold and 12% above it.",
           },
         },
       ],

@@ -101,14 +101,14 @@ export default function Page() {
                 The Etsy payment processing fee is charged for handling payment through Etsy Payments. It is separate from the transaction fee and has two components: a <strong>percentage of the order total</strong> and a <strong>fixed amount per order</strong>.
               </p>
               <p className="leading-7 text-[#9AA6BF]">
-                Unlike the 6.5% transaction fee, the processing fee structure — percentage plus fixed — means the effective rate is higher on small orders where the fixed $0.25 component represents a larger share of the total.
+                Unlike the 6.5% transaction fee, the processing fee structure, percentage plus fixed amount, which means the effective rate is higher on small orders where the fixed $0.25 component represents a larger share of the total.
               </p>
             </section>
 
             <section className="mt-12 space-y-4">
               <h2 className="text-2xl font-semibold text-[#EAF0FF]">Rates by Region</h2>
               <p className="leading-7 text-[#9AA6BF]">
-                Etsy's payment processing fee varies by seller country. Below are common rates — always verify current rates in your Etsy seller account, as Etsy can update them.
+                Etsy's payment processing fee varies by seller country. Below are common rates. Always verify current rates in your Etsy seller account, as Etsy can update them.
               </p>
               <div className="grid gap-3 sm:grid-cols-2">
                 <div className="rounded-lg border border-white/10 bg-white/5 p-4">
@@ -136,7 +136,7 @@ export default function Page() {
                 Like the transaction fee, Etsy's payment processing fee applies to the <strong>full order value including shipping charged to the buyer</strong>. If your item is $30 and you charge $5 shipping, the 3% component is calculated on $35.
               </p>
               <p className="leading-7 text-[#9AA6BF]">
-                The fixed $0.25 is charged once per order regardless of order value — making it proportionally more impactful on low-priced items.
+                The fixed $0.25 is charged once per order regardless of order value, making it proportionally more impactful on low-priced items.
               </p>
             </section>
 
@@ -188,7 +188,7 @@ export default function Page() {
                 <strong>Payment processing fee:</strong> ~3% + $0.25 for US sellers, on the full order value.
               </p>
               <p className="leading-7 text-[#9AA6BF]">
-                On a $25 US sale with no shipping, those three fees alone total around $2.83 — about 11.3% of revenue. Offsite Ads, where applicable, add further on top.
+                On a $25 US sale with no shipping, those three fees alone total around $2.83, about 11.3% of revenue. Offsite Ads, where applicable, add further on top.
               </p>
             </section>
 

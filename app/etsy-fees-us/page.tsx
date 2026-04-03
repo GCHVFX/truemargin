@@ -11,7 +11,7 @@ function jsonLd() {
       "@id": `${CANONICAL}#webpage`,
       name: "Etsy Fees for US Sellers",
       description:
-        "A complete breakdown of Etsy fees for US sellers in 2026 — listing fees, transaction fees, payment processing, and offsite ads. See exactly what Etsy takes from every sale.",
+        "A complete breakdown of Etsy fees for US sellers in 2026: listing fees, transaction fees, payment processing, and offsite ads. See exactly what Etsy takes from every sale.",
       url: CANONICAL,
       isPartOf: {
         "@type": "WebSite",
@@ -29,7 +29,7 @@ function jsonLd() {
           name: "How much does Etsy charge US sellers?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "US Etsy sellers pay a $0.20 listing fee, a 6.5% transaction fee on the full sale price including shipping charged, and payment processing of 3% + $0.25 per order. Offsite ads add a 15% fee on top when a sale comes through an Etsy ad — this drops to 12% once you exceed $10,000 in annual sales, but enrollment becomes mandatory.",
+            text: "US Etsy sellers pay a $0.20 listing fee, a 6.5% transaction fee on the full sale price including shipping charged, and payment processing of 3% + $0.25 per order. Offsite ads add a 15% fee on top when a sale comes through an Etsy ad. This drops to 12% once you exceed $10,000 in annual sales, but enrollment becomes mandatory.",
           },
         },
         {
@@ -66,7 +66,7 @@ function jsonLd() {
 export async function generateMetadata(): Promise<Metadata> {
   const title = "Etsy Fees for US Sellers (2026 Breakdown) | TrueMargin";
   const description =
-    "A complete breakdown of Etsy fees for US sellers — listing fees, transaction fees, payment processing, and offsite ads. See exactly what Etsy takes from every sale.";
+    "A complete breakdown of Etsy fees for US sellers: listing fees, transaction fees, payment processing, and offsite ads. See exactly what Etsy takes from every sale.";
 
   return {
     title,

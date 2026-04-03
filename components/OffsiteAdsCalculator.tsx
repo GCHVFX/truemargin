@@ -85,10 +85,10 @@ export function OffsiteAdsCalculator() {
     revenue <= 0
       ? ''
       : revenue < 8000
-      ? 'Safe — Optional'
+      ? 'Safe: Optional'
       : revenue < THRESHOLD
       ? 'Getting Close'
-      : 'Enrolled — Mandatory'
+      : 'Enrolled: Mandatory'
 
   const barColor =
     revenue < 8000
@@ -283,14 +283,14 @@ export function OffsiteAdsCalculator() {
           <CardContent className="-mt-4">
             {profitImpact !== null && profitImpact < 0.5 ? (
               <p className="text-sm text-[#6EE7B7]">
-                Low impact — your margins can likely absorb Offsite Ads without a price change.
+                Low impact. Your margins can likely absorb Offsite Ads without a price change.
               </p>
             ) : recoveryPrice !== null && priceIncreaseNeeded !== null ? (
               <p className="text-sm leading-7 text-[#9AA6BF]">
                 To maintain your current margin after Offsite Ads enrollment, you would need to raise your average price
                 from{' '}
                 <span className="font-semibold text-[#EAF0FF]">{fmt$(salePrice)}</span> to{' '}
-                <span className="font-semibold text-[#EAF0FF]">{fmt$(recoveryPrice)}</span> —
+                <span className="font-semibold text-[#EAF0FF]">{fmt$(recoveryPrice)}</span>,
                 an increase of{' '}
                 <span className="font-semibold text-[#F4A261]">{fmt$(priceIncreaseNeeded)}</span> per item.
               </p>
