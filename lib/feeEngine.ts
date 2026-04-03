@@ -32,12 +32,13 @@ export type CalcResult = {
  */
 export function calculateBreakEvenItemPrice(i: FeeInputs): number | null {
   const qty = Math.max(1, Math.floor(i.quantity || 1));
+  const effectiveOffsiteAdsPct = i.highVolumeOffsiteAds ? i.offsiteAdsPctHigh : i.offsiteAdsPct;
 
   const pctTotal =
     i.transactionFeePct +
     i.paymentProcessingPct +
     i.regulatoryFeePct +
-    (i.includeOffsiteAds ? i.offsiteAdsPct : 0);
+    (i.includeOffsiteAds ? effectiveOffsiteAdsPct : 0);
 
   const denom = 1 - pctTotal;
   if (!Number.isFinite(denom) || denom <= 0) return null;
@@ -64,12 +65,13 @@ export function calculateBreakEvenItemPrice(i: FeeInputs): number | null {
  */
 export function calculateTargetMarginItemPrice(i: FeeInputs, targetMarginPct: number): number | null {
   const qty = Math.max(1, Math.floor(i.quantity || 1));
+  const effectiveOffsiteAdsPct = i.highVolumeOffsiteAds ? i.offsiteAdsPctHigh : i.offsiteAdsPct;
 
   const pctTotal =
     i.transactionFeePct +
     i.paymentProcessingPct +
     i.regulatoryFeePct +
-    (i.includeOffsiteAds ? i.offsiteAdsPct : 0);
+    (i.includeOffsiteAds ? effectiveOffsiteAdsPct : 0);
 
   const m = Number.isFinite(targetMarginPct) ? targetMarginPct : 0;
 
@@ -96,6 +98,7 @@ export function calculateTargetMarginItemPrice(i: FeeInputs, targetMarginPct: nu
 
 export function calculateOrder(i: FeeInputs): CalcResult {
   const qty = Math.max(1, Math.floor(i.quantity || 1));
+  const effectiveOffsiteAdsPct = i.highVolumeOffsiteAds ? i.offsiteAdsPctHigh : i.offsiteAdsPct;
 
   const itemSubtotal = i.itemPrice * qty;
   const shippingRevenue = i.shippingCharged; // per-order total
@@ -109,7 +112,7 @@ export function calculateOrder(i: FeeInputs): CalcResult {
 
   const regulatoryFee = orderRevenue * i.regulatoryFeePct;
 
-  const offsiteAdsFee = i.includeOffsiteAds ? orderRevenue * i.offsiteAdsPct : 0;
+  const offsiteAdsFee = i.includeOffsiteAds ? orderRevenue * effectiveOffsiteAdsPct : 0;
 
   const totalFees = listingFee + transactionFee + paymentProcessingFee + regulatoryFee + offsiteAdsFee;
 

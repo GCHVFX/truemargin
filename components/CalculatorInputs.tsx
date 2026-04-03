@@ -30,6 +30,8 @@ export type CalculatorInputsProps = {
   setYourShippingCost: (v: string) => void;
   includeOffsiteAds: boolean;
   setIncludeOffsiteAds: (v: boolean) => void;
+  highVolumeOffsiteAds: boolean;
+  setHighVolumeOffsiteAds: (v: boolean) => void;
   includeTaxEstimate: boolean;
   setIncludeTaxEstimate: (v: boolean) => void;
   taxRatePct: string;
@@ -78,6 +80,8 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
     setYourShippingCost,
     includeOffsiteAds,
     setIncludeOffsiteAds,
+    highVolumeOffsiteAds,
+    setHighVolumeOffsiteAds,
     includeTaxEstimate,
     setIncludeTaxEstimate,
     taxRatePct,
@@ -274,6 +278,23 @@ export function CalculatorInputs(props: CalculatorInputsProps) {
               }}
             />
           </div>
+
+          {includeOffsiteAds && (
+            <div className="flex items-center justify-between gap-4 rounded-lg border border-white/15 bg-white/[0.05] p-4">
+              <div className="flex min-w-0 flex-col gap-0.5">
+                <Label htmlFor="highVolumeOffsiteAds" className="cursor-pointer text-[#EAF0FF] text-sm font-medium">
+                  Over $10K/year on Etsy
+                </Label>
+                <span className="text-xs text-[#9AA6BF]">Reduces your Offsite Ads fee from 15% to 12%</span>
+              </div>
+              <Switch
+                className="data-[state=unchecked]:bg-white/20 data-[state=checked]:bg-[#6EE7B7] border-white/10"
+                id="highVolumeOffsiteAds"
+                checked={highVolumeOffsiteAds}
+                onCheckedChange={setHighVolumeOffsiteAds}
+              />
+            </div>
+          )}
         </div>
 
         {showTaxEstimate && (
